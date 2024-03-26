@@ -51,23 +51,42 @@ fn tokenize_string(line: &String, start_index: usize) -> String {
     result_string
 }
 
+fn tokenize_string_line(tokens: &mut Vec<String>, line: &String) {
+    let index = line.find("\"").unwrap();
+    let internal_string = tokenize_string(&line, index + 1);
+    let mut token = String::new();
+    for c in line.chars() {
+        if c == '"' { 
+            break;
+        }
+        if c == ' ' {
+            tokens.push(token);
+            token = String::from("");
+        }
+        token += &c.to_string().as_str();
+    }
+    tokens.push(internal_string);
+}
+
+fn tokenize_non_string_line(tokens: &mut Vec<String>, line: &String) {
+    let mut token = String::new();
+    for c in line.chars() {
+        if c == ' ' {
+            tokens.push(token);
+            token = String::from("");
+        }
+        token += &c.to_string().as_str();
+    }
+    tokens.push(token);
+}
+
 fn tokenize(line: &String) -> Vec<String> {
     let mut tokens = Vec::<String>::new();
     if contains_valid_string(&line) {
-        let index = line.find("\"").unwrap();
-        let internal_string = tokenize_string(&line, index + 1);
-        let mut token = String::new();
-        for c in line.chars() {
-            if c == '"' { 
-                break;
-            }
-            if c == ' ' {
-                tokens.push(token);
-                token = String::from("");
-            }
-            token += &c.to_string().as_str();
-        }
-        tokens.push(internal_string);
+        tokenize_string_line(&mut tokens, line);
+    }
+    else {
+        tokenize_non_string_line(&mut tokens, line);
     }
     tokens
 }
