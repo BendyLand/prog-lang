@@ -6,3 +6,4 @@ extern int containsValidString(char*);
 extern void tokenizeLine(char**, char*);
 extern void tokenizeStringLine(char**, char*);
 extern void tokenizeNonStringLine(char**, char*);
+extern void trimLeadingWhitespace(char*);

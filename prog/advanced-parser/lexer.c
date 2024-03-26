@@ -10,6 +10,29 @@ int containsValidString(char*);
 void tokenizeLine(char**, char*);
 void tokenizeStringLine(char**, char*);
 void tokenizeNonStringLine(char**, char*);
+void trimLeadingWhitespace(char*);
+
+
+void trimLeadingWhitespace(char* line) {
+    size_t length = strlen(line);
+    if (line[0] != ' ') return;
+    
+    char* temp = (char*)malloc(length+1);
+    int j = 0;
+    while (line[j] == ' ') 
+        j++;
+    for (int i = 0; i < length; i++) {
+        temp[i] = line[j];
+        printf("%c(%d) ", temp[i], temp[i]);
+        j++;
+    }
+    puts("");
+    size_t newLength = strlen(temp) + 1;
+    for (int i = 0; i < newLength; i++) {
+        line[i] = temp[i];
+    }
+    free(temp);
+}
 
 void tokenizeNonStringLine(char** dest, char* line) {
     int length = strlen(line);
@@ -19,6 +42,7 @@ void tokenizeNonStringLine(char** dest, char* line) {
     int n = 0;
     while (line[i] != '\0') {
         if (line[i] == ' ') {
+            trimLeadingWhitespace(temp);
             dest[n] = strdup(temp);
             j = 0;
             memset(temp, 0, length);
@@ -46,6 +70,7 @@ void tokenizeStringLine(char** dest, char* line) {
     int n = 0;
     while (line[i] != '"') {
         if (line[i] == ' ') {
+            trimLeadingWhitespace(temp);
             dest[n] = strdup(temp);
             j = 0;
             memset(temp, 0, length);
@@ -87,13 +112,14 @@ void tokenizeString(char* dest, char* line) {
     int i = 0;
     char* stringStart = strchr(line, '"');
     int length = strlen(stringStart);
-    char stringLiteral[length+1];
+    char* stringLiteral = (char*)malloc(length+1);
     while (stringStart[i+1] != '"' || i > length) {
         stringLiteral[i] = stringStart[i+1];
         i++;
     }
     stringLiteral[i] = '\0';
     strcpy(dest, stringLiteral);
+    free(stringLiteral);
 }
 
 // This function assumes `buffer` is fully allocated and ends in NULL
