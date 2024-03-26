@@ -159,7 +159,7 @@ char* getFileContents() {
         return NULL;
     }
 
-    // Move the pointer to the end, get its index, and resent the pointer to the start
+    // Move the pointer to the end, get its index, and reset the pointer to the start
     fseek(fptr, 0, SEEK_END);
     length = ftell(fptr);
     rewind(fptr);
