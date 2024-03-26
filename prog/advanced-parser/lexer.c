@@ -16,21 +16,20 @@ void trimLeadingWhitespace(char*);
 void trimLeadingWhitespace(char* line) {
     size_t length = strlen(line);
     if (line[0] != ' ') return;
-    
+
     char* temp = (char*)malloc(length+1);
     int j = 0;
-    while (line[j] == ' ') 
+    while (line[j] == ' ')
         j++;
     for (int i = 0; i < length; i++) {
         temp[i] = line[j];
-        printf("%c(%d) ", temp[i], temp[i]);
         j++;
     }
-    puts("");
     size_t newLength = strlen(temp) + 1;
     for (int i = 0; i < newLength; i++) {
         line[i] = temp[i];
     }
+    line = realloc(line, newLength);
     free(temp);
 }
 
@@ -42,7 +41,6 @@ void tokenizeNonStringLine(char** dest, char* line) {
     int n = 0;
     while (line[i] != '\0') {
         if (line[i] == ' ') {
-            trimLeadingWhitespace(temp);
             dest[n] = strdup(temp);
             j = 0;
             memset(temp, 0, length);
@@ -70,7 +68,6 @@ void tokenizeStringLine(char** dest, char* line) {
     int n = 0;
     while (line[i] != '"') {
         if (line[i] == ' ') {
-            trimLeadingWhitespace(temp);
             dest[n] = strdup(temp);
             j = 0;
             memset(temp, 0, length);
@@ -80,7 +77,9 @@ void tokenizeStringLine(char** dest, char* line) {
         i++;
         j++;
     }
-    dest[n] = strdup(string);
+    if (j > 0) {
+        dest[n] = strdup(string);
+    }
     dest[n+1] = NULL;
     free(string);
     free(temp);

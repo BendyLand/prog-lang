@@ -34,7 +34,8 @@ int main(void) {
         tokenizeLine(lineTokens, lines[i]);
         int j = 0;
         while (lineTokens[j] != NULL) {
-            // puts(lineTokens[j]);
+            trimLeadingWhitespace(lineTokens[j]);
+            printf("%s\n", lineTokens[j]);
             free(lineTokens[j]);
             j++;
         }
