@@ -11,7 +11,6 @@ fn main() {
         }
     }
     // let mut test = String::new(); std::io::stdin().read_line(&mut test); // for leaks
-
 }
 
 fn split_file_into_lines(file: String) -> Vec<String> {
