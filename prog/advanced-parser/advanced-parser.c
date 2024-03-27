@@ -15,18 +15,6 @@ int main(void) {
     int numLines = splitIntoLines(lines, data);
     char** lineTokens = (char**)malloc(sizeof(char*) * MAX_LINES + 1);
     removeComments(lines);
-    size_t len1 = strlen("this is a test");
-    size_t len2 = strlen("        this is a test");
-    char* test = (char*)malloc(len1+1);
-    char* test2 = (char*)malloc(len2+1);
-    strcpy(test, "this is a test");
-    strcpy(test2, "        this is a test");
-    trimLeadingWhitespace(test);
-    trimLeadingWhitespace(test2);
-
-
-
-
 
     int i = 0;
     while (lines[i] != NULL) {
