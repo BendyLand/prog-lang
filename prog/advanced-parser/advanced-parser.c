@@ -7,6 +7,8 @@
 
 #define MAX_LINES 100
 
+void serveKeywordToken(char**);
+
 int main(void) {
     char* data = getFileContents();
     char** lines = (char**)malloc(sizeof(char*) * (MAX_LINES + 1));
@@ -18,13 +20,16 @@ int main(void) {
 
     int i = 0;
     while (lines[i] != NULL) {
-        // puts(lines[i]);
+        trimLeadingWhitespace(lines[i]);
         tokenizeLine(lineTokens, lines[i]);
+        serveKeywordToken(lineTokens);
+        puts("");
         int j = 0;
         while (lineTokens[j] != NULL) {
-            trimLeadingWhitespace(lineTokens[j]);
-            printf("%s\n", lineTokens[j]);
-            free(lineTokens[j]);
+            // printf("%d\n", j);
+            // printf("%s\n", lineTokens[j]);
+            if (strcmp(lineTokens[j], "") != 0)
+                free(lineTokens[j]);
             j++;
         }
         free(lines[i]);
@@ -36,4 +41,10 @@ int main(void) {
     // fscanf(stdin, "c");
 
     return 0;
+}
+
+void serveKeywordToken(char** tokens) {
+    if (strcmp(tokens[0], "print") == 0) {
+        printf("%s", tokens[1]);
+    }
 }

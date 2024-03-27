@@ -12,25 +12,15 @@ void tokenizeStringLine(char**, char*);
 void tokenizeNonStringLine(char**, char*);
 void trimLeadingWhitespace(char*);
 
-
 void trimLeadingWhitespace(char* line) {
+    size_t start = 0;
     size_t length = strlen(line);
-    if (line[0] != ' ') return;
-
-    char* temp = (char*)malloc(length+1);
-    int j = 0;
-    while (line[j] == ' ')
-        j++;
-    for (int i = 0; i < length; i++) {
-        temp[i] = line[j];
-        j++;
+    while (line[start] == ' ' && start < length) {
+        start++;
     }
-    size_t newLength = strlen(temp) + 1;
-    for (int i = 0; i < newLength; i++) {
-        line[i] = temp[i];
+    if (start > 0) {
+        memmove(line, line+start, length-start+1);
     }
-    line = realloc(line, newLength);
-    free(temp);
 }
 
 void tokenizeNonStringLine(char** dest, char* line) {
@@ -41,6 +31,7 @@ void tokenizeNonStringLine(char** dest, char* line) {
     int n = 0;
     while (line[i] != '\0') {
         if (line[i] == ' ') {
+            trimLeadingWhitespace(temp);
             dest[n] = strdup(temp);
             j = 0;
             memset(temp, 0, length);
@@ -51,6 +42,7 @@ void tokenizeNonStringLine(char** dest, char* line) {
         j++;
     }
     if (j > 0) {
+        trimLeadingWhitespace(temp);
         dest[n] = strdup(temp);
     }
     dest[n+1] = NULL;
@@ -68,6 +60,7 @@ void tokenizeStringLine(char** dest, char* line) {
     int n = 0;
     while (line[i] != '"') {
         if (line[i] == ' ') {
+            trimLeadingWhitespace(temp);
             dest[n] = strdup(temp);
             j = 0;
             memset(temp, 0, length);
@@ -78,6 +71,7 @@ void tokenizeStringLine(char** dest, char* line) {
         j++;
     }
     if (j > 0) {
+        // trimLeadingWhitespace(string);
         dest[n] = strdup(string);
     }
     dest[n+1] = NULL;
@@ -145,7 +139,7 @@ int splitIntoLines(char** buffer, char* file) {
     int line = 0;
     int length = strlen(file);
     int j = 0;
-    char temp[100] = {0}; // lines must be under 100 characters long
+    char* temp = (char*)malloc(101); // lines must be under 100 characters long
     char c;
     // For each char in the file...
     for (int i = 0; i < length; i++) {
@@ -171,6 +165,7 @@ int splitIntoLines(char** buffer, char* file) {
     }
     // Set the last element of `buffer` to NULL
     buffer[line] = NULL;
+    free(temp);
     return line;
 }
 
