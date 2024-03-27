@@ -50,4 +50,16 @@ void serveKeywordToken(char** tokens) {
     else if (strcmp(tokens[0], "puts") == 0) {
         printf("%s\n", tokens[1]);
     }
+    else if (strcmp(tokens[0], "let") == 0) {
+        puts("I'm in the `let` branch");
+    }
+    else if (strcmp(tokens[0], "if") == 0) {
+        puts("I'm in the `if` branch");
+    }
+    else if (strcmp(tokens[0], "for") == 0) {
+        puts("I'm in the `for` branch");
+    }
+    else {
+        puts("This line doesn't contain a keyword");
+    }
 }

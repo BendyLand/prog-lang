@@ -119,6 +119,11 @@ void tokenizeString(char* dest, char* line) {
                 }
                 stringLiteral[i] = stringStart[i+1];
             }
+            else if (stringStart[i+2] == 'n') {
+                stringLiteral[i] = '\n';
+                i += 2;
+                continue;
+            }
         }
         // Regular loop
         stringLiteral[i] = stringStart[i+1];
