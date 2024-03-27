@@ -12,6 +12,7 @@ void tokenizeStringLine(char**, char*);
 void tokenizeNonStringLine(char**, char*);
 void trimLeadingWhitespace(char*);
 
+// Moves the non-whitespace characters to the front of the buffer
 void trimLeadingWhitespace(char* line) {
     size_t start = 0;
     size_t length = strlen(line);
@@ -23,6 +24,8 @@ void trimLeadingWhitespace(char* line) {
     }
 }
 
+// Splits lines without valid strings into tokens.
+// This function assumes that `dest` is fully allocated 
 void tokenizeNonStringLine(char** dest, char* line) {
     int length = strlen(line);
     char* temp = (char*)malloc(length);
@@ -71,7 +74,7 @@ void tokenizeStringLine(char** dest, char* line) {
         j++;
     }
     if (j > 0) {
-        // trimLeadingWhitespace(string);
+        trimLeadingWhitespace(string);
         dest[n] = strdup(string);
     }
     dest[n+1] = NULL;
@@ -118,11 +121,9 @@ void tokenizeString(char* dest, char* line) {
 // This function assumes `buffer` is fully allocated and ends in NULL
 void removeComments(char** buffer) {
     int i = 0;
-    // Until there are no more lines...
     while (buffer[i] != NULL) {
         int length = strlen(buffer[i]);
         for (int j = 0; j < length-1; j++) {
-            // If you encounter a comment...
             if (buffer[i][j] == '/' && buffer[i][j+1] == '/') {
                 // Set the null byte to the start of the comment
                 buffer[i][j] = '\0';
@@ -141,12 +142,9 @@ int splitIntoLines(char** buffer, char* file) {
     int j = 0;
     char* temp = (char*)malloc(101); // lines must be under 100 characters long
     char c;
-    // For each char in the file...
     for (int i = 0; i < length; i++) {
         c = file[i];
-        // (End condition for each line) If you're on a newline or the final char...
         if (c == '\n' || i == length - 1) {
-            // Set the null byte at the 'pointer' and copy the string into buffer
             temp[j] = '\0';
             buffer[line] = (char*)malloc(strlen(temp) + 1);
             if (buffer[line] == NULL) {
@@ -157,8 +155,7 @@ int splitIntoLines(char** buffer, char* file) {
             j = 0;
             line++;
         }
-        else { // If it's NOT a newline or the last char...
-            // Add the char to temp and increment the 'pointer'
+        else { 
             temp[j] = c;
             j++;
         }
