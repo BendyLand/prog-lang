@@ -110,6 +110,17 @@ void tokenizeString(char* dest, char* line) {
     int length = strlen(stringStart);
     char* stringLiteral = (char*)malloc(length+1);
     while (stringStart[i+1] != '"' || i > length) {
+        // Check for embedded double quotes
+        if (stringStart[i+1] == '\\' && i < length - 1) {
+            if (stringStart[i+2] == '"') {
+                for (int n = 0; n < 2; n++) {
+                    stringLiteral[i] = stringStart[i+1];
+                    i++;
+                }
+                stringLiteral[i] = stringStart[i+1];
+            }
+        }
+        // Regular loop
         stringLiteral[i] = stringStart[i+1];
         i++;
     }

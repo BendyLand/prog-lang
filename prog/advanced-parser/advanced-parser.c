@@ -47,4 +47,7 @@ void serveKeywordToken(char** tokens) {
     if (strcmp(tokens[0], "print") == 0) {
         printf("%s", tokens[1]);
     }
+    else if (strcmp(tokens[0], "puts") == 0) {
+        printf("%s\n", tokens[1]);
+    }
 }
