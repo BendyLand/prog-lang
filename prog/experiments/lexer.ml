@@ -11,6 +11,7 @@ let read_file_to_string path =
     str;;
 
 let result = read_file_to_string path in
-split_file_into_lines result 
+let lines = split_file_into_lines result in
+List.iter (fun line -> Printf.printf "%s\n" line) lines
 
 
