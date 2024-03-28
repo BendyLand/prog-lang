@@ -2,5 +2,13 @@
     "files.watcherExclude": {
         "**/target": true
     },
-    "metals.verboseCompilation": false
+    "metals.verboseCompilation": false,
+    "files.associations": {
+        ".fantomasignore": "ignore",
+        "*.Rmd": "rmd",
+        "*.scala": "scala",
+        "*.txt": "plaintext",
+        "string": "cpp",
+        "vector": "cpp"
+    }
 }
