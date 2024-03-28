@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "lexer.h"
+#include "lexer.hpp"
 
 using namespace std;
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "lexer.h"
+#include "lexer.hpp"
 
 using namespace std;
 
@@ -146,9 +146,7 @@ void Lexer::increment()
     }
 }
 char Lexer::getCurrent() { return _current; }
-void Lexer::setCurrent(char val) { _current = val; }
 char Lexer::getNext() { return _next; }
-void Lexer::setNext(char val) { _next = val; }
 int Lexer::getIndex() { return _index; }
 int Lexer::size() { return _size; }
 
