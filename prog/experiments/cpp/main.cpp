@@ -9,7 +9,8 @@ int main()
     string file = readFile("../../../test.pr");
     vector<string> lines = splitIntoLines(file);
     for (string line : lines) {
-        cout << line << endl;
+        string extractedStr = tokenizeString(line);
+        cout << extractedStr << endl;
     }
 }
 

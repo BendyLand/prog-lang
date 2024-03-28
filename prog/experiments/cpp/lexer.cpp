@@ -12,6 +12,36 @@ Lexer::Lexer(string text) :
     _size(text.size()) 
 {}
 
+string tokenizeString(string line) 
+{
+    string result = "";
+    Lexer l = Lexer(line);
+    bool inString = false;
+    while (l.getIndex() < l.size()-1) {
+        if (l.getCurrent() == '"') {
+            if (inString) 
+                result += l.getCurrent();
+            inString = true;
+            l.increment();
+            continue;
+        }
+        if (inString) {
+            if (l.getNext() == '"' && l.getCurrent() != '\\') {
+                result += l.getCurrent();
+                goto end;
+            }
+            result += l.getCurrent();
+        }
+        l.increment();
+    }
+    end:
+    return result;
+}
+
+
+
+
+
 vector<string> splitIntoLines(string file)
 {
     vector<string> lines;

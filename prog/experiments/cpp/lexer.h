@@ -24,5 +24,6 @@ private:
 
 std::string readFile(std::string);
 std::vector<std::string> splitIntoLines(std::string);
+std::string tokenizeString(std::string); 
 
 #endif
