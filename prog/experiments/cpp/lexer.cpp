@@ -83,11 +83,11 @@ void tokenizeStringLine(Lexer l, vector<string>& result, string line)
         }
         token += l.getCurrent();
         if (l.getCurrent() == '"') {
-            goto construction;
+            goto end;
         }
         l.increment();
     }
-    construction:
+    end:
     result.push_back(embeddedStr);
 }
 
@@ -105,6 +105,12 @@ string tokenizeString(string line)
             continue;
         }
         if (inString) {
+            if (l.getCurrent() == '\\' && l.getNext() == 'n') {
+                result += '\n';
+                for (int i = 0; i < 2; i++)
+                    l.increment();
+                continue;
+            }
             if (l.getNext() == '"' && l.getCurrent() != '\\') {
                 result += l.getCurrent();
                 goto end;
