@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
 #include "lexer.h"
 
 using namespace std;
@@ -11,6 +12,68 @@ Lexer::Lexer(string text) :
     _index(0), _next(text.size() > 1 ? text[1] : '\0'),
     _size(text.size()) 
 {}
+
+string trimLeadingWhitespace(string line) 
+{
+    string result = "";
+    size_t i = line.find_first_not_of(' ');
+    while (i < line.size()) {
+        result += line[i];
+        i++;
+    }
+    return result;
+}
+
+vector<string> tokenizeLine(string line)
+{
+    Lexer l = Lexer(line);
+    vector<string> result;
+    if (line.find("\"") != string::npos) 
+        tokenizeStringLine(l, result, line);
+    else 
+        tokenizeNonStringLine(l, result, line);
+    
+    return result;
+}
+
+void tokenizeNonStringLine(Lexer l, vector<string>& result, string line)
+{
+    string token = "";
+    while (true) {
+        if (l.getCurrent() == ' ') {
+            token = trimLeadingWhitespace(token);
+            result.push_back(token);
+            token = "";
+        }
+        token += l.getCurrent();
+        if (l.getNext() == '\n') 
+            goto end;
+        l.increment();
+    }
+    end:
+    token = trimLeadingWhitespace(token);
+    result.push_back(token);
+}
+
+void tokenizeStringLine(Lexer l, vector<string>& result, string line) 
+{
+    string embeddedStr = tokenizeString(line);
+    string token = "";
+    while (true) {
+        if (l.getCurrent() == ' ') {
+            token = trimLeadingWhitespace(token);
+            result.push_back(token);
+            token = "";
+        }
+        token += l.getCurrent();
+        if (l.getCurrent() == '"') {
+            goto construction;
+        }
+        l.increment();
+    }
+    construction:
+    result.push_back(embeddedStr);
+}
 
 string tokenizeString(string line) 
 {
@@ -37,10 +100,6 @@ string tokenizeString(string line)
     end:
     return result;
 }
-
-
-
-
 
 vector<string> splitIntoLines(string file)
 {

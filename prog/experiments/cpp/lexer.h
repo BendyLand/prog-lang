@@ -4,13 +4,13 @@
 #ifndef LEXER_H
 #define LEXER_H
 
-class Lexer 
+class Lexer
 {
 public:
     Lexer(std::string text);
-    void increment(); 
+    void increment();
     char getCurrent();
-    char getNext(); 
+    char getNext();
     int getIndex();
     int size();
 
@@ -24,6 +24,9 @@ private:
 
 std::string readFile(std::string);
 std::vector<std::string> splitIntoLines(std::string);
-std::string tokenizeString(std::string); 
+std::string tokenizeString(std::string);
+std::vector<std::string> tokenizeLine(std::string);
+void tokenizeStringLine(Lexer, std::vector<std::string>&, std::string);
+void tokenizeNonStringLine(Lexer, std::vector<std::string>&, std::string);
 
 #endif
