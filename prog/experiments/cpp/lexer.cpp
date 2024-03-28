@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <sstream>
 #include "lexer.h"
 
 using namespace std;
@@ -13,20 +12,37 @@ Lexer::Lexer(string text) :
     _size(text.size()) 
 {}
 
+string removeComment(string line) 
+{
+    Lexer l (line);
+    string newStr = "";
+    bool isComment = false;
+    while (l.getNext() == '\n' || l.getIndex() < l.size()-1) {
+        if (l.getCurrent() == '/' && l.getNext() == '/')
+            isComment = true;
+        if (!isComment)
+            newStr += l.getCurrent();
+        l.increment();
+    }
+    return newStr;
+}
+
 string trimLeadingWhitespace(string line) 
 {
     string result = "";
     size_t i = line.find_first_not_of(' ');
-    while (i < line.size()) {
-        result += line[i];
-        i++;
+    if (i != string::npos) {
+        while (i < line.size()) {
+            result += line[i];
+            i++;
+        }
     }
     return result;
 }
 
 vector<string> tokenizeLine(string line)
 {
-    Lexer l = Lexer(line);
+    Lexer l(line);
     vector<string> result;
     if (line.find("\"") != string::npos) 
         tokenizeStringLine(l, result, line);
@@ -46,7 +62,7 @@ void tokenizeNonStringLine(Lexer l, vector<string>& result, string line)
             token = "";
         }
         token += l.getCurrent();
-        if (l.getNext() == '\n') 
+        if (l.getNext() == '\n' || l.getIndex() >= l.size()) 
             goto end;
         l.increment();
     }
@@ -78,7 +94,7 @@ void tokenizeStringLine(Lexer l, vector<string>& result, string line)
 string tokenizeString(string line) 
 {
     string result = "";
-    Lexer l = Lexer(line);
+    Lexer l(line);
     bool inString = false;
     while (l.getIndex() < l.size()-1) {
         if (l.getCurrent() == '"') {
@@ -117,14 +133,16 @@ vector<string> splitIntoLines(string file)
 
 void Lexer::increment() 
 {
-    if (this->_index < this->_size - 1) {
+    if (this->_index < this->_size) {
         this->_index++;
         this->_current = _text[this->_index];
         this->_next = _text[this->_index+1];
     }
 }
 char Lexer::getCurrent() { return _current; }
+void Lexer::setCurrent(char val) { _current = val; }
 char Lexer::getNext() { return _next; }
+void Lexer::setNext(char val) { _next = val; }
 int Lexer::getIndex() { return _index; }
 int Lexer::size() { return _size; }
 
