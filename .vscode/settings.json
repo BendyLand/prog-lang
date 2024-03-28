@@ -9,6 +9,8 @@
         "*.scala": "scala",
         "*.txt": "plaintext",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "stdio.h": "c",
+        "stdlib.h": "c"
     }
 }
