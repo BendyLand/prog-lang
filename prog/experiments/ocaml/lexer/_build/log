@@ -3,7 +3,7 @@
 # Shared cache: disabled
 # Shared cache location: /Users/benlandrette/.cache/dune/db
 # Workspace root:
-# /Users/benlandrette/ccode/language-development/prog/experiments/lexer
+# /Users/benlandrette/ccode/language-development/prog/experiments/ocaml/lexer
 # Auto-detected concurrency: 8
 # Dune context:
 #  { name = "default"
@@ -15,10 +15,10 @@
 #  ; installed_env =
 #      map
 #        { "INSIDE_DUNE" :
-#            "/Users/benlandrette/ccode/language-development/prog/experiments/lexer/_build/default"
+#            "/Users/benlandrette/ccode/language-development/prog/experiments/ocaml/lexer/_build/default"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
 #  ; instrument_with = []
 #  }
-$ /Users/benlandrette/.opam/default/bin/ocamlc.opt -config > /var/folders/s5/ztlk0nc501b3582tqyg_kgl80000gn/T/dune_f2cb0c_output
+$ /Users/benlandrette/.opam/default/bin/ocamlc.opt -config > /var/folders/s5/ztlk0nc501b3582tqyg_kgl80000gn/T/dune_891b39_output

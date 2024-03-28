@@ -9,7 +9,8 @@
 
 void serveKeywordToken(char**);
 
-int main(void) {
+int main(void) 
+{
     char* data = getFileContents();
     char** lines = (char**)malloc(sizeof(char*) * (MAX_LINES + 1));
     memset(lines, 0, sizeof(char*) * (MAX_LINES + 1));
@@ -43,7 +44,8 @@ int main(void) {
     return 0;
 }
 
-void serveKeywordToken(char** tokens) {
+void serveKeywordToken(char** tokens) 
+{
     if (strcmp(tokens[0], "print") == 0) 
         printf("%s", tokens[1]);
     else if (strcmp(tokens[0], "puts") == 0) 

@@ -12,21 +12,28 @@ void tokenizeStringLine(char**, char*);
 void tokenizeNonStringLine(char**, char*);
 void trimLeadingWhitespace(char*);
 
-// Moves the non-whitespace characters to the front of the buffer
-void trimLeadingWhitespace(char* line) {
+/** 
+ * Moves non-whitespace characters to the front of the buffer.
+ * @param line The line of text to trim. 
+ */ 
+void trimLeadingWhitespace(char* line)
+{
     size_t start = 0;
     size_t length = strlen(line);
-    while (line[start] == ' ' && start < length) {
+    while (line[start] == ' ' && start < length)
         start++;
-    }
-    if (start > 0) {
+    if (start > 0)
         memmove(line, line+start, length-start+1);
-    }
 }
-
-// Splits lines without valid strings into tokens.
-// This function assumes that `dest` is fully allocated 
-void tokenizeNonStringLine(char** dest, char* line) {
+/**
+ * A helper function for `tokenizeLine`. 
+ * This function is called when a valid string is NOT detected in the input line. 
+ * @param dest The destination to copy the tokens to. 
+ * @param line The line to split into tokens. 
+ *             This will be passed through from `tokenizeLine`.
+ */ 
+void tokenizeNonStringLine(char** dest, char* line)
+{
     int length = strlen(line);
     char* temp = (char*)malloc(length);
     int i = 0;
@@ -52,7 +59,15 @@ void tokenizeNonStringLine(char** dest, char* line) {
     free(temp);
 }
 
-void tokenizeStringLine(char** dest, char* line) {
+/**
+ * A helper function for `tokenizeLine`. 
+ * This function is called when a valid string is detected in the input line. 
+ * @param dest The destination to copy the tokens to. 
+ * @param line The line to split into tokens. 
+ *             This will be passed through from `tokenizeLine`.
+ */
+void tokenizeStringLine(char** dest, char* line)
+{
     int length = strlen(line);
     char* string = (char*)malloc(length);
     tokenizeString(string, line);
@@ -82,35 +97,48 @@ void tokenizeStringLine(char** dest, char* line) {
     free(temp);
 }
 
-void tokenizeLine(char** dest, char* line) {
-    if (containsValidString(line)) {
+/**
+ * Splits a givens line of text into tokens based on their content.
+ * @param dest The destination to copy the resulting tokens to. 
+ *             This function assumes the outer pointer of `dest` is allocated.
+ * @param line The line of test to split into tokens. 
+ */
+void tokenizeLine(char** dest, char* line)
+{
+    if (containsValidString(line))
         tokenizeStringLine(dest, line);
-    }
-    else {
+    else
         tokenizeNonStringLine(dest, line);
-    }
 }
 
-int containsValidString(char* line) {
+/**
+ * Checks `line` for the presence of a valid string.
+ * @param line The string to check for double quotes.
+ * @return 1 if `line` contains two or more double quotes, otherwise 0.
+ */
+int containsValidString(char* line)
+{
     int length = strlen(line);
     int quotes = 0;
     for (int i = 0; i < length; i++) {
-        if (line[i] == '"') {
+        if (line[i] == '"')
             quotes++;
-        }
     }
     return quotes >= 2 ? 1 : 0;
 }
-
-// This function copies any valid string in a line to `dest` as one token.
-// It assumes `line` is an existing line, and `dest` is an already allocated buffer with equal or greater length
-void tokenizeString(char* dest, char* line) {
+/**
+ * Copies any valid embedded string in `line` to `dest` as one token.
+ * @param dest The destination to copy the embedded string to.
+ *             This must be allocated before calling the function.
+ * @param line The source text to check for double quotes.
+ */
+void tokenizeString(char* dest, char* line)
+{
     int i = 0;
     char* stringStart = strchr(line, '"');
     int length = strlen(stringStart);
     char* stringLiteral = (char*)malloc(length+1);
     while (stringStart[i+1] != '"' || i > length) {
-        // Check for embedded double quotes
         if (stringStart[i+1] == '\\' && i < length - 1) {
             if (stringStart[i+2] == '"') {
                 for (int n = 0; n < 2; n++) {
@@ -125,7 +153,6 @@ void tokenizeString(char* dest, char* line) {
                 continue;
             }
         }
-        // Regular loop
         stringLiteral[i] = stringStart[i+1];
         i++;
     }
@@ -134,14 +161,18 @@ void tokenizeString(char* dest, char* line) {
     free(stringLiteral);
 }
 
-// This function assumes `buffer` is fully allocated and ends in NULL
-void removeComments(char** buffer) {
+/**
+ * Removes any characters including and after '//' from all lines.
+ * @param buffer The source text to remove comments from.
+ *               This should be a dynamic array of strings.
+ */
+void removeComments(char** buffer)
+{
     int i = 0;
     while (buffer[i] != NULL) {
         int length = strlen(buffer[i]);
         for (int j = 0; j < length-1; j++) {
             if (buffer[i][j] == '/' && buffer[i][j+1] == '/') {
-                // Set the null byte to the start of the comment
                 buffer[i][j] = '\0';
                 break;
             }
@@ -151,8 +182,17 @@ void removeComments(char** buffer) {
     }
     buffer[i] = NULL;
 }
-
-int splitIntoLines(char** buffer, char* file) {
+/**
+ * Splits `file` into a dynamic array of strings, stored in `buffer`.
+ * @param buffer The destination to copy the split file into.
+ *               The outer pointer should be allocated.
+ *               The inner pointers will be allocated inside the function.
+ * @param file The source text to split.
+ * @return The number of lines that the file was split into.
+ *         The caller is responsible for freeing the inner pointers of `buffer`.
+ */
+int splitIntoLines(char** buffer, char* file)
+{
     int line = 0;
     int length = strlen(file);
     int j = 0;
@@ -171,18 +211,23 @@ int splitIntoLines(char** buffer, char* file) {
             j = 0;
             line++;
         }
-        else { 
+        else {
             temp[j] = c;
             j++;
         }
     }
-    // Set the last element of `buffer` to NULL
     buffer[line] = NULL;
     free(temp);
     return line;
 }
 
-char* getFileContents() {
+/**
+ * Reads the contents of the file in the hard-coded path.
+ * @return A dynamic string containing the file contents. 
+ *         The caller is responsible for freeing it.
+ */
+char* getFileContents()
+{
     FILE* fptr;
     long length;
 
@@ -192,12 +237,10 @@ char* getFileContents() {
         return NULL;
     }
 
-    // Move the pointer to the end, get its index, and reset the pointer to the start
     fseek(fptr, 0, SEEK_END);
     length = ftell(fptr);
     rewind(fptr);
 
-    // Create buffer and check for failed malloc
     char* buffer = (char*)malloc(sizeof(char) * length + 1);
     if (buffer == NULL) {
         perror("Problem creating buffer");
@@ -205,19 +248,15 @@ char* getFileContents() {
         return NULL;
     }
 
-    // Try to copy file contents to buffer
     if (fread(buffer, sizeof(char), length, fptr) != length) {
         perror("Failed to read file.");
         fclose(fptr);
-        // If file read fails, free buffer before returning
         free(buffer);
         return NULL;
     }
 
-    // Set the end of buffer to a null byte and close the file
     buffer[length] = '\0';
     fclose(fptr);
 
-    // If nothing fails, buffer must be freed by caller
     return buffer;
 }
