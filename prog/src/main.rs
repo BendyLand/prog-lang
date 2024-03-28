@@ -63,8 +63,18 @@ fn contains_valid_string(line: &String) -> bool {
 fn tokenize_string(line: &String, start_index: usize) -> String {
     let mut result_string = String::new();
     for i in start_index..line.len()-2 {
-        let c = &line.chars().nth(i).unwrap();
-        let next = &line.chars().nth(i+1).unwrap();
+        let c = {
+            &line
+                .chars()
+                .nth(i)
+                .unwrap()
+        };
+        let next = {
+            &line
+                .chars()
+                .nth(i+1)
+                .unwrap()
+        };
         if next == &'"' && c != &'\\' {
             break;
         }
