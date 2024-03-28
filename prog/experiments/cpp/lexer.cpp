@@ -1,45 +1,43 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include "lexer.h"
 
 using namespace std;
 
-class Lexer 
+Lexer::Lexer(string text) :
+    _text(text),
+    _current(text.empty() ? '\0' : text[0]), 
+    _index(0), _next(text.size() > 1 ? text[1] : '\0'),
+    _size(text.size()) 
+{}
+
+vector<string> splitIntoLines(string file)
 {
-public:
-    Lexer(string text) 
-    {
-        this->_text = text;
-        this->_current = text[0];
-        this->_index = 0;
-        if (text.size() > 1) 
-            this->_next = text[1];
-        else
-            this->_next = '\0';
+    vector<string> lines;
+    string line = "";
+    for (char c : file) {
+        line += c;
+        if (c == '\n') {
+            lines.push_back(line);
+            line = "";
+        }
     }
-    void increment() 
-    {
+    return lines;
+}
+
+void Lexer::increment() 
+{
+    if (this->_index < this->_size - 1) {
         this->_index++;
         this->_current = _text[this->_index];
         this->_next = _text[this->_index+1];
     }
-    char getCurrent() { return _current; }
-    char getNext() { return _next; }
-    int getIndex() { return _index; }
-
-private:
-    string _text;
-    char _current;
-    char _next;
-    int _index;
-};
-
-string readFile(string);
-
-int main() 
-{
-    string file = readFile("../../../test.pr");
-    cout << file << endl;
 }
+char Lexer::getCurrent() { return _current; }
+char Lexer::getNext() { return _next; }
+int Lexer::getIndex() { return _index; }
+int Lexer::size() { return _size; }
 
 string readFile(string path) 
 {
