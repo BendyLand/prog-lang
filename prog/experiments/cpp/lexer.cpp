@@ -12,6 +12,16 @@ Lexer::Lexer(string text) :
     _size(text.size()) 
 {}
 
+vector<string> removeEmptyTokens(vector<string> tokens)
+{
+    vector<string> result;
+    for (string token : tokens) {
+        if (!token.empty()) 
+            result.push_back(token);
+    }
+    return result;
+}
+
 string removeComment(string line) 
 {
     Lexer l (line);

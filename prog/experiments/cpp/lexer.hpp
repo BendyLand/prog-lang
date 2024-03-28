@@ -48,6 +48,13 @@ private:
 };
 
 /**
+ * Removes empty elements from the input vector.
+ * @param tokens The source vector to filter.
+ * @return A new vector with only non-empty elements from the original.
+ */
+std::vector<std::string> removeEmptyTokens(std::vector<std::string> tokens);
+
+/**
  * Reads the contents of the file specified with `path`.
  * @param path The path of the text file to read. 
  *             If no valid file exists at the path, an error message is printed.
