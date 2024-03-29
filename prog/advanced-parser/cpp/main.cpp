@@ -6,8 +6,6 @@
 
 using namespace std;
 
-void serveKeywordToken(vector<string>);
-
 int main() 
 {
     Variables vars;

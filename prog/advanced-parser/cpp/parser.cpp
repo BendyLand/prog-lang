@@ -12,8 +12,7 @@ Value evaluateArithmeticExpression(string expr)
 {
     Value result;
     cout << "expression: " << expr << endl;
-
-
+    //* THIS IS WHERE I LEFT OFF
 
     return Value();
 }

@@ -21,8 +21,6 @@ std::ostream& operator<<(std::ostream& os, const Value& v) {
 
 Variables::Variables() : _count(0) {}
 
-
-
 unordered_map<string, Value>& Variables::add(string name, Value item) 
 {
     _variables.insert_or_assign(name, item);
