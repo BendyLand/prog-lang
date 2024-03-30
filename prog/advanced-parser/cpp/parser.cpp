@@ -1,4 +1,5 @@
 #include <vector>
+#include <variant>
 #include <optional>
 #include <cctype>
 #include <sstream>
@@ -10,7 +11,58 @@
 
 using namespace std;
 
+using Number = variant<int, double>;
+
+double evaluateDoubleExpression(string);
+int evaluateIntegerExpression(string);
+Number evaluateExpression(string, bool, bool, bool, bool);
+void chooseIntOperator(int&, optional<int>, optional<int>, string);
+
 Parser::Parser() {}
+
+Number evaluateExpression(string expr, bool fst, bool snd, bool thrd, bool frth)
+{
+    Number result;
+    if (!fst && !snd && !thrd && !frth) {
+        if (expr.find('.') != string::npos) {
+            result = evaluateDoubleExpression(expr);
+        }
+        else {
+            if (!expr.empty()) {
+                result = evaluateIntegerExpression(expr);
+            }
+        }
+    }
+    return result;
+}
+
+void chooseIntOperator(int& finalResult, optional<int> num1, optional<int> num2, string op)
+{
+    if (num1 && num2) {
+        int n1 = num1.value();
+        int n2 = num2.value();
+        if (op.size() > 1) {
+            finalResult = pow(n1, n2);
+        }
+        switch (op[0]) {
+        case '+':
+            finalResult = n1 + n2;
+            break;
+        case '-':
+            finalResult = n1 - n2;
+            break;
+        case '*':
+            finalResult = n1 * n2;
+            break;
+        case '/':
+            if (n2 != 0)
+                finalResult = n1 / n2;
+            else
+                finalResult = 0;
+            break;
+        }
+    }
+}
 
 double evaluateDoubleExpression(string expr)
 {
@@ -19,7 +71,6 @@ double evaluateDoubleExpression(string expr)
 
 int evaluateIntegerExpression(string expr)
 {
-    cout << "expr is: " << expr << " and it is " << expr.size() << " chars long" << endl;
     int finalResult;
     optional<int> num1;
     optional<int> num2;
@@ -32,7 +83,6 @@ int evaluateIntegerExpression(string expr)
     istringstream iss(expr);
     char c;
     while (iss >> c) {
-        cout << c << endl;
         if (c == '*' && num1) {
             op += c;
             continue;
@@ -62,32 +112,7 @@ int evaluateIntegerExpression(string expr)
         cout << "Something went wrong for num2: " << e.what() << endl;
     }
 
-    if (num1 && num2) {
-        int n1 = num1.value();
-        int n2 = num2.value();
-        if (op.size() > 1) {
-            finalResult = pow(n1, n2);
-            goto End;
-        }
-        switch (op[0]) {
-        case '+':
-            finalResult = n1 + n2;
-            break;
-        case '-':
-            finalResult = n1 - n2;
-            break;
-        case '*':
-            finalResult = n1 * n2;
-            break;
-        case '/':
-            if (n2 != 0)
-                finalResult = n1 / n2;
-            else
-                finalResult = 0;
-            break;
-        }
-    }
-    End:
+    chooseIntOperator(finalResult, num1, num2, op);
     return finalResult;
 }
 
@@ -126,17 +151,19 @@ Value evaluateArithmeticExpression(string expr)
                 currentExpr += expr[j];
             }
 
-            if (!firstPass && !secondPass && !thirdPass && !fourthPass) {
-                if (currentExpr.find('.') != string::npos) {
-                    evaluateDoubleExpression(currentExpr);
-                }
-                else {
-                    if (!currentExpr.empty()) {
-                        evaluateIntegerExpression(currentExpr);
-                    }
-                }
+            Number exprVal = evaluateExpression(
+                                currentExpr,
+                                firstPass,
+                                secondPass,
+                                thirdPass,
+                                fourthPass
+                            );
+            if (holds_alternative<int>(exprVal)) {
+                cout << "exprValue: " << get<int>(exprVal) << endl;
             }
-
+            else {
+                cout << "exprValue: " << get<double>(exprVal) << endl;
+            }
             // Make `swapEvaluatedExpression` function to plug it back into the string
 
             // Once the expression is evaluated,
@@ -157,8 +184,7 @@ Value evaluateArithmeticExpression(string expr)
             //     secondPass = false;
             // }
         }
-        }
-
+    }
     return Value();
 }
 
