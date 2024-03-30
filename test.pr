@@ -2,7 +2,7 @@ print "This is a test of Prog\n"
 puts "this is another" 
 let x = 6/(3*2)-4+12 // here's a weird one 
 if x > 10 {
-    let y = (5 + 3) * 2 - 4 / 2
+    let y = (5 + 3) ** 2 - 4 / 2
     puts "Here is y: #{y}" // and a bonus comment for fun
 }
 else {
