@@ -1,7 +1,5 @@
-#include <unordered_map>
 #include <iostream>
-#include <variant>
-#include "variables.hpp"
+#include "variables.hpp" // includes <unordered_map>, <variant>
 
 using namespace std;
 

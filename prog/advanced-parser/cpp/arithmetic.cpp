@@ -1,12 +1,8 @@
-#include <variant>
 #include <vector>
 #include <iostream>
-#include <tuple>
-#include <algorithm>
-#include "arithmetic.hpp"
+#include "arithmetic.hpp" // includes <variant>
 
 using namespace std;
-using Number = variant<int, double>;
 
 string reduceInnerExpression(string nestedExpr)
 {
@@ -89,7 +85,7 @@ vector<string> orderOperationsInExpression(string expr)
 {
     vector<string> result;
     
-
+    return result;
 }
 
 double evaluateExpression(Number n1, Number n2, string op)

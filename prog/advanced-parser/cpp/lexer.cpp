@@ -1,7 +1,5 @@
-#include <iostream>
-#include <fstream>
 #include <vector>
-#include "lexer.hpp"
+#include "lexer.hpp" // includes <iostream>, <fstream>
 
 using namespace std;
 

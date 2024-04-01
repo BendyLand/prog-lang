@@ -1,7 +1,7 @@
 #include <vector>
-#include <sstream>
-#include "lexer.hpp"
-#include "variables.hpp"
+
+#ifndef PARSER_H
+#define PARSER_H
 
 class Parser {
 public:
@@ -10,3 +10,5 @@ public:
 };
 
 void parseVariableLine(std::vector<std::string>);
+
+#endif

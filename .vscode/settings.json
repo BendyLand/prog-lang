@@ -12,6 +12,7 @@
         "vector": "cpp",
         "stdio.h": "c",
         "stdlib.h": "c",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "sstream": "cpp"
     }
 }

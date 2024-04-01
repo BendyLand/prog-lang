@@ -1,14 +1,6 @@
-#include <vector>
-#include <variant>
-#include <optional>
-#include <cctype>
-#include <sstream>
-#include <algorithm>
-#include <string>
-#include "parser.hpp"
+#include <iostream>
+#include "parser.hpp" // includes <vector>
 #include "lexer.hpp"
-#include "variables.hpp"
-#include "arithmetic.hpp"
 
 using namespace std;
 
@@ -51,8 +43,7 @@ void parseVariableLine(vector<string> tokens)
     }
     exprType = "variable";
     BreakA:
-
-    // double result = evaluateExpression(num1, num2, op);
+    cout << "Performing arithmetic..." << endl;
 }
 
 void Parser::serveKeywordToken(vector<string> tokens)
