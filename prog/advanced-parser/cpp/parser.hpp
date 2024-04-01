@@ -9,5 +9,4 @@ public:
     void serveKeywordToken(std::vector<std::string>);
 };
 
-Value evaluateArithmeticExpression(std::string);
 void parseVariableLine(std::vector<std::string>);
