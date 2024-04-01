@@ -38,7 +38,7 @@ string reduceInnerExpression(string nestedExpr)
     for (auto item : pieces) {
         cout << "Item: " << item << endl;
     }
-    return "";
+    return ""; // once pieces[1] is evaluated, the vector can be joined and returned
 }
 
 bool checkForNestedParenthesis(string expr)
