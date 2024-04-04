@@ -1,14 +1,18 @@
 #include <vector>
+#include "variables.hpp"
 
 #ifndef PARSER_H
 #define PARSER_H
 
 class Parser {
 public:
-    Parser();
+    Parser(Variables &vars);
     void serveKeywordToken(std::vector<std::string>);
+
+private:
+    Variables &_vars;
 };
 
-void parseVariableLine(std::vector<std::string>);
+std::vector<std::string> parseVariableLine(std::vector<std::string>);
 
 #endif

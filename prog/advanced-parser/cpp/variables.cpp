@@ -17,7 +17,10 @@ std::ostream& operator<<(std::ostream& os, const Value& v) {
     return os;
 }
 
-Variables::Variables() : _count(0) {}
+
+Variables::Variables() : 
+    _count(0) 
+{}
 
 unordered_map<string, Value>& Variables::add(string name, Value item) 
 {
@@ -35,7 +38,8 @@ unordered_map<string, Value>& Variables::remove(string name)
 
 void Variables::show()
 {
-    for (auto &[key, val] : _variables) {
+    cout << "Variables: " << endl;
+    for (auto &[key, val] : this->_variables) {
         cout << "Name: " << key << ", Value: " << val << endl;
     }
 }
