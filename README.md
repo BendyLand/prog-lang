@@ -8,7 +8,7 @@ I am fascinated by the idea of developing an interpreter for a custom programmin
 
 ## About
 
-*Prog* is a highly opinionated, experimental interpreted programming language from someone without a strong background in computer science. While I am in the process of learning, I still consider myself a fairly new programmer, especially relative to current professionals in the field. I don't have a background in anything related to computer science, but I do have a degree in education (Music-Ed, to be specific), and I know my own learning style quite well. This project is going to serve as my primary motivator as I branch into more intermediate - advanced topics of programming.
+*Prog* is a fairly opinionated interpreted programming language from someone without a strong background in computer science. While I am in the process of learning, I still consider myself a fairly new programmer, especially relative to current professionals in the field. I don't have a background in anything related to computer science, but I do have a degree in education (Music-Ed, to be specific), and I know my own learning style quite well. This project is going to serve as my primary motivator as I branch into more intermediate - advanced topics of programming.
 
 ## Name
 
@@ -20,11 +20,5 @@ The very first idea for this project came to me upon learning that part of the i
 
 Instead, I chose to simply attempt to combine my favorite features of other languages, then draw inspiration from what I see being built. In technical terms, I call this the "try it, see what happens, wash-rinse-repeat" method. I am a big fan of this method. 
 
-The current design details can be found in `./planning.md`.
-The current syntax reference can be found in `./syntax.txt`.
-
-## Contributions
-
-To be quite frank, this project is simply me designing my ideal language. This means that I will retain final say for all decision making and design choices for the lifespan of this project, or until I personally step down. That said, given appropriate justification for a design choice, my heart can easily be won over. 
-
-It's really not that hard to get me on board with something; if you can explain it *and its rationale* to me (and all the logic is actually sound), as long as it doesn't conflict with any preferences of mine, I see no reason not to include it. However, if it conflicts with any of my own philosophies or if the rationale simply doesn't make sense, it will not be included, no negotiations. Once again, I'm building my ideal language, which might not be the same as yours. 
+The current design details can be found in `planning.md`.
+The current syntax reference can be found in `syntax.txt`.
