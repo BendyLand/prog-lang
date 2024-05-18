@@ -231,7 +231,7 @@ char* getFileContents()
     FILE* fptr;
     long length;
 
-    fptr = fopen("../../test.pr", "r");
+    fptr = fopen("../../../test.pr", "r");
     if (fptr == NULL) {
         perror("Problem opening file.\n");
         return NULL;
