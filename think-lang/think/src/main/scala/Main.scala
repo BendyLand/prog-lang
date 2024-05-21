@@ -1,3 +1,3 @@
-@main def run() = { 
-    println("\nWelcome to Think!\n") 
-}
+@main def run() =  
+   println("\nWelcome to Think!\n") 
+
