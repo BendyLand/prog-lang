@@ -40,7 +40,7 @@ I find that too many technologies introduce (what I think is) unnecessary vernac
 
 By eliminating **all** primitive types, the language will be able to condense all of the developer's input into a single type that represents the raw *data* to be examined at execution time. Left on its own, this is not very useful.
 
-In addition to the "data" type, `Think` will include a variety of collection types. It is  the combination of these collections, as well as the operations provided by the keywords, which allow logical operations to be evaluated.
+In addition to the "data" type, `Think` includes a variety of collection types. It is the combination of these collections, as well as the operations provided by the keywords, which allow logical expressions to be evaluated.
 
 <!-- TODO: "Consider providing more examples of how this single "data" type would be used in practice. This will help readers visualize its application better." - Prof. GPT -->
 
