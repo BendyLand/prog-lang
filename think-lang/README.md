@@ -51,10 +51,10 @@ While `Think` may not have a variety of data types, it will include several rese
 person                           # Create data
 parent = person                  # Create a fact for `parent`
 child = person                   # Create a fact for `child`
-child = parent + distinct parent # Create rule for `child`
+child = parent + distinct parent # Create a rule for `child`
 ```
  - In the code above, we create some data `person` on line 1. This is basically just a constant that represents arbitrary data.
  - On the next line, we assign that data to a variable called `parent`. If you are familiar with logic programming, this is the equivalent of a "fact".
  - We assign the same data to a variable called `child` on line 3. **This does not change anything we have previously done**.
      - You can think of lines 2 and 3 similarly to inheritance. However, unlike in OOP, this doesn't create any objects. It would be more accurate to say that this assigns the label "person" onto the variable "parent" and onto the variable "child".
- - Finally, we define that `child` is made up of `parent + parent`, using the keyword `distinct` to ensure that both parents are not the same person.
+ - Finally, we define that `child` is made up of `parent + parent`, using the keyword `distinct` to ensure that both parents are not the same person. If you are familiar with logic programming, this is the equivalent of a "rule".
