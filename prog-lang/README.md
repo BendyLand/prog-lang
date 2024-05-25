@@ -1,14 +1,16 @@
 # *Prog* Language Development
 
+*This project is in its very early stages of development and is non-functional as of 5/24/24. As it is fundamentally a learning project, it may be abandoned, renamed, absorbed into something bigger, or any number of other things at a moment's notice. I make no promises about the viability of this project as working software at any point in its lifetime.*
+
 ## Background/Idea
 
 I am fascinated by the idea of developing an interpreter for a custom programming language. I am not an experienced developer; however, I am also not sure which domain of programming I really want to get into as a professional, so I am at a bit of a wall in my learning journey. One thing I have noticed up to this point though, is that I seem to be really fascinated by syntax and semantics of language design, among other aspects of developer tooling. At this point, I finally feel like I have the foundation in programming that I need to work on this project. I'm still not at the level to make a polished product, but what better way to get there than to try it?
 
-*I don't claim that I will be able to make an excellent language*; just that I have my own set of preferences that I will aim to implement to the best of my ability. It's a learning project. If it happens to evolve beyond that, cool! If I'm the only person to ever read this, also cool! 
+*I don't claim that I will be able to make an excellent language*; just that I have my own set of preferences that I will aim to implement to the best of my ability. It's a learning project. If it happens to grow beyond that, cool! If I'm the only person to ever read this, also cool! 
 
 ## About
 
-*Prog* is a fairly opinionated, interpreted programming language from someone without a strong background in computer science. While I am in the process of learning, I still consider myself a fairly new programmer, especially relative to current professionals in the field. I don't have a background in anything related to computer science, but I do have a degree in education (Music-Ed, to be specific), and I know my own learning style quite well. This project is going to serve as my primary motivator as I branch into more intermediate - advanced topics of programming.
+*Prog* is a somewhat opinionated, interpreted programming language from someone without a strong background in computer science. While I am in the process of learning, I still consider myself a fairly new programmer, especially relative to current professionals in the field. I don't have a background in anything related to computer science, but I do have a degree in education (Music-Ed, to be specific), and I know my own learning style quite well. This project is going to serve as one of my primary motivators as I branch into more intermediate - advanced topics of programming.
 
 ## Name
 
@@ -16,7 +18,7 @@ For now, I'm going to call this project *Prog*. Very original, I know. For what 
 
 ## Design
 
-The very first idea for this project came to me upon learning that part of the inspiration for Ruby was to build a more object oriented language than Python. Because of this, my initial thought was to design a functional spin on Ruby. That said, you can already use Ruby in a pretty heavily functional style if you really wanted to. 
+The very first idea for this project came to me upon learning that part of the inspiration for Ruby was to build a more object oriented language than Python. Because of this, my initial thought was to design a functional spin on Ruby. That said, you can already use Ruby in a pretty functional style if you really wanted to. 
 
 Instead, I chose to simply attempt to combine my favorite features of other languages, then draw inspiration from what I see being built. In technical terms, I call this the "try it, see what happens, wash-rinse-repeat" method. I am a big fan of this method. 
 
