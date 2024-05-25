@@ -30,7 +30,8 @@ My other goal is for the language to be executable in the same way as an interpr
 
 As a logic language, the primary mechanism by which evaluation occurs is symbolic reasoning. This means that there are **no primitive data types in this language**.
 
-Instead, the basic (and only) type that will comprise the data itself will be made up of plain text. This "type" has gone by many names in various settings: atoms, tokens, literals, etc.
+Instead, the basic (and only) type that will comprise the data itself will be made up of plain text. This "type" has gone by many names in various settings: atoms, tokens, literals, etc. 
+*(There are a variety of code examples/explanations at the bottom of this README)*
 
 *I* will be calling it the "data" type (*you* can call it whatever you like). While this is a mildly confusing design choice, there is a reason for it:
 
@@ -44,13 +45,15 @@ In addition to the "data" type, `Think` includes a variety of collection types. 
 
 <!-- TODO: "Consider providing more examples of how this single "data" type would be used in practice. This will help readers visualize its application better." - Prof. GPT -->
 
+<!-- TODO 2: "Consider including a simple example to demonstrate how a piece of logical reasoning would be expressed in Think using the "data" type." - Prof. GPT -->
+
 ## Keywords
 
 While `Think` may not have a variety of data types, it will include several reserved keywords and symbols, which provide a significant amount of the functionality of the language. They will typically be used as a way to provide context to the data. For example:
 ```
 person                           # Create data
-parent = person                  # Create a fact for `parent`
-child = person                   # Create a fact for `child`
+parent <- person                  # Create a fact for `parent`
+child <- person                   # Create a fact for `child`
 child = parent + distinct parent # Create a rule for `child`
 ```
  - In the code above, we create some data `person` on line 1. This is basically just a constant that represents arbitrary data.
@@ -58,3 +61,56 @@ child = parent + distinct parent # Create a rule for `child`
  - We assign the same data to a variable called `child` on line 3. **This does not change anything we have previously done**.
      - You can think of lines 2 and 3 similarly to inheritance. However, unlike in OOP, this doesn't create any objects. It would be more accurate to say that this assigns the label "person" onto the variable "parent" and onto the variable "child".
  - Finally, we define that `child` is made up of `parent + parent`, using the keyword `distinct` to ensure that both parents are not the same person. If you are familiar with logic programming, this is the equivalent of a "rule".
+
+### More Code Examples
+
+```
+# Create data
+employer
+employee
+
+# Assign data to variables
+[ associate     <- employee,
+  manager       <- employee,
+  upper-manager <- employee,  
+  company       <- employer ] # including square braces here creates an implicit ordering (e.g. manager > associate)
+
+# Create rules for the data in variables
+associate     = not employer 
+manager       = not employer 
+upper-manager = not employer # all employee variables cannot be an employer
+company       = not employee # the company cannot be an employee
+
+# More complex rules
+manages: A -> B = (A == upper-manager) or (A == manager and B == associate)
+    # (A manages B)  
+
+pays: A -> B = A == company and B == employee # Check against variables or data
+  # (A pays B)
+
+can_promote: A -> B = A > B and B != upper-manager
+    # (A can promote B)
+```
+ - In this example we have two pieces of data: `employee` and `employer`. 
+ - We store this data in multiple variables.
+    - Because we know that these variables will be compared later, we can place them in between square braces to implicitly give them an ordering.
+ - We create simple rules for our variables, ensuring they cannot be used in place of each other. 
+ - We then create more complex rules using what I call "action parameters" (essentially just a generic way to represent the action).
+    - The action parameters use arrows to specify which variable(s) act(s) on which other(s). For example: `manages: A -> B` can also be read as `A manages B`, followed by the definition which makes it true.
+    - In the second example, note that we compare `A` to `company` (a variable) and `B` to `employee` (data; aka **not** a variable). The comparison will always check inside the variable for matching data. 
+        - It is recommended to compare at a common depth of data (i.e. `employer` to `employee` OR `company` to each of the individual `employee` variables) for organization, but comparing one to the other will not cause problems. After all, variables are just for storage and easy naming; if it's easier for you to compare them to raw data, go for it. 
+    - The third rule takes advantage of our implicit ordering that was created when we assigned the data to our variables. Without the square braces at the definitions, `A > B` would look more like:
+    ```
+    A == company and B != company
+    or
+    A == upper-manager and (B == manager or B == associate)
+    or
+    A == manager and B == associate
+    ```
+    - and that's before we even check if `B` is an `upper-manager`... 
+        - For obvious reasons, the implicit ordering is recommended, unless you have a complex case which demands more precise handling of the data. For those cases, you may not be using the correct language... I suggest using robust tools for robust problems. This is not a robust tool; it is a simple tool, meant for simple problems.
+
+
+
+
+
