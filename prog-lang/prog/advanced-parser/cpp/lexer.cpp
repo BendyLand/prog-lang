@@ -26,7 +26,7 @@ string removeComment(string line)
     string newStr = "";
     bool isComment = false;
     while (l.getNext() == '\n' || l.getIndex() < l.size()-1) {
-        if (l.getCurrent() == '/' && l.getNext() == '/')
+        if (l.getCurrent() == '#')
             isComment = true;
         if (!isComment)
             newStr += l.getCurrent();

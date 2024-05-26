@@ -16,9 +16,8 @@ int main()
     for (string line : lines) {
         line = removeComment(line);
         vector<string> tokens = tokenizeLine(line);
-        p.serveKeywordToken(tokens);
+        p.serveKeywordToken(tokens, vars);
     }
-    vars.show();
     // string file = readFile("../../../arithmetic-examples.txt");
     // vector<string> lines = splitIntoLines(file);
     // for (auto line : lines) {
