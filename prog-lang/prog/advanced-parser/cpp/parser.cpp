@@ -2,7 +2,7 @@
 #include <regex>
 #include "parser.hpp" // includes <vector>
 #include "lexer.hpp"
-#include "utils.hpp" // include <algorithm>, <cctype>, <locale>
+#include "utils.hpp" // includes <algorithm>, <cctype>, <locale>
 #include "variables.hpp" // includes <unordered_map> and <variant>
 
 bool checkForStringInterpolation(std::string);
