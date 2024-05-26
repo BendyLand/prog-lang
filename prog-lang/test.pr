@@ -1,14 +1,14 @@
 print "This is a test of Prog\n"
 puts "this is another" 
-let x = 6/(3*2)-4+12 // here's a weird one 
+let x = 6/(3*2)-4+12 # here's a weird one 
 if x > 10 {
     let y = (5 + 3) ** 2 - 4 / 2
-    puts "Here is y: #{y}" // and a bonus comment for fun
+    puts "Here is y: ${y}" # and a bonus comment for fun
 }
 else {
-    // this is the middle part
+    # this is the middle part
     print "I'm in the other branch\n"
-    print "This is a \"super\" difficult one\n"
+    print "This is a \"super\" difficult one ${x} and some more text\n"
     if x < 5 {
         puts "x is less than five"
     } else {
@@ -17,8 +17,8 @@ else {
 }
 for i in 0..=10 
 {
-    // do something 11 times
-    puts "#{i}"
+    # do something 11 times
+    print "${i}\n"
 }
-puts "checking comment after string. It's okay to see this part" // it's bad if you see this part
+puts "checking comment after string. It's okay to see this part" # it's bad if you see this part
 let testStr = "This is a test of saving a string to a variable"

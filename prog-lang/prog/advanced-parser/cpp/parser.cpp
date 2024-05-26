@@ -90,11 +90,10 @@ std::string insertVariableIntoStringInterpolation(std::string str, Variables var
                 Value val = vars.getVar(currentVarName);
                 std::string temp = "";
                 temp += val;
-                std::cout << "val = " << val << std::endl;
-                std::cout << "val.size() = " << temp.size() << std::endl;
                 newString += val;
                 isVar = false;
                 currentVarName = "";
+                i++;
             } 
             else {
                 currentVarName += str[i];
@@ -110,7 +109,6 @@ std::string insertVariableIntoStringInterpolation(std::string str, Variables var
             }
         }
     }
-
     return newString;
 }
 

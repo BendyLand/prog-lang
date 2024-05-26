@@ -3,8 +3,7 @@ Prog Syntax
 Basic: 
 
   Comments:
-    //    : Single-line comment 
-    /* */ : Multi-line comment
+    # : Single-line comment 
 
   Arithmetic:
     +  : Add
@@ -44,35 +43,35 @@ Basic:
     Conditionals:
       You can couple the conditions and branches together:
         if condition {
-          // do something 
+          # do something 
         } elif condition {
-          // do something else
+          # do something else
         } else {
-          // do a third thing
+          # do a third thing
         }
 
       You can also put the subsequent branches on newlines:
         if condition {
-          // do something
+          # do something
         }
         elif condition {
-          // do something else
+          # do something else
         }
         else {
-          // do a third thing
+          # do a third thing
         }
 
       Or put the opening brace on its own line:
         if condition
         {
-          // do something
+          # do something
         }
         elif condition
         {
-          // do something else
+          # do something else
         }
         else
         {
-          // do a third thing
+          # do a third thing
         }
 

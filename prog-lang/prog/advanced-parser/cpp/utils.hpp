@@ -2,8 +2,8 @@
 #include <cctype>
 #include <locale>
 
-/** trim from start (in place) */
+/** Trim whitespace from string start (in place) */
 void ltrim(std::string &s);
 
-/** trim from end (in place) */
+/** Trim whitespace from string end (in place) */
 void rtrim(std::string &s);
