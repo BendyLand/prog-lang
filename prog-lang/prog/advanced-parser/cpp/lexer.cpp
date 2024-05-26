@@ -1,4 +1,5 @@
 #include <vector>
+#include "utils.hpp" // includes <algorithm>, <cctype>, <locale>
 #include "lexer.hpp" // includes <iostream>, <fstream>
 
 using namespace std;
@@ -35,19 +36,6 @@ string removeComment(string line)
     return newStr;
 }
 
-string trimLeadingWhitespace(string line) 
-{
-    string result = "";
-    size_t i = line.find_first_not_of(' ');
-    if (i != string::npos) {
-        while (i < line.size()) {
-            result += line[i];
-            i++;
-        }
-    }
-    return result;
-}
-
 vector<string> tokenizeLine(string line)
 {
     Lexer l(line);
@@ -66,7 +54,7 @@ vector<string> tokenizeNonStringLine(Lexer l, string line)
     string token = "";
     while (true) {
         if (l.getCurrent() == ' ') {
-            token = trimLeadingWhitespace(token);
+            ltrim(token);
             result.push_back(token);
             token = "";
         }
@@ -76,7 +64,7 @@ vector<string> tokenizeNonStringLine(Lexer l, string line)
         l.increment();
     }
     end:
-    token = trimLeadingWhitespace(token);
+    ltrim(token);
     result.push_back(token);
     return result;
 }
@@ -88,7 +76,7 @@ vector<string> tokenizeStringLine(Lexer l, string line)
     string token = "";
     while (true) {
         if (l.getCurrent() == ' ') {
-            token = trimLeadingWhitespace(token);
+            ltrim(token);
             result.push_back(token);
             token = "";
         }
