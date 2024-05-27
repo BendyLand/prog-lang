@@ -1,9 +1,9 @@
+#ifndef VARIABLES_H
+#define VARIABLES_H
+
 #include <unordered_map>
 #include <variant>
 #include "lexer.hpp"
-
-#ifndef VARIABLE_H
-#define VARIABLE_H
 
 using Value = std::variant<int, double, char, std::string, bool>;
 

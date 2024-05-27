@@ -1,8 +1,8 @@
-#include <vector>
-#include "variables.hpp"
-
 #ifndef PARSER_H
 #define PARSER_H
+
+#include <vector>
+#include "variables.hpp"
 
 class Parser {
 public:

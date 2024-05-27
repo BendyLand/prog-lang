@@ -1,7 +1,7 @@
-#include <variant>
-
 #ifndef ARITHMETIC_H
 #define ARITHMETIC_H
+
+#include <variant>
 
 using Number = std::variant<int, double>;
 

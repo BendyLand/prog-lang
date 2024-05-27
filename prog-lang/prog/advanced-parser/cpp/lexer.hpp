@@ -1,8 +1,8 @@
-#include <iostream>
-#include <fstream>
-
 #ifndef LEXER_H
 #define LEXER_H
+
+#include <iostream>
+#include <fstream>
 
 class Lexer
 {
