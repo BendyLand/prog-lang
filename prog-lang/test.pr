@@ -22,3 +22,5 @@ for i in 0..=10
 }
 puts "checking comment after string. It's okay to see this part" # it's bad if you see this part
 let testStr = "This is a test of saving a string to a variable"
+
+puts "This is x: ${x}. Here's the test string: ${testStr}"

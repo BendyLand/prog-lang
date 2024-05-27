@@ -16,5 +16,5 @@ void rtrim(std::string &s) {
     while (lastNonWhitespace >= 0 && s[lastNonWhitespace] == ' ') {
         lastNonWhitespace--;
     }
-    s = s.substr(0, lastNonWhitespace);
+    s = s.substr(0, lastNonWhitespace+1);
 }
