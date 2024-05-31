@@ -16,17 +16,4 @@ int main()
         vector<string> tokens = tokenizeLine(line);
         p.serveKeywordToken(tokens, vars);
     }
-    // string file = readFile("../../../arithmetic-examples.txt");
-    // vector<string> lines = splitIntoLines(file);
-    // for (auto line : lines) {
-    //     vector<string> temp = extractExpressionsInParenthesis(line);
-    //     cout << "New line:" << endl;
-    //     for (auto item : temp) {
-    //         cout << "Item: " << item << endl;
-    //         bool nested = checkForNestedParenthesis(item);
-    //         if (nested) {
-    //             reduceInnerExpression(item);
-    //         }
-    //     }
-    // }
 }
