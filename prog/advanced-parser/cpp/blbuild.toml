@@ -1,0 +1,5 @@
+compiler = "g++ --std=c++20"
+path = ""
+files = ["*.cpp"]
+flags = ["-o"]
+options = [["m"]]

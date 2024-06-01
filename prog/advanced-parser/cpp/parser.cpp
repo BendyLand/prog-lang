@@ -78,7 +78,8 @@ void Parser::serveKeywordToken(std::vector<std::string> tokens, Variables vars)
     //     cout << "This line doesn't have a keyword" << std::endl;
 }
 
-std::string insertVariableIntoStringInterpolation(std::string str, Variables vars) {
+std::string insertVariableIntoStringInterpolation(std::string str, Variables vars) 
+{
     std::vector<std::string> varNames = findVariablesInString(str);
     std::string newString = "";
     std::string currentVarName = "";

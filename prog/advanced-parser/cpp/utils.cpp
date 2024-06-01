@@ -2,7 +2,8 @@
 #include "utils.hpp" // includes <algorithm>, <cctype>, <locale>
 
 /** trim from start (in place) */
-void ltrim(std::string &s) {
+void ltrim(std::string &s) 
+{
     int firstNonWhitespace = 0;
     while (firstNonWhitespace < s.size() && s[firstNonWhitespace] == ' ') {
         firstNonWhitespace++;
@@ -11,7 +12,8 @@ void ltrim(std::string &s) {
 }
 
 /** trim from end (in place) */
-void rtrim(std::string &s) {
+void rtrim(std::string &s) 
+{
     int lastNonWhitespace = s.size() - 1;
     while (lastNonWhitespace >= 0 && s[lastNonWhitespace] == ' ') {
         lastNonWhitespace--;
