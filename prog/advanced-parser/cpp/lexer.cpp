@@ -28,31 +28,8 @@ string removeComment(string line)
 
 vector<Token> tokenizeLine(string line)
 {
-    Lexer l(line);
-    vector<Token> result;
-    if (line.find("\"") != string::npos) 
-        result = tokenizeStringLine(l, line);
-    else 
-        result = tokenizeNonStringLine(l, line);
-    
-    return result;
-}
-
-vector<Token> tokenizeNonStringLine(Lexer l, string line)
-{
     vector<Token> result;
     return result;
-}
-
-vector<Token> tokenizeStringLine(Lexer l, string line) 
-{
-    vector<Token> result;
-    return result;
-}
-
-Token tokenizeString(string line) 
-{
-    return Token(Tokens::LET);
 }
 
 vector<string> splitIntoLines(string file)

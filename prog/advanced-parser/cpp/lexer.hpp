@@ -65,38 +65,6 @@ std::string readFile(std::string);
 std::vector<std::string> splitIntoLines(std::string);
 
 /**
- * Extracts the embedded string from inside of an input string. 
- * @param line The source string to extract the substring from. 
- * @return The embedded substring extracted from the source.  
- */
-Token tokenizeString(std::string);
-
-/**
- * Converts the source string into tokens based on their content. 
- * @param line The source string to split.
- * @return A vector of strings extracted from the source string. 
- */
-std::vector<Token> tokenizeLine(std::string);
-
-/**
- * Helper function for `tokenizeLine`. 
- * This is called when a line containing a valid string is found. 
- * @param l Lexer to handle the string traversal.
- * @param result A reference to a string vector to save the tokens to. 
- * @param line The source string to split into tokens.
- */
-std::vector<Token> tokenizeStringLine(Lexer, std::string);
-
-/**
- * Helper function for `tokenizeLine`. 
- * This is called when a line NOT containing a valid string is found. 
- * @param l Lexer to handle the string traversal.
- * @param result A reference to a string vector to save the tokens to. 
- * @param line The source string to split into tokens.
- */
-std::vector<Token> tokenizeNonStringLine(Lexer, std::string);
-
-/**
  * Removes comments from the input string.
  * @param line The source string to check for comments.
  * @return a new string with any comments removed.
