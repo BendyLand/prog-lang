@@ -7,7 +7,6 @@
 class Parser {
 public:
     Parser(Variables &vars);
-    void serveKeywordToken(std::vector<std::string>, Variables);
 
 private:
     /** 
@@ -16,7 +15,5 @@ private:
      */
     Variables &_vars;
 };
-
-std::vector<std::string> parseVariableLine(std::vector<std::string>);
 
 #endif
