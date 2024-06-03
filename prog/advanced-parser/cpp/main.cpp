@@ -14,8 +14,5 @@ int main()
     for (string line : lines) {
         line = removeComment(line);
         vector<string> tokens = tokenizeLine(line);
-        // This will take a full rewrite of the lexing logic.
-        // Start a branch and get planning.
-        p.serveKeywordToken(tokens, vars);
     }
 }

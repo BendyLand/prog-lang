@@ -43,40 +43,6 @@ std::vector<std::string> parseVariableLine(std::vector<std::string> tokens)
     return {varName, expr};
 }
 
-void Parser::serveKeywordToken(std::vector<std::string> tokens, Variables vars)
-{
-    tokens = removeEmptyTokens(tokens);
-    if (tokens[0].compare("let") == 0) {
-        std::vector<std::string> item = parseVariableLine(tokens);
-        this->_vars.add(item[0], Value(item[1]));
-    }
-    else if (tokens[0].compare("print") == 0) {
-        std::string str = tokens[1];
-        if (checkForStringInterpolation(str)) {
-            std::string newString = insertVariableIntoStringInterpolation(str, vars);
-            std::cout << newString;
-        }
-        else {
-            std::cout << str;
-        }
-    }
-    else if (tokens[0].compare("puts") == 0) {
-        std::string str = tokens[1];
-        if (checkForStringInterpolation(str)) {
-            std::string newString = insertVariableIntoStringInterpolation(str, vars);
-            std::cout << newString <<  std::endl;
-        }
-        else {
-            std::cout << str << std::endl;
-        }
-    }
-    // else if (tokens[0].compare("if") == 0)
-    //     cout << "I'm in the `if` branch" << std::endl;
-    // else if (tokens[0].compare("for") == 0)
-    //     cout << "I'm in the `for` branch" << std::endl;
-    // else
-    //     cout << "This line doesn't have a keyword" << std::endl;
-}
 
 std::string insertVariableIntoStringInterpolation(std::string str, Variables vars) 
 {

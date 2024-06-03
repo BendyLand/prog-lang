@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "tokens.hpp"
 
 class Lexer
 {
@@ -48,13 +49,6 @@ private:
 };
 
 /**
- * Removes empty elements from the input vector.
- * @param tokens The source vector to filter.
- * @return A new vector with only non-empty elements from the original.
- */
-std::vector<std::string> removeEmptyTokens(std::vector<std::string> tokens);
-
-/**
  * Reads the contents of the file specified with `path`.
  * @param path The path of the text file to read. 
  *             If no valid file exists at the path, an error message is printed.
@@ -75,14 +69,14 @@ std::vector<std::string> splitIntoLines(std::string);
  * @param line The source string to extract the substring from. 
  * @return The embedded substring extracted from the source.  
  */
-std::string tokenizeString(std::string);
+Token tokenizeString(std::string);
 
 /**
  * Converts the source string into tokens based on their content. 
  * @param line The source string to split.
  * @return A vector of strings extracted from the source string. 
  */
-std::vector<std::string> tokenizeLine(std::string);
+std::vector<Token> tokenizeLine(std::string);
 
 /**
  * Helper function for `tokenizeLine`. 
@@ -91,7 +85,7 @@ std::vector<std::string> tokenizeLine(std::string);
  * @param result A reference to a string vector to save the tokens to. 
  * @param line The source string to split into tokens.
  */
-std::vector<std::string> tokenizeStringLine(Lexer, std::string);
+std::vector<Token> tokenizeStringLine(Lexer, std::string);
 
 /**
  * Helper function for `tokenizeLine`. 
@@ -100,7 +94,7 @@ std::vector<std::string> tokenizeStringLine(Lexer, std::string);
  * @param result A reference to a string vector to save the tokens to. 
  * @param line The source string to split into tokens.
  */
-std::vector<std::string> tokenizeNonStringLine(Lexer, std::string);
+std::vector<Token> tokenizeNonStringLine(Lexer, std::string);
 
 /**
  * Removes comments from the input string.

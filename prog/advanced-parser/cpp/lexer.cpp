@@ -1,6 +1,6 @@
 #include <vector>
 #include "utils.hpp" // includes <algorithm>, <cctype>, <locale>
-#include "lexer.hpp" // includes <iostream>, <fstream>
+#include "lexer.hpp" // includes <iostream>, <fstream>, "tokens.hpp"/<string>
 
 using namespace std;
 
@@ -10,16 +10,6 @@ Lexer::Lexer(string text) :
     _index(0), _next(text.size() > 1 ? text[1] : '\0'),
     _size(text.size()) 
 {}
-
-vector<string> removeEmptyTokens(vector<string> tokens)
-{
-    vector<string> result;
-    for (string token : tokens) {
-        if (!token.empty()) 
-            result.push_back(token);
-    }
-    return result;
-}
 
 string removeComment(string line) 
 {
@@ -36,10 +26,10 @@ string removeComment(string line)
     return newStr;
 }
 
-vector<string> tokenizeLine(string line)
+vector<Token> tokenizeLine(string line)
 {
     Lexer l(line);
-    vector<string> result;
+    vector<Token> result;
     if (line.find("\"") != string::npos) 
         result = tokenizeStringLine(l, line);
     else 
@@ -48,79 +38,21 @@ vector<string> tokenizeLine(string line)
     return result;
 }
 
-vector<string> tokenizeNonStringLine(Lexer l, string line)
+vector<Token> tokenizeNonStringLine(Lexer l, string line)
 {
-    vector<string> result;
-    string token = "";
-    while (true) {
-        if (l.getCurrent() == ' ') {
-            ltrim(token);
-            result.push_back(token);
-            token = "";
-        }
-        token += l.getCurrent();
-        if (l.getNext() == '\n' || l.getIndex() >= l.size()) 
-            goto end;
-        l.increment();
-    }
-    end:
-    ltrim(token);
-    result.push_back(token);
+    vector<Token> result;
     return result;
 }
 
-vector<string> tokenizeStringLine(Lexer l, string line) 
+vector<Token> tokenizeStringLine(Lexer l, string line) 
 {
-    vector<string> result;
-    string embeddedStr = tokenizeString(line);
-    string token = "";
-    while (true) {
-        if (l.getCurrent() == ' ') {
-            ltrim(token);
-            result.push_back(token);
-            token = "";
-        }
-        token += l.getCurrent();
-        if (l.getCurrent() == '"') {
-            goto end;
-        }
-        l.increment();
-    }
-    end:
-    result.push_back(embeddedStr);
+    vector<Token> result;
     return result;
 }
 
-string tokenizeString(string line) 
+Token tokenizeString(string line) 
 {
-    string result = "";
-    Lexer l(line);
-    bool inString = false;
-    while (l.getIndex() < l.size()-1) {
-        if (l.getCurrent() == '"') {
-            if (inString) 
-                result += l.getCurrent();
-            inString = true;
-            l.increment();
-            continue;
-        }
-        if (inString) {
-            if (l.getCurrent() == '\\' && l.getNext() == 'n') {
-                result += '\n';
-                for (int i = 0; i < 2; i++)
-                    l.increment();
-                continue;
-            }
-            if (l.getNext() == '"' && l.getCurrent() != '\\') {
-                result += l.getCurrent();
-                goto end;
-            }
-            result += l.getCurrent();
-        }
-        l.increment();
-    }
-    end:
-    return result;
+    return Token(Tokens::LET);
 }
 
 vector<string> splitIntoLines(string file)
