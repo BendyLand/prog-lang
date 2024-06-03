@@ -23,16 +23,6 @@ std::ostream& operator<<(std::ostream& os, const Token& t)
 Token::Token(Tokens type) : type(type) {}
 Token::Token(Tokens type, const std::string &value) : type(type), value(value) {}
 
-Token findTokenType(std::string token)
-{
-    if (token == "let") {
-        return Token(Tokens::LET);
-    }
-    else if (token == "=") {
-        return Token(Tokens::EQUAL_SIGN);
-    }
-}
-
 // Getters for private fields.
 Tokens Token::getType() const
 {

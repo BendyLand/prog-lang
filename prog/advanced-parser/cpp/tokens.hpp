@@ -27,6 +27,5 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& os, const Token& t);
-Token findTokenType(std::string token);
 
 #endif
