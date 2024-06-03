@@ -20,10 +20,10 @@ Basic:
       Unlike current interpreted languages, these will not be interchangeable. 
       Flexibility will come from overloading string operations with char operations, if necessary (and possible).
 
-    print "The quick brown fox"; : for single line strings
-    puts "The quick brown fox";  : includes a newline
+    print "The quick brown fox"  : for single line strings
+    puts "The quick brown fox"   : includes a newline
 
-    "The quick brown fox".length; : for the length of the string in UTF-8 characters
+    "The quick brown fox".length : for the length of the string in UTF-8 characters
 
   Literals:
     0 - 9 : integer
@@ -34,8 +34,8 @@ Basic:
     null  : null
 
   Variables:
-    let example = "immutable variable";
-    let mut another = "mutable variable";
+    let example = "immutable variable"
+    let mut another = "mutable variable"
 
   Control Flow:
     Conditionals:
@@ -73,3 +73,19 @@ Basic:
           # do a third thing
         }
 
+    Loops:
+      You can loop over a range:
+        for i in 0..10 {
+          // do something with i
+        }
+      
+      You can specify a step as well:
+        for i in 0..10 by 2 {
+
+        }
+        for j in 10..0 by -1 {
+          
+        }
+
+      You can NOT loop over a collection:
+        for entry in list {} # Not allowed! 

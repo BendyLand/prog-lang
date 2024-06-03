@@ -1,5 +1,5 @@
 #include <string>
-#include "utils.hpp" // includes <algorithm>, <cctype>, <locale>
+#include "utils.hpp" // <algorithm>, <cctype>, <locale>
 
 /** trim from start (in place) */
 void ltrim(std::string &s) 

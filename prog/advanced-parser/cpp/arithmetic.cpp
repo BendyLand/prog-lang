@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-#include "arithmetic.hpp" // includes <variant>
+#include "arithmetic.hpp" // <variant>
 
 using namespace std;
 

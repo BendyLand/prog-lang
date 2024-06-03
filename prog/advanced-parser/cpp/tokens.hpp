@@ -10,7 +10,11 @@ enum class Tokens {
     LET,
     IDENTIFIER,
     EQUAL_SIGN,
-    VALUE
+    VALUE,
+    FOR,
+    IF,
+    ELIF,
+    ELSE
 };
 
 class Token 

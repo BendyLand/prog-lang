@@ -1,0 +1,28 @@
+# dune run
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /Users/benlandrette/.cache/dune/db
+# Workspace root:
+# /Users/benlandrette/ccode/prog-lang/prog/experiments/ocaml/lexer
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/Users/benlandrette/ccode/prog-lang/prog/experiments/ocaml/lexer/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /Users/benlandrette/.opam/default/bin/ocamlc.opt -config > /var/folders/s5/ztlk0nc501b3582tqyg_kgl80000gn/T/dune_10eb38_output
+$ (cd _build/default && /Users/benlandrette/.opam/default/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I test/.test_lexer.eobjs/byte -no-alias-deps -opaque -o test/.test_lexer.eobjs/byte/dune__exe__Test_lexer.cmi -c -intf test/test_lexer.mli)
+$ (cd _build/default && /Users/benlandrette/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I test/.test_lexer.eobjs/byte -I test/.test_lexer.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.test_lexer.eobjs/native/dune__exe__Test_lexer.cmx -c -impl test/test_lexer.ml)
+$ (cd _build/default && /Users/benlandrette/.opam/default/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/test_lexer.exe test/.test_lexer.eobjs/native/dune__exe__Test_lexer.cmx)
+$ (cd _build/default/test && ./test_lexer.exe)

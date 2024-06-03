@@ -1,6 +1,6 @@
 #include <vector>
-#include "utils.hpp" // includes <algorithm>, <cctype>, <locale>
-#include "lexer.hpp" // includes <iostream>, <fstream>, "tokens.hpp"/<string>
+#include "utils.hpp" // <algorithm>, <cctype>, <locale>
+#include "lexer.hpp" // <iostream>, <fstream>, "tokens.hpp"/<string>
 
 using namespace std;
 
