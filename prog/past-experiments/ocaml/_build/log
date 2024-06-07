@@ -1,7 +1,0 @@
-# dune init executable lexer
-# OCAMLPARAM: unset
-# Shared cache: disabled
-# Shared cache location: /Users/benlandrette/.cache/dune/db
-# Workspace root:
-# /Users/benlandrette/ccode/language-development/prog/experiments
-# Auto-detected concurrency: 8
