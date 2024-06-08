@@ -19,6 +19,38 @@ const (
 	UNKNOWN S = ""
 )
 
+func CheckSingleLineStatement(line[]S) bool {
+	var result bool
+	switch line[0] {
+	case LET, PUTS, PRINT:
+		result = true
+	default:
+		result = false
+	}
+	return result
+}
+
+func GroupSingleLineStatement(line []S) []S {
+	var result []S
+	result = append(result, line[0])
+	args := strings.Split(string(line[1]), "=")
+	for _, arg := range args {
+		arg = strings.Trim(arg, " ")
+		result = append(result, S(arg))
+	}
+	return result
+}
+
+func GroupLines(tokenizedLines [][]S, groupedLines *[][]S) {
+	for i, line := range tokenizedLines {
+		if CheckSingleLineStatement(line) {
+			groupedLine := GroupSingleLineStatement(line)
+			(*groupedLines)[i] = make([]S, len(groupedLine))
+			(*groupedLines)[i] = groupedLine
+		}
+	}
+}
+
 func TokenizeLines(file string) [][]S {
 	lines := strings.Split(file, "\n")
 	result := make([][]S, len(lines))

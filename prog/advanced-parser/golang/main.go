@@ -3,6 +3,7 @@ package main
 import (
 	"advanced-parser/golang/pkgs/lexer"
 	"advanced-parser/golang/pkgs/parser"
+	"advanced-parser/golang/pkgs/execution"
 	"fmt"
 	"os"
 )
@@ -13,10 +14,12 @@ func main() {
 	file = lexer.Normalize(file)
 	file = lexer.RemoveEmptyLines(file)
 	tokenizedLines := parser.TokenizeLines(file)
-	for _, line := range tokenizedLines {
-		fmt.Println(line)
-	}
+	groupedLines := make([][]parser.S, len(tokenizedLines))
+	parser.GroupLines(tokenizedLines, &groupedLines)
+	execution.SelectExecutables(groupedLines)
 }
+
+
 
 func readFile(path string) string {
 	file, err := os.ReadFile(path)
