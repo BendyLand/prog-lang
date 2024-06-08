@@ -1,12 +1,16 @@
 package main
 
 import (
+	"advanced-parser/golang/pkgs/lexer"
 	"fmt"
 	"os"
 )
 
 func main() {
 	file := readFile("../../../test.pr")
+	file = lexer.RemoveComments(file)
+	file = lexer.Normalize(file)
+	file = lexer.RemoveEmptyLines(file)
 	fmt.Println(file)
 }
 
