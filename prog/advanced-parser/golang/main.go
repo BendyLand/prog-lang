@@ -2,6 +2,7 @@ package main
 
 import (
 	"advanced-parser/golang/pkgs/lexer"
+	"advanced-parser/golang/pkgs/parser"
 	"fmt"
 	"os"
 )
@@ -11,7 +12,10 @@ func main() {
 	file = lexer.RemoveComments(file)
 	file = lexer.Normalize(file)
 	file = lexer.RemoveEmptyLines(file)
-	fmt.Println(file)
+	tokenizedLines := parser.TokenizeLines(file)
+	for _, line := range tokenizedLines {
+		fmt.Println(line)
+	}
 }
 
 func readFile(path string) string {
