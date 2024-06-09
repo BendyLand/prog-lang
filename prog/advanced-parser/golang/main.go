@@ -1,9 +1,10 @@
 package main
 
 import (
+	"advanced-parser/golang/pkgs/execution"
 	"advanced-parser/golang/pkgs/lexer"
 	"advanced-parser/golang/pkgs/parser"
-	"advanced-parser/golang/pkgs/execution"
+	"advanced-parser/golang/pkgs/variables"
 	"fmt"
 	"os"
 )
@@ -16,7 +17,9 @@ func main() {
 	tokenizedLines := parser.TokenizeLines(file)
 	groupedLines := make([][]parser.S, len(tokenizedLines))
 	parser.GroupLines(tokenizedLines, &groupedLines)
-	execution.SelectExecutables(groupedLines)
+	execution.SelectExecutables(groupedLines)	
+	vars := variables.AssignVariables(groupedLines)
+	variables.ShowVariables(vars)
 }
 
 
