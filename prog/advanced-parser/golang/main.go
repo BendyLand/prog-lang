@@ -13,11 +13,12 @@ func main() {
 	file := readFile("../../../test.pr")
 	file = prepareFile(file)
 	tokenizedLines := parser.TokenizeLines(file)
-	groupedLines := make([][]parser.S, len(tokenizedLines))
+	groupedLines := make([][]parser.Str, len(tokenizedLines))
 	parser.GroupLines(tokenizedLines, &groupedLines)
 	execution.SelectExecutables(groupedLines)
 	vars := variables.AssignVariables(groupedLines)
 	variables.ShowVariables(vars)
+	variables.ShowVariableType(vars["testStr"])
 }
 
 func prepareFile(file string) string {

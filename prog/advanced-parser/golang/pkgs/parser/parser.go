@@ -4,22 +4,22 @@ import (
 	"strings"
 )
 
-type S string
+type Str string
 
 const (
-	LET S = "let"
-	IF S = "if"
-	ELIF S = "elif"
-	ELSE S = "else"
-	FOR S = "for"
-	PUTS S = "puts"
-	PRINT S = "print"
-	OP_BRACE S = "{"
-	CL_BRACE S = "}"
-	UNKNOWN S = ""
+	LET Str= "let"
+	IF Str= "if"
+	ELIF Str= "elif"
+	ELSE Str= "else"
+	FOR Str= "for"
+	PUTS= "puts"
+	PRINT Str= "print"
+	OP_BRACE Str= "{"
+	CL_BRACE Str= "}"
+	UNKNOWN Str= ""
 )
 
-func CheckSingleLineStatement(line[]S) bool {
+func CheckSingleLineStatement(line []Str) bool {
 	var result bool
 	switch line[0] {
 	case LET, PUTS, PRINT:
@@ -30,51 +30,51 @@ func CheckSingleLineStatement(line[]S) bool {
 	return result
 }
 
-func GroupSingleLineStatement(line []S) []S {
-	var result []S
+func GroupSingleLineStatement(line []Str) []Str{
+	var result []Str
 	result = append(result, line[0])
 	args := strings.Split(string(line[1]), "=")
 	for _, arg := range args {
 		arg = strings.Trim(arg, " ")
-		result = append(result, S(arg))
+		result = append(result, Str(arg))
 	}
 	return result
 }
 
-func GroupLines(tokenizedLines [][]S, groupedLines *[][]S) {
+func GroupLines(tokenizedLines [][]Str, groupedLines *[][]Str) {
 	for i, line := range tokenizedLines {
 		if CheckSingleLineStatement(line) {
 			groupedLine := GroupSingleLineStatement(line)
-			(*groupedLines)[i] = make([]S, len(groupedLine))
+			(*groupedLines)[i] = make([]Str, len(groupedLine))
 			(*groupedLines)[i] = groupedLine
 		}
 	}
 }
 
-func TokenizeLines(file string) [][]S {
+func TokenizeLines(file string) [][]Str{
 	lines := strings.Split(file, "\n")
-	result := make([][]S, len(lines))
+	result := make([][]Str, len(lines))
 	for i, line := range lines {
 		firstSpace := strings.Index(line, " ")
 		keyword := identifyKeyword(line)
-		remainder := S("")
+		remainder := Str("")
 		if len(line) > 2 {
-			remainder = S(line[firstSpace+1:])
+			remainder = Str(line[firstSpace+1:])
 		}
 
-		result[i] = make([]S, 2)
+		result[i] = make([]Str, 2)
 		result[i][0] = keyword
 		result[i][1] = remainder
 	}
 	return result
 }
 
-func identifyKeyword(line string) S {
+func identifyKeyword(line string) Str{
 	tokens := strings.Split(line, " ")
 	if len(tokens) == 0 {
 		return ""
 	}
-	var result S
+	var result Str
 	switch tokens[0] {
 	case "let":
 		result = LET

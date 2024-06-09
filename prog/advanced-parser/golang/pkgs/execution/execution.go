@@ -5,7 +5,7 @@ import (
 	"advanced-parser/golang/pkgs/parser"
 )
 
-func SelectExecutables(lines [][]parser.S) {
+func SelectExecutables(lines [][]parser.Str) {
 	Loop: for _, line := range lines {
 		if len(line) > 0 {
 			switch line[0] {
@@ -20,10 +20,10 @@ func SelectExecutables(lines [][]parser.S) {
 	}
 }
 
-func execPrint(arg parser.S) {
+func execPrint(arg parser.Str) {
 	fmt.Print(arg)
 }
 
-func execPuts(arg parser.S) {
+func execPuts(arg parser.Str) {
 	fmt.Println(arg)
 }
