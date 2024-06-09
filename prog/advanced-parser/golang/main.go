@@ -11,15 +11,20 @@ import (
 
 func main() {
 	file := readFile("../../../test.pr")
-	file = lexer.RemoveComments(file)
-	file = lexer.Normalize(file)
-	file = lexer.RemoveEmptyLines(file)
+	file = prepareFile(file)
 	tokenizedLines := parser.TokenizeLines(file)
 	groupedLines := make([][]parser.S, len(tokenizedLines))
 	parser.GroupLines(tokenizedLines, &groupedLines)
 	execution.SelectExecutables(groupedLines)
 	vars := variables.AssignVariables(groupedLines)
 	variables.ShowVariables(vars)
+}
+
+func prepareFile(file string) string {
+	file = lexer.RemoveComments(file)
+	file = lexer.Normalize(file)
+	file = lexer.RemoveEmptyLines(file)
+	return file
 }
 
 func readFile(path string) string {
