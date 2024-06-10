@@ -1,36 +1,26 @@
 #include "utils.h"
 
-char* getFileContents()
+char** splitIntoLines(char* file)
 {
-    FILE* fptr;
-    long length;
+    size_t len = strlen(file);
+    char* strCopy = (char*)malloc(len+1);
+    strcpy(strCopy, file);
 
-    fptr = fopen("../../../test.pr", "r");
-    if (fptr == NULL) {
-        perror("Problem opening file.\n");
-        return NULL;
+    size_t count = 0;
+    char* token = strtok(strCopy, "\n");
+    while (token != NULL) {
+        token = strtok(NULL, "\n");
+        count++;
     }
-
-    fseek(fptr, 0, SEEK_END);
-    length = ftell(fptr);
-    rewind(fptr);
-
-    char* buffer = (char*)malloc(sizeof(char) * length + 1);
-    if (buffer == NULL) {
-        perror("Problem creating buffer");
-        fclose(fptr);
-        return NULL;
+    rewind(token);
+    char** result = (char**)malloc(sizeof(char*) * count);
+    size_t i = 0;
+    while (token != NULL) {
+        size_t lineLen = strlen(token);
+        // result[i] = (char*)malloc(lineLen+1);
+        // result = token;
+        // strtok(NULL, "\n");
     }
-
-    if (fread(buffer, sizeof(char), length, fptr) != length) {
-        perror("Failed to read file.");
-        fclose(fptr);
-        free(buffer);
-        return NULL;
-    }
-
-    buffer[length] = '\0';
-    fclose(fptr);
-
-    return buffer;
+    free(strCopy);
+    return result;
 }
