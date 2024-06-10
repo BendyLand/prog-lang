@@ -1,6 +1,6 @@
 #include "utils.h"
 
-char** splitIntoLines(char* file)
+void splitIntoLines(char** buf, char* file)
 {
     size_t len = strlen(file);
     char* strCopy = (char*)malloc(len+1);
