@@ -4,6 +4,29 @@ import "core:fmt"
 import "core:os"
 import "core:strings"
 
+prep_file :: proc(file: string) -> string {
+	file_no_comments := remove_comments(file)
+    file_normalized := normalize(file_no_comments)
+    file_fully_prepped := remove_empty_lines(file_normalized)
+    return file_fully_prepped
+}  
+
+remove_empty_lines :: proc(file: string) -> string {
+    lines := strings.split(file, "\n")
+    result: strings.Builder
+    for line in lines {
+        if len(line) > 0 {
+            strings.write_string(&result, line)
+            strings.write_string(&result, "\n")
+        }
+    }
+    result_str := strings.to_string(result)
+    temp_lines := strings.split(result_str, "\n")
+    temp_lines = temp_lines[:len(temp_lines)-1]
+    result_str = strings.join(temp_lines, "\n")
+    return result_str
+}
+
 normalize :: proc(file: string) -> string {
     lines := strings.split(file, "\n")
     result: strings.Builder
