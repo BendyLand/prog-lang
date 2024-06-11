@@ -1,5 +1,0 @@
-compiler = "gcc"
-path = ""
-files = ["*.c"]
-flags = ["-o"]
-options = [["run"]]
