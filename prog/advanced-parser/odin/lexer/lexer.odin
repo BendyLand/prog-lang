@@ -4,10 +4,22 @@ import "core:fmt"
 import "core:os"
 import "core:strings"
 
+normalize :: proc(file: string) -> string {
+    lines := strings.split(file, "\n")
+    result: strings.Builder
+    for line in lines {
+        temp := strings.trim(line, " ")
+        strings.write_string(&result, temp)
+        strings.write_string(&result, "\n")
+    }
+    result_str := strings.to_string(result)
+    return result_str
+}
+
 remove_comments :: proc(file: string) -> string {
     lines := strings.split(file, "\n")
     result: strings.Builder
-    for line, i in lines {
+    for line in lines {
         if !strings.contains_rune(line, '#') {
             strings.write_string(&result, line)
             strings.write_string(&result, "\n")
