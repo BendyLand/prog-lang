@@ -1,0 +1,26 @@
+#include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
+
+string* readFile(char* path)
+{
+    FILE* ptr;
+    char c;
+    char buf[1024];
+    ptr = fopen(path, "r");
+    if (ptr == NULL) {
+        printf("File can't be opened \n");
+        exit(EXIT_FAILURE);
+    }
+    size_t current = 0;
+    do {
+        c = fgetc(ptr);
+        buf[current] = c;
+        current++;
+    } while (c != EOF);
+    fclose(ptr);
+
+    char* temp = (char*)malloc(current); // `current` is already 1 past where we want
+    for (size_t i = 0; i < current-1; i++) {
+        temp[i] = buf[i];
+    }
+    return str(temp);
+}
