@@ -17,6 +17,10 @@ typedef struct
     size_t length;
 } string;
 
+
+
+string* substr(string* original, size_t start, size_t end);
+
 /** 
  * Constructor function for the string type.
  * @param text The text to convert to a string.

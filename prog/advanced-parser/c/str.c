@@ -1,5 +1,17 @@
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
 
+string* substr(string* original, size_t start, size_t end)
+{
+    size_t len = end - start;
+    char* temp = (char*)malloc(len+1);
+    strncpy(temp, original->data+start, len);
+    temp[len] = '\0';
+    string* result;
+    result = str(temp);
+    free(temp);
+    return result;
+}
+
 bool isEmpty(string* str) 
 {
     if (str->length == 0 || strlen(str->data) < 1) {
