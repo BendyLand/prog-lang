@@ -6,3 +6,5 @@
  * @returns The contents of the file as a string* type.
  */  
 string* readFile(char* path);
+string* removeComments(string** arr);
+void lstrip(string* original);

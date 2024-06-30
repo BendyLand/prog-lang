@@ -4,16 +4,11 @@
 int main(void)
 {
     string* fileContents = readFile("../../../test.pr");
-    // puts(fileContents->data);
 
     string** strArr = splitStr(fileContents, '\n');
 
-    int i = 0;
-    while (strArr[i] != NULL) {
-        puts(strArr[i]->data);
-        i++;
-        if (i > 100) break;
-    }
+    string* noComments = removeComments(strArr);
+    puts(noComments->data);
 
     //todo: create prepareFile(string* file);
 
@@ -25,9 +20,8 @@ int main(void)
 
 // string* prepareFile(string* file)
 // {
-//     // todo:
-//     // removeComments(file);
-//     // normalize(file);
-//     // removeEmptyLines(file);
-//     // return file;
+     // removeComments(file);
+     // normalize(file);
+     // removeEmptyLines(file);
+     // return file;
 // }

@@ -1,6 +1,25 @@
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
 
-void appendStr(string* original, char* suffix)
+size_t lenStrArr(string** strArr)
+{
+    size_t result = 0;
+    while (strArr[result] != NULL) result++;
+    return result;
+}
+
+string* joinStrArr(string** arr, const char* delim)
+{
+    size_t len = 0;
+    while (arr[len] != NULL) len++;
+    string* result = str("");
+    for (size_t i = 0; i < len; i ++) {
+        appendStr(result, arr[i]->data);
+        appendStr(result, delim);
+    }
+    return result;
+}
+
+void appendStr(string* original, const char* suffix)
 {
     size_t newLen = original->length + strlen(suffix) + 1;
     char* newData = (char*)realloc(original->data, newLen);
@@ -31,6 +50,7 @@ string** splitStr(string* original, const char delim)
             result[n] = template;
             clearStr(temp);
             n++;
+            continue;
         }
         c[0] = original->data[i];
         appendStr(temp, c);

@@ -23,8 +23,7 @@ typedef struct
  * @param suffix The text you want to append onto the original.
  * @returns NOTHING. The text is appended to `original` in place. 
  */ 
-void appendStr(string* original, char* suffix);
-
+void appendStr(string* original, const char* suffix);
 
 /**
  * Creates a copy of the provided string.
@@ -75,6 +74,28 @@ void clearStr(string* str);
  */  
 bool isEmpty(string* str);
 
+/**
+ * Splits a string* into a string** by a given delimiter.
+ * @param original The string to split.
+ * @param delim The single-char delimiter to split by.
+ * @returns A string** containing the parts of the original string.
+ * 
+ */
 string** splitStr(string* original, const char delim);
+
+/**
+ * Joins an array of strings (string**) into a string*.
+ * @param arr The array of strings to join.
+ * @param delim The char* delimiter to join by. 
+ * @returns A string* made up of the input array joined by the delimiter. 
+ */
+string* joinStrArr(string** arr, const char* delim);
+
+/**
+ * Finds the length of the provided string array (string**).
+ * @param strArr The array to get the length of. 
+ * @returns The number of elements in the array.
+ */
+size_t lenStrArr(string** strArr);
 
 #endif
