@@ -17,8 +17,22 @@ typedef struct
     size_t length;
 } string;
 
+string** splitStr(string* original, const char delim);
 
+/**
+ * Creates a copy of the provided string.
+ * @param original The string* to copy.
+ * @returns An identical string in newly allocated memory.
+ */  
+string* copyStr(string* original);
 
+/** 
+ * Creates a substring out of the given string and the two indices.
+ * @param original The string to extract the substring from.
+ * @param start The starting index.
+ * @param end The ending index (exclusive).
+ * @returns A new string* made up of the data extracted `original`
+ */  
 string* substr(string* original, size_t start, size_t end);
 
 /** 
@@ -33,6 +47,12 @@ string* str(const char* text);
  * @param str The string* to be freed.
  */ 
 void freeStr(string* str);
+
+/** 
+ * Destructor function for collections of the string type.
+ * @param original The collection of strings to be freed.
+ */ 
+void freeStrArr(string** original);
 
 /** 
  * Function to append text to an existing variable of type string*.
