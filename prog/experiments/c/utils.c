@@ -43,13 +43,3 @@ void lstrip(string* original)
     appendStr(original, temp);
     free(temp);
 }
-
-
-// string* prepareFile(string* file)
-// {
-    // todo:
-    // removeComments(file);
-    // normalize(file);
-    // removeEmptyLines(file);
-    // return file;
-// }
