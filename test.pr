@@ -15,7 +15,7 @@ else {
         puts "x is more than five"
     }
 }
-for i in 0..=10 
+for i in 0..10 
 {
     # do something 11 times
     print "${i}\n"

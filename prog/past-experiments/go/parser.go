@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file := readFile("../../test.pr")
+	file := readFile("../../../test.pr")
 	linesInTokens := parse(file)
 	parseTokens(linesInTokens)
 }
