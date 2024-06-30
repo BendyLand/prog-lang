@@ -13,18 +13,6 @@ void appendStr(string* original, char* suffix)
     original->length = newLen;
 }
 
-void freeStrArr(string** original)
-{
-    if (original) {
-        size_t i = 0;
-        while (original[i] != NULL) {
-            freeStr(original[i]);
-            i++;
-        }
-        free(original);
-    }
-}
-
 string** splitStr(string* original, const char delim)
 {
     string** result;
@@ -53,8 +41,21 @@ string** splitStr(string* original, const char delim)
         n++;
     }
     result[n] = NULL;
+    free(c);
     freeStr(temp);
     return result;
+}
+
+void freeStrArr(string** original)
+{
+    if (original) {
+        size_t i = 0;
+        while (original[i] != NULL) {
+            freeStr(original[i]);
+            i++;
+        }
+        free(original);
+    }
 }
 
 string* copyStr(string* original) 

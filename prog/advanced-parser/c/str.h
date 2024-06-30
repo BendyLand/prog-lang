@@ -17,7 +17,14 @@ typedef struct
     size_t length;
 } string;
 
-string** splitStr(string* original, const char delim);
+/** 
+ * Function to append text to an existing variable of type string*.
+ * @param original The base string. 
+ * @param suffix The text you want to append onto the original.
+ * @returns NOTHING. The text is appended to `original` in place. 
+ */ 
+void appendStr(string* original, char* suffix);
+
 
 /**
  * Creates a copy of the provided string.
@@ -55,14 +62,6 @@ void freeStr(string* str);
 void freeStrArr(string** original);
 
 /** 
- * Function to append text to an existing variable of type string*.
- * @param original The base string. 
- * @param suffix The text you want to append onto the original.
- * @returns NOTHING. The text is appended to `original` in place. 
- */ 
-void appendStr(string* original, char* suffix);
-
-/** 
  * Function to empty the contents of the string.
  * @param str The string to clear.
  * @returns NOTHING. The contents of `str` are removed in place.
@@ -75,5 +74,7 @@ void clearStr(string* str);
  * @returns A boolean value representing if the string is empty ("") or not.
  */  
 bool isEmpty(string* str);
+
+string** splitStr(string* original, const char delim);
 
 #endif

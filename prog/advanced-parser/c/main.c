@@ -19,6 +19,7 @@ int main(void)
 
     freeStr(fileContents);
     freeStrArr(strArr);
+
     return 0;
 }
 
