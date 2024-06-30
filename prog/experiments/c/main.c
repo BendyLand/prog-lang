@@ -1,5 +1,4 @@
-#include "str.h" // stdio.h, stdlib.h, string.h
-#include "utils.h"
+#include "lexer.h" // "str.h", "utils.h", stdio.h, stdlib.h, string.h
 
 int main(void)
 {
@@ -18,10 +17,3 @@ int main(void)
     return 0;
 }
 
-// string* prepareFile(string* file)
-// {
-     // removeComments(file);
-     // normalize(file);
-     // removeEmptyLines(file);
-     // return file;
-// }
