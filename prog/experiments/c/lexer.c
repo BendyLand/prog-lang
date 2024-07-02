@@ -8,11 +8,24 @@
      // return file;
 // }
 
+string* normalize(string** arr)
+{
+    string* result = str("");
+    size_t arrLen = strArrLen(arr);
+    for (size_t i = 0; i < arrLen; i++) {
+        string* temp = strCopy(arr[i]);
+        lstrip(temp);
+        strAppend(result, temp->data);
+        strAppend(result, "\n");
+        strFree(temp);
+    }
+    return result;
+}
+
 string* removeComments(string** arr)
 {
     string* result = str("");
-    size_t arrLen = 0;
-    while (arr[arrLen] != NULL) arrLen++;
+    size_t arrLen = strArrLen(arr);
     for (size_t i = 0; i < arrLen; i++) {
         size_t idx = SIZE_MAX;
         // iterate through the line
@@ -27,11 +40,11 @@ string* removeComments(string** arr)
             temp = substr(arr[i], 0, idx);
         }
         else {
-            temp = copyStr(arr[i]);
+            temp = strCopy(arr[i]);
         }
-        appendStr(result, temp->data);
-        appendStr(result, "\n");
-        freeStr(temp);
+        strAppend(result, temp->data);
+        strAppend(result, "\n");
+        strFree(temp);
     }
     return result;
 }

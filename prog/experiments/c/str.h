@@ -23,14 +23,14 @@ typedef struct
  * @param suffix The text you want to append onto the original.
  * @returns NOTHING. The text is appended to `original` in place. 
  */ 
-void appendStr(string* original, const char* suffix);
+void strAppend(string* original, const char* suffix);
 
 /**
  * Creates a copy of the provided string.
  * @param original The string* to copy.
  * @returns An identical string in newly allocated memory.
  */  
-string* copyStr(string* original);
+string* strCopy(string* original);
 
 /** 
  * Creates a substring out of the given string and the two indices.
@@ -52,27 +52,27 @@ string* str(const char* text);
  * Destructor function for the string type.
  * @param str The string* to be freed.
  */ 
-void freeStr(string* str);
+void strFree(string* str);
 
 /** 
  * Destructor function for collections of the string type.
  * @param original The collection of strings to be freed.
  */ 
-void freeStrArr(string** original);
+void strArrFree(string** original);
 
 /** 
  * Function to empty the contents of the string.
  * @param str The string to clear.
  * @returns NOTHING. The contents of `str` are removed in place.
  */ 
-void clearStr(string* str);
+void strClear(string* str);
 
 /** 
  * Checks if given string has any data.
  * @param str The string to check.
  * @returns A boolean value representing if the string is empty ("") or not.
  */  
-bool isEmpty(string* str);
+bool strIsEmpty(string* str);
 
 /**
  * Splits a string* into a string** by a given delimiter.
@@ -81,7 +81,7 @@ bool isEmpty(string* str);
  * @returns A string** containing the parts of the original string.
  * 
  */
-string** splitStr(string* original, const char delim);
+string** strSplit(string* original, const char delim);
 
 /**
  * Joins an array of strings (string**) into a string*.
@@ -89,13 +89,13 @@ string** splitStr(string* original, const char delim);
  * @param delim The char* delimiter to join by. 
  * @returns A string* made up of the input array joined by the delimiter. 
  */
-string* joinStrArr(string** arr, const char* delim);
+string* strArrJoin(string** arr, const char* delim);
 
 /**
  * Finds the length of the provided string array (string**).
  * @param strArr The array to get the length of. 
  * @returns The number of elements in the array.
  */
-size_t lenStrArr(string** strArr);
+size_t strArrLen(string** strArr);
 
 #endif

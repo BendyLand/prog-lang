@@ -29,9 +29,7 @@ void lstrip(string* original)
 {
     size_t len = original->length;
     size_t i = 0;
-    while (original->data[i] == ' ' || original->data[i] == '\t') {
-        i++;
-    }
+    while (original->data[i] == ' ' || original->data[i] == '\t') i++;
     char* temp = (char*)malloc(len - i + 1);
     size_t j = 0;
     while (i < len) {
@@ -39,7 +37,7 @@ void lstrip(string* original)
         j++;
         i++;
     }
-    clearStr(original);
-    appendStr(original, temp);
+    strClear(original);
+    strAppend(original, temp);
     free(temp);
 }

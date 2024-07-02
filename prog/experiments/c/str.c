@@ -1,25 +1,25 @@
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
 
-size_t lenStrArr(string** strArr)
+size_t strArrLen(string** strArr)
 {
     size_t result = 0;
     while (strArr[result] != NULL) result++;
     return result;
 }
 
-string* joinStrArr(string** arr, const char* delim)
+string* strArrJoin(string** arr, const char* delim)
 {
     size_t len = 0;
     while (arr[len] != NULL) len++;
     string* result = str("");
     for (size_t i = 0; i < len; i ++) {
-        appendStr(result, arr[i]->data);
-        appendStr(result, delim);
+        strAppend(result, arr[i]->data);
+        strAppend(result, delim);
     }
     return result;
 }
 
-void appendStr(string* original, const char* suffix)
+void strAppend(string* original, const char* suffix)
 {
     size_t newLen = original->length + strlen(suffix) + 1;
     char* newData = (char*)realloc(original->data, newLen);
@@ -32,7 +32,7 @@ void appendStr(string* original, const char* suffix)
     original->length = newLen;
 }
 
-string** splitStr(string* original, const char delim)
+string** strSplit(string* original, const char delim)
 {
     string** result;
     size_t len = 0;
@@ -46,39 +46,39 @@ string** splitStr(string* original, const char delim)
     string* temp = str("");
     for (size_t i = 0; i < original->length; i++) {
         if (original->data[i] == delim) {
-            string* template = copyStr(temp);
+            string* template = strCopy(temp);
             result[n] = template;
-            clearStr(temp);
+            strClear(temp);
             n++;
             continue;
         }
         c[0] = original->data[i];
-        appendStr(temp, c);
+        strAppend(temp, c);
     }
     if (strcmp(temp->data, "") != 0) {
-        string* template = copyStr(temp);
+        string* template = strCopy(temp);
         result[n] = template;
         n++;
     }
     result[n] = NULL;
     free(c);
-    freeStr(temp);
+    strFree(temp);
     return result;
 }
 
-void freeStrArr(string** original)
+void strArrFree(string** original)
 {
     if (original) {
         size_t i = 0;
         while (original[i] != NULL) {
-            freeStr(original[i]);
+            strFree(original[i]);
             i++;
         }
         free(original);
     }
 }
 
-string* copyStr(string* original) 
+string* strCopy(string* original) 
 {
     return str(original->data);
 }
@@ -95,7 +95,7 @@ string* substr(string* original, size_t start, size_t end)
     return result;
 }
 
-bool isEmpty(string* str)
+bool strIsEmpty(string* str)
 {
     if (str->length == 0 || strlen(str->data) < 1) {
         return true;
@@ -121,7 +121,7 @@ string* str(const char* text)
     return result;
 }
 
-void freeStr(string* str)
+void strFree(string* str)
 {
     if (str) {
         free(str->data);
@@ -129,7 +129,7 @@ void freeStr(string* str)
     }
 }
 
-void clearStr(string* str)
+void strClear(string* str)
 {
     char* newData = (char*)realloc(str->data, 1);
     if (!newData) {

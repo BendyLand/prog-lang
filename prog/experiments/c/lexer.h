@@ -5,5 +5,6 @@
 #include "utils.h"
 
 string* removeComments(string** arr);
+string* normalize(string** arr);
 
 #endif

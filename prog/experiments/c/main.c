@@ -3,16 +3,19 @@
 int main(void)
 {
     string* fileContents = readFile("../../../test.pr");
-
-    string** strArr = splitStr(fileContents, '\n');
-
+    string** strArr = strSplit(fileContents, '\n');
     string* noComments = removeComments(strArr);
-    puts(noComments->data);
+    string** newStrArr = strSplit(noComments, '\n');
+    string* normalizedStr = normalize(newStrArr);
+
+    puts(normalizedStr->data);
 
     //todo: create prepareFile(string* file);
 
-    freeStr(fileContents);
-    freeStrArr(strArr);
+    strFree(fileContents);
+    strFree(normalizedStr);
+    strArrFree(strArr);
+    strArrFree(newStrArr);
 
     return 0;
 }
