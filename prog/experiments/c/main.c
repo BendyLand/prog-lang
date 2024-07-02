@@ -4,18 +4,25 @@ int main(void)
 {
     string* fileContents = readFile("../../../test.pr");
     string** strArr = strSplit(fileContents, '\n');
+    strFree(fileContents);
+
     string* noComments = removeComments(strArr);
+    strArrFree(strArr);
+
     string** newStrArr = strSplit(noComments, '\n');
     string* normalizedStr = normalize(newStrArr);
 
-    puts(normalizedStr->data);
+    string** thirdStrArr = strSplit(normalizedStr, '\n');
+    strFree(normalizedStr);
+    string* noEmptyLines = removeEmptyLines(thirdStrArr);
+    strArrFree(thirdStrArr);
+
+    puts(noEmptyLines->data);
+
+    strArrFree(newStrArr);
+    strFree(noEmptyLines);
 
     //todo: create prepareFile(string* file);
-
-    strFree(fileContents);
-    strFree(normalizedStr);
-    strArrFree(strArr);
-    strArrFree(newStrArr);
 
     return 0;
 }

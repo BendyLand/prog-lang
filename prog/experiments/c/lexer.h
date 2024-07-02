@@ -6,5 +6,6 @@
 
 string* removeComments(string** arr);
 string* normalize(string** arr);
+string* removeEmptyLines(string** arr);
 
 #endif

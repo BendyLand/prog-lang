@@ -8,6 +8,19 @@
      // return file;
 // }
 
+string* removeEmptyLines(string** arr) 
+{
+    string* result = str("");
+    size_t arrLen = strArrLen(arr);
+    for (size_t i = 0; i < arrLen; i++) {
+        if (!strIsEmpty(arr[i])) {
+            strAppend(result, arr[i]->data);
+            strAppend(result, "\n");
+        }
+    }
+    return result;
+}
+
 string* normalize(string** arr)
 {
     string* result = str("");
