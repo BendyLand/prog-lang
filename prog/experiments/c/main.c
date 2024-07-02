@@ -6,23 +6,14 @@ int main(void)
     string** strArr = strSplit(fileContents, '\n');
     strFree(fileContents);
 
-    string* noComments = removeComments(strArr);
+    string* preparedFile = prepareFile(strArr);
+    puts(preparedFile->data);
+
     strArrFree(strArr);
+    strFree(preparedFile);
 
-    string** newStrArr = strSplit(noComments, '\n');
-    string* normalizedStr = normalize(newStrArr);
-
-    string** thirdStrArr = strSplit(normalizedStr, '\n');
-    strFree(normalizedStr);
-    string* noEmptyLines = removeEmptyLines(thirdStrArr);
-    strArrFree(thirdStrArr);
-
-    puts(noEmptyLines->data);
-
-    strArrFree(newStrArr);
-    strFree(noEmptyLines);
-
-    //todo: create prepareFile(string* file);
+    // puts("Run leaks now...");
+    // fscanf(stdin, "c");
 
     return 0;
 }

@@ -1,12 +1,19 @@
 #include "lexer.h"
 
-// string* prepareFile(string* file)
-// {
-     // removeComments(file);
-     // normalize(file);
-     // removeEmptyLines(file);
-     // return file;
-// }
+string* prepareFile(string** arr)
+{
+    string* noComments = removeComments(arr);
+    strArrFree(arr);
+
+    arr = strSplit(noComments, '\n');
+    string* normalizedStr = normalize(arr);
+    strArrFree(arr);
+
+    arr = strSplit(normalizedStr, '\n');
+    string* noEmptyLines = removeEmptyLines(arr);
+    strFree(normalizedStr);
+    return noEmptyLines;
+}
 
 string* removeEmptyLines(string** arr) 
 {
@@ -41,7 +48,6 @@ string* removeComments(string** arr)
     size_t arrLen = strArrLen(arr);
     for (size_t i = 0; i < arrLen; i++) {
         size_t idx = SIZE_MAX;
-        // iterate through the line
         for (size_t j = 0; j < arr[i]->length; j++) {
             if (arr[i]->data[j] == '#') {
                 idx = j;
