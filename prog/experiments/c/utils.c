@@ -17,7 +17,6 @@ string* readFile(char* path)
         current++;
     } while (c != EOF);
     fclose(ptr);
-
     char* temp = (char*)malloc(current); // `current` is already 1 past where we want
     for (size_t i = 0; i < current-1; i++) {
         temp[i] = buf[i];
@@ -41,3 +40,5 @@ void lstrip(string* original)
     strAppend(original, temp);
     free(temp);
 }
+
+

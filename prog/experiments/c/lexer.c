@@ -4,18 +4,16 @@ string* prepareFile(string** arr)
 {
     string* noComments = removeComments(arr);
     strArrFree(arr);
-
     arr = strSplit(noComments, '\n');
     string* normalizedStr = normalize(arr);
     strArrFree(arr);
-
     arr = strSplit(normalizedStr, '\n');
     string* noEmptyLines = removeEmptyLines(arr);
     strFree(normalizedStr);
     return noEmptyLines;
 }
 
-string* removeEmptyLines(string** arr) 
+string* removeEmptyLines(string** arr)
 {
     string* result = str("");
     size_t arrLen = strArrLen(arr);
@@ -67,3 +65,5 @@ string* removeComments(string** arr)
     }
     return result;
 }
+
+

@@ -36,9 +36,11 @@ string** strSplit(string* original, const char delim)
 {
     string** result;
     size_t len = 0;
-    for (size_t i = 0; i < original->length; i++)
-        if (original->data[i] == delim)
+    for (size_t i = 0; i < original->length; i++) {
+        if (original->data[i] == delim) {
             len++;
+        }
+    }
     result = (string**)malloc(sizeof(string*) * (len + 2));
     size_t n = 0;
     char* c = (char*)malloc(2);
@@ -78,7 +80,7 @@ void strArrFree(string** original)
     }
 }
 
-string* strCopy(string* original) 
+string* strCopy(string* original)
 {
     return str(original->data);
 }
@@ -140,3 +142,5 @@ void strClear(string* str)
     str->data = newData;
     str->length = 0;
 }
+
+
