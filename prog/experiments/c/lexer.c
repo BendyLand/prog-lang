@@ -65,5 +65,3 @@ string* removeComments(string** arr)
     }
     return result;
 }
-
-

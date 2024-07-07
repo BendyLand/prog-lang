@@ -13,5 +13,3 @@ int main(void)
     // fscanf(stdin, "c");
     return 0;
 }
-
-

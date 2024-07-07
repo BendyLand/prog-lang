@@ -142,5 +142,3 @@ void strClear(string* str)
     str->data = newData;
     str->length = 0;
 }
-
-

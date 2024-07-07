@@ -40,5 +40,3 @@ void lstrip(string* original)
     strAppend(original, temp);
     free(temp);
 }
-
-
