@@ -7,6 +7,9 @@ int main(void)
     strFree(fileContents);
     string* preparedFile = prepareFile(strArr);
     puts(preparedFile->data);
+    // todo: design data type storage
+    // todo: design control flow 
+    // todo: execute top level print statements
     strArrFree(strArr);
     strFree(preparedFile);
     // puts("Run leaks now...");
