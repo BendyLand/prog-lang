@@ -4,7 +4,9 @@ string* prepareFile(string** arr)
 {
     string* noComments = removeComments(arr);
     strArrFree(arr);
+    //todo: This is the line that is causing the double free error.
     arr = strSplit(noComments, '\n');
+    strFree(noComments);
     string* normalizedStr = normalize(arr);
     strArrFree(arr);
     arr = strSplit(normalizedStr, '\n');

@@ -21,7 +21,9 @@ string* readFile(char* path)
     for (size_t i = 0; i < current-1; i++) {
         temp[i] = buf[i];
     }
-    return str(temp);
+    string* result = str(temp);
+    free(temp);
+    return result;
 }
 
 void lstrip(string* original)

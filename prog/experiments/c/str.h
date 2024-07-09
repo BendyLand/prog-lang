@@ -17,6 +17,12 @@ typedef struct
     size_t length;
 } string;
 
+typedef struct
+{
+    string** entries;
+    size_t length;
+} stringArray;
+
 /** 
  * Function to append text to an existing variable of type string*.
  * @param original The base string. 
@@ -51,14 +57,16 @@ string* str(const char* text);
 /** 
  * Destructor function for the string type.
  * @param str The string* to be freed.
+ * @returns 1 if the string was successfully freed, 0 otherwise. 
  */ 
 void strFree(string* str);
 
 /** 
  * Destructor function for collections of the string type.
- * @param original The collection of strings to be freed.
+ * @param arr The collection of strings to be freed.
+ * @returns 1 if everything was successfully freed, 0 otherwise. 
  */ 
-void strArrFree(string** original);
+void strArrFree(stringArray* arr);
 
 /** 
  * Function to empty the contents of the string.
@@ -81,7 +89,7 @@ bool strIsEmpty(string* str);
  * @returns A string** containing the parts of the original string.
  * 
  */
-string** strSplit(string* original, const char delim);
+stringArray* strSplit(string* original, const char delim);
 
 /**
  * Joins an array of strings (string**) into a string*.
@@ -89,7 +97,7 @@ string** strSplit(string* original, const char delim);
  * @param delim The char* delimiter to join by. 
  * @returns A string* made up of the input array joined by the delimiter. 
  */
-string* strArrJoin(string** arr, const char* delim);
+string* strArrJoin(string** arr, char* delim);
 
 /**
  * Finds the length of the provided string array (string**).
