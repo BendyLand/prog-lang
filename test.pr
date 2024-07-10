@@ -5,14 +5,20 @@ if x > 10 {
     let y = (5 + 3) ** 2 - 4 / 2
     puts "Here is y: ${y}" # and a bonus comment for fun
 }
+elif x == 10 {
+    puts "Here is a middle section"
+    let temp = "This is a temporary string"
+}
 else {
     # this is the middle part
     print "I'm in the other branch\n"
     print "This is a \"super\" difficult one ${x} and some more text\n"
     if x < 5 {
         puts "x is less than five"
-    } else {
+    } elif x > 5 {
         puts "x is more than five"
+    } else {
+        puts "x is five"
     }
 }
 for i in 0..10 
