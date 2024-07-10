@@ -67,7 +67,7 @@ string* strCopy(string* original);
  * @param delim The single-char delimiter to split by.
  * @returns A stringArray* containing the parts of the original string.
  */
-stringArray* strSplit(string* original, const char delim);
+stringArray* strSplit(string* original, char* delim);
 
 /** 
  * Destructor function for the stringArray* type.
@@ -91,13 +91,6 @@ bool strIsEmpty(string* str);
  */
 string* strArrJoin(string** arr, char* delim);
 
-/**
- * Finds the length of the provided string array (string**).
- * @param strArr The array to get the length of. 
- * @returns The number of elements in the array.
- */
-size_t strArrLen(string** strArr);
-
 /** 
  * Creates a substring out of the given string and the two indices.
  * @param original The string to extract the substring from.
@@ -106,5 +99,11 @@ size_t strArrLen(string** strArr);
  * @returns A new string* made up of the data extracted `original`
  */  
 string* substr(string* original, size_t start, size_t end);
+
+/**
+ * Displays the elements in a string array.
+ * @param arr The string array to display.
+ */
+void strArrDisplay(stringArray* arr);
 
 #endif

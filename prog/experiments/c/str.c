@@ -2,6 +2,10 @@
 
 string* str(const char* text)
 {
+    if (!text) {
+        perror("Null pointer passed to str().\n");
+        exit(EXIT_FAILURE);
+    }
     size_t length = strlen(text);
     string* result = (string*)malloc(sizeof(string));
     if (!result) {
@@ -16,6 +20,7 @@ string* str(const char* text)
     }
     result->length = length;
     strcpy(result->data, text);
+    result->data[length] = '\0';
     return result;
 }
 
@@ -70,63 +75,50 @@ string* strCopy(string* original)
         perror("Error: null pointer passed to strCopy.\n");
         exit(EXIT_FAILURE);
     }
-    char* temp = strdup(original->data);
-    string* result = str(temp);
-    free(temp);
+    string* result;
+    if (original->length > 0) {
+        char* temp = strdup(original->data);
+        result = str(temp);
+        free(temp);
+    }
+    else {
+        result = str("");
+    }
     return result;
 }
 
-stringArray* strSplit(string* original, const char delim)
+stringArray* strSplit(string* original, char* delim)
 {
     string* copy = strCopy(original);
-    if (!copy) {
-        perror("Unable to copy original string.\n");
-        exit(EXIT_FAILURE);
-    }
+    string* copy2 = strCopy(original);
     stringArray* result = (stringArray*)malloc(sizeof(stringArray));
-    if (!result) {
-        perror("Error: Unable to allocate memory for stringArray struct.\n");
-        strFree(copy);
-        exit(EXIT_FAILURE);
-    }
-    size_t len = 1; // at least 1 token
-    for (size_t i = 0; i < copy->length; i++) {
-        if (copy->data[i] == delim) len++;
-    }
-    result->entries = (string**)malloc(sizeof(string*) * (len + 1));
-    if (!result->entries) {
-        perror("Error: Unable to allocate memory for string array.\n");
-        strFree(copy);
-        free(result);
-        exit(EXIT_FAILURE);
-    }
-    char* token = strtok(copy->data, &delim);
     size_t i = 0;
+    char* token = strtok(copy->data, delim);
     while (token != NULL) {
-        result->entries[i] = str(token);
-        if (!result->entries[i]) {
-            for (size_t j = 0; j < i; j++) {
-                strFree(result->entries[j]);
-            }
-            free(result->entries);
-            free(result);
-            strFree(copy);
-            perror("Error: Unable to create string from token.\n");
-            exit(EXIT_FAILURE);
-        }
         i++;
-        token = strtok(NULL, &delim);
+        token = strtok(NULL, delim);
     }
+    free(token);
+    token = strtok(copy2->data, delim);
+    result->entries = (string**)malloc(sizeof(string*) * (i+1));
+    size_t j = 0; 
+    while (token != NULL) {
+        string* temp = str(token);
+        result->entries[j] = temp;
+        j++;
+        token = strtok(NULL, delim);
+    }
+    result->entries[j] = NULL;
+    result->length = i;
     strFree(copy);
-    result->entries[len] = NULL;
-    result->length = len;
+    strFree(copy2);
     return result;
 }
 
 void strArrFree(stringArray* arr)
 {
     if (arr) {
-        if (arr->entries) {
+        if (arr->entries && arr->length > 0) {
             for (size_t i = 0; i < arr->length; i++) {
                 if (arr->entries[i]->data) {
                     free(arr->entries[i]->data);
@@ -144,4 +136,39 @@ void strArrFree(stringArray* arr)
     }
     perror("Error: string array doesn't exist.\n");
     exit(EXIT_FAILURE);
+}
+
+bool strIsEmpty(string* str)
+{
+    return (strcmp(str->data, "") == 0) || str->length == 0;
+}
+
+string* substr(string* original, size_t start, size_t end)
+{
+    size_t newLen = (end - start);
+    char* temp = (char*)malloc(newLen + 1);
+    size_t n = 0;
+    for (size_t i = start; i < end; i++) {
+        temp[n] = original->data[i];
+        n++;
+    }
+    temp[n] = '\0';
+    string* result = str(temp);
+    free(temp);
+    return result;
+}
+
+void strArrDisplay(stringArray* arr)
+{
+    for (size_t i = 0; i < arr->length; i++) {
+        puts(arr->entries[i]->data);
+    }
+}
+
+bool strContains(string* str, const char c)
+{
+    for (size_t i = 0; i < str->length; i++) {
+        if (str->data[i] == c) return true;
+    }
+    return false;
 }

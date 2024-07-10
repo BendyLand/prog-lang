@@ -1,5 +1,5 @@
 compiler = "gcc"
 path = ""
-files = ["main.c", "str.c", "utils.c"] #, "lexer.c"]
-extras = "-o main"
+files = ["main.c", "str.c", "utils.c", "lexer.c"] 
+extras = "-o main -fsanitize=address -g"
 run = "./main"

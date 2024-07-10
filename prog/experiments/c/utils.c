@@ -7,7 +7,7 @@ string* readFile(char* path)
     char buf[1024];
     ptr = fopen(path, "r");
     if (ptr == NULL) {
-        printf("File can't be opened \n");
+        printf("File can't be opened.\n");
         exit(EXIT_FAILURE);
     }
     size_t current = 0;
@@ -21,6 +21,7 @@ string* readFile(char* path)
     for (size_t i = 0; i < current-1; i++) {
         temp[i] = buf[i];
     }
+    temp[current-1] = '\0';
     string* result = str(temp);
     free(temp);
     return result;
@@ -38,6 +39,7 @@ void lstrip(string* original)
         j++;
         i++;
     }
+    temp[j] = '\0';
     strClear(original);
     strAppend(original, temp);
     free(temp);

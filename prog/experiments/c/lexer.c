@@ -1,39 +1,36 @@
 #include "lexer.h"
 
-string* prepareFile(string** arr)
+string* prepareFile(stringArray* arr)
 {
     string* noComments = removeComments(arr);
     strArrFree(arr);
-    //todo: This is the line that is causing the double free error.
-    arr = strSplit(noComments, '\n');
+    arr = strSplit(noComments, "\n");
     strFree(noComments);
     string* normalizedStr = normalize(arr);
     strArrFree(arr);
-    arr = strSplit(normalizedStr, '\n');
+    arr = strSplit(normalizedStr, "\n");
     string* noEmptyLines = removeEmptyLines(arr);
     strFree(normalizedStr);
     return noEmptyLines;
 }
 
-string* removeEmptyLines(string** arr)
+string* removeEmptyLines(stringArray* arr)
 {
     string* result = str("");
-    size_t arrLen = strArrLen(arr);
-    for (size_t i = 0; i < arrLen; i++) {
-        if (!strIsEmpty(arr[i])) {
-            strAppend(result, arr[i]->data);
+    for (size_t i = 0; i < arr->length; i++) {
+        if (!strIsEmpty(arr->entries[i])) {
+            strAppend(result, arr->entries[i]->data);
             strAppend(result, "\n");
         }
     }
     return result;
 }
 
-string* normalize(string** arr)
+string* normalize(stringArray* arr)
 {
     string* result = str("");
-    size_t arrLen = strArrLen(arr);
-    for (size_t i = 0; i < arrLen; i++) {
-        string* temp = strCopy(arr[i]);
+    for (size_t i = 0; i < arr->length; i++) {
+        string* temp = strCopy(arr->entries[i]);
         lstrip(temp);
         strAppend(result, temp->data);
         strAppend(result, "\n");
@@ -42,28 +39,24 @@ string* normalize(string** arr)
     return result;
 }
 
-string* removeComments(string** arr)
+string* removeComments(stringArray* lines)
 {
     string* result = str("");
-    size_t arrLen = strArrLen(arr);
-    for (size_t i = 0; i < arrLen; i++) {
-        size_t idx = SIZE_MAX;
-        for (size_t j = 0; j < arr[i]->length; j++) {
-            if (arr[i]->data[j] == '#') {
-                idx = j;
-                break;
+    for (size_t i = 0; i < lines->length; i++) {
+        string* current = lines->entries[i];
+        char* temp = (char*)malloc(current->length + 1);
+        for (size_t j = 0; j < current->length; j++) {
+            if (current->data[j] == '#') {
+                temp[j] = '\0';
+                goto Next;
             }
+            temp[j] = current->data[j];
         }
-        string* temp;
-        if (idx != SIZE_MAX) {
-            temp = substr(arr[i], 0, idx);
-        }
-        else {
-            temp = strCopy(arr[i]);
-        }
-        strAppend(result, temp->data);
+        temp[current->length] = '\0';
+        Next:
+        strAppend(result, temp);
         strAppend(result, "\n");
-        strFree(temp);
+        free(temp);
     }
     return result;
 }
