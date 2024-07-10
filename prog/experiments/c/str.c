@@ -60,13 +60,67 @@ void strClear(string* original)
         original->length = 0;
         return;
     }
-    perror("strClear: null pointer passed.\n");
+    perror("Error: null pointer passed to strClear.\n");
     exit(EXIT_FAILURE);
+}
+
+string* strCopy(string* original)
+{
+    if (!original) {
+        perror("Error: null pointer passed to strCopy.\n");
+        exit(EXIT_FAILURE);
+    }
+    char* temp = strdup(original->data);
+    string* result = str(temp);
+    free(temp);
+    return result;
 }
 
 stringArray* strSplit(string* original, const char delim)
 {
-    
+    string* copy = strCopy(original);
+    if (!copy) {
+        perror("Unable to copy original string.\n");
+        exit(EXIT_FAILURE);
+    }
+    stringArray* result = (stringArray*)malloc(sizeof(stringArray));
+    if (!result) {
+        perror("Error: Unable to allocate memory for stringArray struct.\n");
+        strFree(copy);
+        exit(EXIT_FAILURE);
+    }
+    size_t len = 1; // at least 1 token
+    for (size_t i = 0; i < copy->length; i++) {
+        if (copy->data[i] == delim) len++;
+    }
+    result->entries = (string**)malloc(sizeof(string*) * (len + 1));
+    if (!result->entries) {
+        perror("Error: Unable to allocate memory for string array.\n");
+        strFree(copy);
+        free(result);
+        exit(EXIT_FAILURE);
+    }
+    char* token = strtok(copy->data, &delim);
+    size_t i = 0;
+    while (token != NULL) {
+        result->entries[i] = str(token);
+        if (!result->entries[i]) {
+            for (size_t j = 0; j < i; j++) {
+                strFree(result->entries[j]);
+            }
+            free(result->entries);
+            free(result);
+            strFree(copy);
+            perror("Error: Unable to create string from token.\n");
+            exit(EXIT_FAILURE);
+        }
+        i++;
+        token = strtok(NULL, &delim);
+    }
+    strFree(copy);
+    result->entries[len] = NULL;
+    result->length = len;
+    return result;
 }
 
 void strArrFree(stringArray* arr)

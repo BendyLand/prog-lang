@@ -1,6 +1,7 @@
 // #include "lexer.h" // "str.h", "utils.h", stdio.h, stdlib.h, string.h
 #include "utils.h"
 #include "str.h"
+#include <unistd.h>
 
 int main(void)
 {
@@ -12,21 +13,14 @@ int main(void)
     puts(test->data);
     printf("Length: %zu\n", test->length);
 
-    // stringArray* testArr = strSplit(test, ' ');
-    // for (size_t i = 0; i < testArr->length; i++) {
-    //     printf("Line: %s\n", testArr->entries[i]->data);
-    // }
-    // printf("Arr length: %zu\n", testArr->length);
+    stringArray* testArr = strSplit(test, ' ');
+    printf("Arr length: %zu\n", testArr->length);
 
     strFree(test);
-    // strArrFree(testArr);
-    // printf("Arr length: %zu\n", testArr->length);
+    strArrFree(testArr);
 
-    // string* fileContents = readFile("../../../test.pr");
-    // string** strArr = strSplit(fileContents, '\n');
-    // string* preparedFile = prepareFile(strArr);
-    // string** newStrArr = strSplit(preparedFile, '\n');
-
+    // gcc main.c str.c utils.c -o main -fsanitize=address -g
+    // sleep(20);
 
     return 0;
 }
@@ -38,5 +32,8 @@ void comment_storage()
     // todo: design control flow 
     // todo: execute top level print statements
 
-
+    // string* fileContents = readFile("../../../test.pr");
+    // string** strArr = strSplit(fileContents, '\n');
+    // string* preparedFile = prepareFile(strArr);
+    // string** newStrArr = strSplit(preparedFile, '\n');
 }
