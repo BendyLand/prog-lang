@@ -1,7 +1,8 @@
 // #include "lexer.h" // "str.h", "utils.h", stdio.h, stdlib.h, string.h
-#include "utils.h"
-#include "str.h"
+
 #include <unistd.h>
+#include "str.h"
+#include "utils.h"
 
 int main(void)
 {
@@ -31,7 +32,6 @@ void comment_storage()
     // todo: design data type storage
     // todo: design control flow 
     // todo: execute top level print statements
-
     // string* fileContents = readFile("../../../test.pr");
     // string** strArr = strSplit(fileContents, '\n');
     // string* preparedFile = prepareFile(strArr);
