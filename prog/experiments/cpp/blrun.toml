@@ -1,0 +1,5 @@
+compiler = "g++ -std=c++20"
+path = ""
+files = ["main.cpp", "utils.cpp", "lexer.cpp"]
+extras = "-o main"
+run = "./main"
