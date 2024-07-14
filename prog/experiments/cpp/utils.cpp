@@ -38,6 +38,11 @@ bool containsEmbeddedString(std::string src)
     return (first != last) && (first != std::string::npos);
 }
 
+bool strContains(std::string haystack, std::string needle)
+{
+    return haystack.find(needle) != std::string::npos;
+}
+
 std::string lstrip(std::string original)
 {
     std::string result = "";
