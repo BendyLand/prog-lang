@@ -39,8 +39,11 @@ bool containsMultipleArgs(string text)
 {
     size_t dQuotes = 0;
     for (size_t i = 0; i < text.size(); i++) {
-        if (text[i] == '\"') dQuotes++;
-        if (dQuotes >= 2 && text[i] == ',') return true;
+        if (text[i] == '\"') {
+            dQuotes++;
+            continue;
+        }
+        if (dQuotes >= 2 && dQuotes % 2 == 0 && text[i] == ',') return true;
     }
     return false;
 }
