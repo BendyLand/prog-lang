@@ -47,12 +47,11 @@ bool containsMultipleArgs(string text)
 
 bool executePrint(string text)
 {
-    //todo: create validation functions for the text.
     if (containsInnerVariables(text)) {
         vector<string> vars = extractInnerVariables(text);
         vars = vecDedup(vars);
         string line = removeFirstToken(text);
-        cout << "This line contains a variable: " << line << endl;
+        cout << "log contains variable: " << line << endl;
         for (string var : vars) {
             cout << "\tVar: " << var << endl;
         }
@@ -77,7 +76,6 @@ bool executePrint(string text)
             }
         }
     }
-    cout << endl;
     return true;
 }
 

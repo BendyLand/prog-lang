@@ -7,12 +7,14 @@ using namespace std;
 int main()
 {
     string file = readFile("../../../test.pr");
-    // cout << "Before: " << endl << file << endl;
     file = prepareFile(file);
     vector<string> lines = strSplit(file, "\n");
     for (string line : lines) {
         if (line.starts_with("print") || line.starts_with("puts")) {
             executePrint(line);
+        }
+        else {
+            cout << "Line: " << line << endl;
         }
     }
     // sleep(10);
