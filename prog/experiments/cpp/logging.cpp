@@ -87,5 +87,5 @@ bool executePrint(string text)
 *     - Panic.
 * - Strings may contain escaped characters.
 *     - Handle per case.
-* - Escaped characters include: \", \r, \n, \t, \\.
+* - Escaped characters (currently) include: \", \r, \n, \t, \\.
 */
