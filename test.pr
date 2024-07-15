@@ -11,7 +11,7 @@ elif x == 10 {
 }
 else {
     # this is the middle part
-    print "I'm in the other branch\n"
+    print "I'm in the other branch", "And I wanted to try out multiple args\n"
     print "This is a \"super\" difficult # (embedded hash) one ${x} and some more text\n"
     if x < 5 {
         puts "x is less than five"
