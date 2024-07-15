@@ -32,7 +32,7 @@ else
 } # Also okay 
 ```
 ```
-if {
+if condition {
 
 }
 else {
