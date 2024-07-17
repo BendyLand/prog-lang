@@ -4,7 +4,6 @@
 #include <iostream>
 #include <boost/regex.hpp>
 
-
 /**
  * @brief Checks the given text for multiple arguments.
  * @param text The string to check.
@@ -22,5 +21,6 @@ bool containsMultipleArgs(std::string text);
 std::vector<std::string> extractInnerVariables(std::string text);
 bool containsInnerVariables(std::string text);
 bool executePrint(std::string text);
+std::string extractTextFromString(std::string original);
 
 #endif

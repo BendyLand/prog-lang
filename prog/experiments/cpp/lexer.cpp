@@ -13,7 +13,7 @@ string prepareFile(string file)
 string normalize(string file)
 {
     string result = "";
-    vector<string> lines = strSplit(file, "\n");
+    vector<string> lines = split(file, "\n");
     for (string line : lines) {
         string temp = lstrip(line);
         result += temp + "\n";
@@ -24,7 +24,7 @@ string normalize(string file)
 string removeComments(string file)
 {
     string result = "";
-    vector<string> lines = strSplit(file, "\n");
+    vector<string> lines = split(file, "\n");
     for (string line : lines) {
         if (line.find("#") != string::npos) {
             size_t comment = line.find("#");
@@ -48,10 +48,12 @@ string removeComments(string file)
 
 string removeEmptyLines(string file)
 {
-    vector<string> lines = strSplit(file, "\n");
+    vector<string> lines = split(file, "\n");
     string result = "";
     for (string line : lines) {
-        if (line.empty()) continue;
+        if (line.empty()) {
+            continue; 
+        }
         result += line + "\n";
     }
     return result;

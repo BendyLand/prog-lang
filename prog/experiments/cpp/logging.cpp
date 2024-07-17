@@ -14,11 +14,22 @@ vector<string> extractInnerVariables(string text)
             boost::smatch m = *iter;
             for (size_t i = 0; i < m.size(); i++) {
                 string item = m[1].str();
-                if (strContains(item, "${")) continue;
+                if (contains(item, "${")) continue;
                 result.push_back(item);
             }
             iter++;
         }
+    }
+    return result;
+}
+
+string extractTextFromString(string original)
+{
+    string result = original;
+    boost::regex pat("\"(.*)\"");
+    boost::smatch m;
+    if (boost::regex_search(original, m, pat)) {
+        result = m[1];
     }
     return result;
 }
@@ -52,7 +63,7 @@ bool executePrint(string text)
 {
     if (containsInnerVariables(text)) {
         vector<string> vars = extractInnerVariables(text);
-        vars = vecDedup(vars);
+        vars = dedup(vars);
         string line = removeFirstToken(text);
         cout << "log contains variable: " << line << endl;
         for (string var : vars) {
@@ -66,7 +77,13 @@ bool executePrint(string text)
                 cout << "print multiple args: " << argStr << endl;
             }
             else {
-                cout << "print single arg: " <<  argStr << endl;
+                if (contains(argStr, "\"")) {
+                    string text = extractTextFromString(argStr);
+                    cout << text;
+                }
+                else {
+                    cout << "Printing variable: " << argStr << endl;
+                }
             }
         }
         else {
@@ -75,7 +92,13 @@ bool executePrint(string text)
                 cout << "puts multiple args: " << argStr << endl;
             }
             else {
-                cout << "puts single arg: " <<  argStr << endl;
+                if (contains(argStr, "\"")) {
+                    string text = extractTextFromString(argStr);
+                    cout << text << endl;
+                }
+                else {
+                    cout << "Printing variable with newline: " << argStr << endl;
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ std::string readFile(std::string path)
     return result;
 }
 
-std::vector<std::string> strSplit(std::string text, std::string delim)
+std::vector<std::string> split(std::string text, std::string delim)
 {
     size_t pos = 0;
     std::string token;
@@ -38,7 +38,7 @@ bool containsEmbeddedString(std::string src)
     return (first != last) && (first != std::string::npos);
 }
 
-bool strContains(std::string haystack, std::string needle)
+bool contains(std::string haystack, std::string needle)
 {
     return haystack.find(needle) != std::string::npos;
 }
@@ -47,8 +47,35 @@ std::string lstrip(std::string original)
 {
     std::string result = "";
     for (char c : original) {
-        if (result.size() == 0 && c == ' ') continue;
+        if (result.size() == 0 && c == ' ') {
+            continue; // just until I fix blfmt
+        }
         result += c;
     }
     return result;
+}
+
+std::string reverse(std::string original)
+{
+    std::string result = "";
+    for (size_t i = original.size(); i >= 0; i--) {
+        result += original[i];
+    }
+    return result;
+}
+
+std::string rstrip(std::string original)
+{
+    std::string result = "";
+    if (!original.ends_with(" ")) {
+        return original;
+    }
+    std::string temp = reverse(original);
+    for (size_t i = 0; i < temp.size(); i++) {
+        if (result.size() == 0 && temp[i] == ' ') {
+            continue;
+        }
+        result += temp[i];
+    }
+    return reverse(result);
 }
