@@ -3,7 +3,7 @@
 
 using namespace std;
 
-vector<string> extractInnerVariables(string text)
+vector<string> extractInnerStrVariables(string text)
 {
     vector<string> result;
     boost::regex pat("\\$\\{(.*?)\\}");
@@ -59,10 +59,10 @@ bool containsMultipleArgs(string text)
     return false;
 }
 
-bool executePrint(string text)
+void executePrint(string text)
 {
     if (containsInnerVariables(text)) {
-        vector<string> vars = extractInnerVariables(text);
+        vector<string> vars = extractInnerStrVariables(text);
         vars = dedup(vars);
         string line = removeFirstToken(text);
         cout << "log contains variable: " << line << endl;
@@ -102,7 +102,6 @@ bool executePrint(string text)
             }
         }
     }
-    return true;
 }
 
 /*

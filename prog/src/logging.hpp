@@ -18,9 +18,9 @@
  * @note RIGHT: puts "", var1, var2
  */
 bool containsMultipleArgs(std::string text);
-std::vector<std::string> extractInnerVariables(std::string text);
+std::vector<std::string> extractInnerStrVariables(std::string text);
 bool containsInnerVariables(std::string text);
-bool executePrint(std::string text);
+void executePrint(std::string text);
 std::string extractTextFromString(std::string original);
 
 #endif

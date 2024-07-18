@@ -1,4 +1,4 @@
-#include "lexer.hpp" // "utils.hpp" -> iostream, string, fstream, vector
+#include "lexer.hpp" // "utils.hpp" -> iostream, string, fstream, vector; "symbols.hpp" -> unordered_map, variant; <boost/regex.hpp>
 
 using namespace std;
 
@@ -52,9 +52,78 @@ string removeEmptyLines(string file)
     string result = "";
     for (string line : lines) {
         if (line.empty()) {
-            continue; 
+            continue;
         }
         result += line + "\n";
     }
+    return result;
+}
+
+bool identifyArithmeticExpression(string line)
+{
+    boost::regex pat(R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)");
+    return boost::regex_match(line, pat);
+}
+
+string extractVarName(string line)
+{
+    vector<string> words = split(line, " ");
+    string name = "";
+    if (words.size() > 1) {
+        if (words[1] != "mut") {
+            name = words[1];
+        }
+        else {
+            name = words[2];
+        }
+    }
+    return name;
+}
+
+AnyType extractVarValue(string line)
+{
+    size_t start = line.find("=");
+    if (start == string::npos) return "";
+    string result = lstrip(line.substr(start+1));
+    //todo: finish inferType()
+    AnyType _result = inferType(result);
+    return _result;
+}
+
+AnyType inferType(string original)
+{
+    boost::regex doublePat("[0-9]*\\.[0-9]+");
+    boost::regex intPat("[0-9]+");
+    boost::regex boolPat("true|false");
+    boost::regex strPat(R"(\".*\")");
+    original = strip(original);
+    if (boost::regex_match(original, doublePat)) {
+        cout << original << " is a double!" << endl;
+    }
+    else if (boost::regex_match(original, intPat)) {
+        cout << original << " is an integer!" << endl;
+    }
+    else if (boost::regex_match(original, boolPat)) {
+        cout << original << " is a bool!" << endl;
+    }
+    else if (count(original, '\'') == 2 && original.size() <= 3) {
+        cout << original << " is a char!" << endl;
+    }
+    else if (boost::regex_match(original, strPat)) {
+        cout << original << " is a string!" << endl;
+    }
+    else {
+        original = removeInnerWhitespace(original);
+        if (identifyArithmeticExpression(original)) {
+            // just in case: R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)"
+            cout << original << " is an arithmetic expression!" << endl;
+            //todo: create reduceArithmeticExpression()
+        }
+        else {
+            cout << original << " is another variable" << endl;
+            //? Possible confident return unknown value as "variable" type and error later?
+        }
+    }
+    AnyType result;
     return result;
 }

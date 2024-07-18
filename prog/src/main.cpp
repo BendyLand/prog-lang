@@ -10,13 +10,16 @@ int main()
     string file = readFile("../../test.pr");
     Variables vars;
     SymbolTable symbols(vars);
-    symbols.addVar("test", 25);
-    symbols.displayVars();
     file = prepareFile(file);
     vector<string> lines = split(file, "\n");
     for (string line : lines) {
         if (line.starts_with("print") || line.starts_with("puts")) {
             executePrint(line);
+        }
+        else if (line.starts_with("let")) {
+            //todo: create extractVarName(), extractVarValue(), then save them to symbols.
+            string name = extractVarName(line);
+            AnyType value = extractVarValue(line);
         }
         else {
             cout << "Line: " << line << endl;

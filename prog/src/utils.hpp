@@ -8,10 +8,13 @@
 
 std::string lstrip(std::string original);
 std::string rstrip(std::string original);
+std::string strip(std::string original);
+std::string removeInnerWhitespace(std::string original);
 std::string readFile(std::string path);
 std::vector<std::string> split(std::string text, std::string delim);
 bool containsEmbeddedString(std::string src);
 bool contains(std::string haystack, std::string needle);
+size_t count(std::string str, char c);
 
 template<typename T>
 bool contains(std::vector<T> vec, T item)
