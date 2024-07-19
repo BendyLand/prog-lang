@@ -10,7 +10,7 @@ std::string normalize(std::string file);
 std::string removeComments(std::string file);
 std::string removeEmptyLines(std::string file);
 std::string extractVarName(std::string line);
+std::string inferType(std::string original);
 AnyType extractVarValue(std::string line);
-AnyType inferType(std::string original);
 // boost::regex pat(R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)"); pattern to match arithmetic
 #endif

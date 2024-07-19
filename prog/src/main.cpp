@@ -18,6 +18,7 @@ int main()
         }
         else if (line.starts_with("let")) {
             //todo: create extractVarName(), extractVarValue(), then save them to symbols.
+            cout << "Saving variable... (nothing happens yet)" << endl;
             string name = extractVarName(line);
             AnyType value = extractVarValue(line);
         }

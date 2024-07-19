@@ -84,46 +84,46 @@ AnyType extractVarValue(string line)
 {
     size_t start = line.find("=");
     if (start == string::npos) return "";
-    string result = lstrip(line.substr(start+1));
-    //todo: finish inferType()
-    AnyType _result = inferType(result);
+    string result = strip(line.substr(start+1));
+    string valType = inferType(result);
+    //todo: create parseValType()
+    cout << "Val: " << result << " ; Type: " << valType << endl;
+    AnyType _result;
     return _result;
 }
 
-AnyType inferType(string original)
+string inferType(string original)
 {
     boost::regex doublePat("[0-9]*\\.[0-9]+");
     boost::regex intPat("[0-9]+");
     boost::regex boolPat("true|false");
     boost::regex strPat(R"(\".*\")");
-    original = strip(original);
+    string result;
     if (boost::regex_match(original, doublePat)) {
-        cout << original << " is a double!" << endl;
+        result = "double";
     }
     else if (boost::regex_match(original, intPat)) {
-        cout << original << " is an integer!" << endl;
+        result = "int";
     }
     else if (boost::regex_match(original, boolPat)) {
-        cout << original << " is a bool!" << endl;
+        result = "bool";
     }
     else if (count(original, '\'') == 2 && original.size() <= 3) {
-        cout << original << " is a char!" << endl;
+        result = "char";
     }
     else if (boost::regex_match(original, strPat)) {
-        cout << original << " is a string!" << endl;
+        result = "str"; 
     }
     else {
         original = removeInnerWhitespace(original);
         if (identifyArithmeticExpression(original)) {
             // just in case: R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)"
-            cout << original << " is an arithmetic expression!" << endl;
+            result = "arithmetic";
             //todo: create reduceArithmeticExpression()
         }
         else {
-            cout << original << " is another variable" << endl;
-            //? Possible confident return unknown value as "variable" type and error later?
+            result = "variable";
         }
     }
-    AnyType result;
     return result;
 }
