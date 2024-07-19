@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <variant>
+#include "symbols.hpp"
 
 std::string lstrip(std::string original);
 std::string rstrip(std::string original);
@@ -15,6 +17,7 @@ std::vector<std::string> split(std::string text, std::string delim);
 bool containsEmbeddedString(std::string src);
 bool contains(std::string haystack, std::string needle);
 size_t count(std::string str, char c);
+std::string getVarType(AnyType var);
 
 template<typename T>
 bool contains(std::vector<T> vec, T item)

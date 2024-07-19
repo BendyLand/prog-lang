@@ -80,16 +80,43 @@ string extractVarName(string line)
     return name;
 }
 
+AnyType parseValIntoType(string val, string type)
+{
+    AnyType result;
+    if (type == "int") {
+        result = std::stoi(val);
+    }
+    else if (type == "double") {
+        result = std::stod(val);
+    }
+    else if (type == "char") {
+        result = val[1]; 
+    }
+    else if (type == "bool") {
+        result = (val == "true") ? true : false;
+    }
+    else if (type == "arithmetic") {
+        //todo: reduce arithmetic
+        result = val; //! temporary
+    }
+    else if (type == "variable") {
+        //todo: lookup variables 
+        result = val; //! temporary
+    }
+    else {
+        result = val.substr(1, val.size()-2);
+    }
+    return result;
+}
+
 AnyType extractVarValue(string line)
 {
     size_t start = line.find("=");
     if (start == string::npos) return "";
-    string result = strip(line.substr(start+1));
-    string valType = inferType(result);
-    //todo: create parseValType()
-    cout << "Val: " << result << " ; Type: " << valType << endl;
-    AnyType _result;
-    return _result;
+    string resultStr = strip(line.substr(start+1));
+    string valType = inferType(resultStr);
+    AnyType result = parseValIntoType(resultStr, valType);
+    return result;
 }
 
 string inferType(string original)

@@ -1,4 +1,5 @@
 #include "symbols.hpp"
+#include "utils.hpp"
 
 SymbolTable::SymbolTable(Variables vars) : m_vars(vars)
 {}
@@ -15,10 +16,13 @@ void SymbolTable::addVar(std::string name, AnyType value)
 
 void SymbolTable::displayVars()
 {
-    std::cout << "Current Variables:" << std::endl;
+    std::cout << "\nCurrent Variables:" << std::endl << std::endl;
     size_t i = this->m_vars.size();
     for (auto& var : this->m_vars) {
-        std::cout << i << ".) " << var.first << ": " << var.second;
+        std::string varType = getVarType(var.second);
+        std::cout << "Name: " << var.first << std::endl;
+        std::cout << "Value: " << var.second; 
+        std::cout << "Type: " << varType << std::endl << std::endl;
         i--;
     }
 }

@@ -12,5 +12,6 @@ std::string removeEmptyLines(std::string file);
 std::string extractVarName(std::string line);
 std::string inferType(std::string original);
 AnyType extractVarValue(std::string line);
+AnyType parseValIntoType(std::string val, std::string type);
 // boost::regex pat(R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)"); pattern to match arithmetic
 #endif

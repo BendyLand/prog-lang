@@ -104,3 +104,24 @@ size_t count(string str, char c)
     }
     return result;
 }
+
+string getVarType(AnyType var)
+{
+    string result = "";
+    if (holds_alternative<int>(var)) {
+        result = "int";
+    }
+    else if (holds_alternative<double>(var)) {
+        result = "double";
+    }
+    else if (holds_alternative<char>(var)) {
+        result = "char";
+    }
+    else if (holds_alternative<string>(var)) {
+        result = "str";
+    }
+    else if (holds_alternative<bool>(var)) {
+        result = "bool";
+    }
+    return result;
+}
