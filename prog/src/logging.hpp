@@ -1,8 +1,8 @@
 #ifndef LOGGING_HPP
 #define LOGGING_HPP
 
-#include <iostream>
 #include <boost/regex.hpp>
+#include "utils.hpp" // "symbols.hpp" -> iostream, unordered_map, variant; string, fstream, vector
 
 /**
  * @brief Checks the given text for multiple arguments.

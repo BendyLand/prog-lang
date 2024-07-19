@@ -1,9 +1,9 @@
 #ifndef LEXER_HPP
 #define LEXER_HPP
 
-#include "utils.hpp" // iostream, string, fstream, vector
-#include "symbols.hpp"
 #include <boost/regex.hpp>
+#include "utils.hpp" // iostream, string, fstream, vector
+#include "symbols.hpp" // iostream, unordered_map, variant
 
 std::string prepareFile(std::string file);
 std::string normalize(std::string file);

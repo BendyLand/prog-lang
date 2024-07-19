@@ -6,7 +6,7 @@
 #include <fstream>
 #include <vector>
 #include <variant>
-#include "symbols.hpp"
+#include "symbols.hpp" // iostream, unordered_map, variant
 
 std::string lstrip(std::string original);
 std::string rstrip(std::string original);

@@ -1,5 +1,4 @@
-#include "symbols.hpp"
-#include "utils.hpp"
+#include "utils.hpp" // "symbols.hpp" -> iostream, unordered_map, variant; string, fstream, vector
 
 SymbolTable::SymbolTable(Variables vars) : m_vars(vars)
 {}

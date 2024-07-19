@@ -1,4 +1,4 @@
-#include "utils.hpp"
+#include "utils.hpp" // "symbols.hpp" -> iostream, unordered_map, variant; string, fstream, vector
 
 using namespace std;
 
@@ -50,7 +50,7 @@ string lstrip(string original)
     string result = "";
     for (char c : original) {
         if (result.size() == 0 && isspace(c)) {
-            continue; // just until I fix blfmt
+            continue; 
         }
         result += c;
     }
@@ -68,13 +68,12 @@ string reverse(string original)
 
 string rstrip(string original)
 {
-    string result;
     if (!original.ends_with(" ")) {
         return original;
     }
     string temp = reverse(original);
     temp = lstrip(temp);
-    result = reverse(temp);
+    string result = reverse(temp);
     return result;
 }
 
