@@ -12,9 +12,9 @@ class SymbolTable
 {
 public:
     SymbolTable(Variables vars);
-    Variables getVars();
-    void displayVars();
-    void addVar(std::string name, AnyType value);
+    Variables get_vars();
+    void display_vars();
+    void add_var(std::string name, AnyType value);
 
 private:
     Variables m_vars;

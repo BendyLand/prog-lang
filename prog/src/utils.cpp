@@ -1,11 +1,9 @@
 #include "utils.hpp" // "symbols.hpp" -> iostream, unordered_map, variant; string, fstream, vector
 
-using namespace std;
-
-string readFile(string path)
+std::string read_file(std::string path)
 {
-    ifstream file(path);
-    string result;
+    std::ifstream file(path);
+    std::string result;
     char c;
     while (file) {
         c = file.get();
@@ -17,12 +15,12 @@ string readFile(string path)
     return result;
 }
 
-vector<string> split(string text, string delim)
+std::vector<std::string> split(std::string text, std::string delim)
 {
     size_t pos = 0;
-    string token;
-    vector<string> result;
-    while ((pos = text.find(delim)) != string::npos) {
+    std::string token;
+    std::vector<std::string> result;
+    while ((pos = text.find(delim)) != std::string::npos) {
         token = text.substr(0, pos);
         result.push_back(token);
         text.erase(0, pos + delim.size());
@@ -33,60 +31,60 @@ vector<string> split(string text, string delim)
     return result;
 }
 
-bool containsEmbeddedString(string src)
+bool contains_embedded_string(std::string src)
 {
     size_t first = src.find_first_of("\"");
     size_t last = src.find_last_of("\"");
-    return (first != last) && (first != string::npos);
+    return (first != last) && (first != std::string::npos);
 }
 
-bool contains(string haystack, string needle)
+bool contains(std::string haystack, std::string needle)
 {
-    return haystack.find(needle) != string::npos;
+    return haystack.find(needle) != std::string::npos;
 }
 
-string lstrip(string original)
+std::string lstrip(std::string original)
 {
-    string result = "";
+    std::string result = "";
     for (char c : original) {
         if (result.size() == 0 && isspace(c)) {
-            continue; 
+            continue;
         }
         result += c;
     }
     return result;
 }
 
-string reverse(string original)
+std::string reverse(std::string original)
 {
-    string result = "";
+    std::string result = "";
     for (int i = original.size()-1; i >= 0; i--) {
         result += original[i];
     }
     return result;
 }
 
-string rstrip(string original)
+std::string rstrip(std::string original)
 {
     if (!original.ends_with(" ")) {
         return original;
     }
-    string temp = reverse(original);
+    std::string temp = reverse(original);
     temp = lstrip(temp);
-    string result = reverse(temp);
+    std::string result = reverse(temp);
     return result;
 }
 
-string strip(string original)
+std::string strip(std::string original)
 {
-    string result = original;
+    std::string result = original;
     result = rstrip(original);
     return lstrip(result);
 }
 
-string removeInnerWhitespace(string original)
+std::string remove_inner_whitespace(std::string original)
 {
-    string result = "";
+    std::string result = "";
     for (char c : original) {
         if (!isspace(c)) {
             result += c;
@@ -95,7 +93,7 @@ string removeInnerWhitespace(string original)
     return result;
 }
 
-size_t count(string str, char c)
+size_t count(std::string str, char c)
 {
     size_t result = 0;
     for (char ch : str) {
@@ -104,9 +102,9 @@ size_t count(string str, char c)
     return result;
 }
 
-string getVarType(AnyType var)
+std::string get_var_type(AnyType var)
 {
-    string result = "";
+    std::string result = "";
     if (holds_alternative<int>(var)) {
         result = "int";
     }
@@ -116,7 +114,7 @@ string getVarType(AnyType var)
     else if (holds_alternative<char>(var)) {
         result = "char";
     }
-    else if (holds_alternative<string>(var)) {
+    else if (holds_alternative<std::string>(var)) {
         result = "str";
     }
     else if (holds_alternative<bool>(var)) {

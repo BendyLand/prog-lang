@@ -17,10 +17,10 @@
  * @note RIGHT: puts "${var1}", var2
  * @note RIGHT: puts "", var1, var2
  */
-bool containsMultipleArgs(std::string text);
-std::vector<std::string> extractInnerStrVariables(std::string text);
-bool containsInnerVariables(std::string text);
-void executePrint(std::string text);
-std::string extractTextFromString(std::string original);
+bool contains_multiple_args(std::string text);
+std::vector<std::string> extract_inner_str_variables(std::string text);
+bool contains_inner_variables(std::string text);
+void execute_print(std::string text);
+std::string extract_text_from_string(std::string original);
 
 #endif

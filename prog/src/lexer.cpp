@@ -1,35 +1,34 @@
 #include "lexer.hpp" // "utils.hpp" -> iostream, string, fstream, vector; "symbols.hpp" -> unordered_map, variant; <boost/regex.hpp>
 #include "logging.hpp" // "utils.hpp", <boost/regex.hpp>
+#include "arithmetic.hpp"
 
-using namespace std;
-
-string prepareFile(string file)
+std::string prepare_file(std::string file)
 {
-    file = removeComments(file);
+    file = remove_comments(file);
     file = normalize(file);
-    file = removeEmptyLines(file);
+    file = remove_empty_lines(file);
     return file;
 }
 
-string normalize(string file)
+std::string normalize(std::string file)
 {
-    string result = "";
-    vector<string> lines = split(file, "\n");
-    for (string line : lines) {
-        string temp = lstrip(line);
+    std::string result = "";
+    std::vector<std::string> lines = split(file, "\n");
+    for (std::string line : lines) {
+        std::string temp = lstrip(line);
         result += temp + "\n";
     }
     return result;
 }
 
-string removeComments(string file)
+std::string remove_comments(std::string file)
 {
-    string result = "";
-    vector<string> lines = split(file, "\n");
-    for (string line : lines) {
-        if (line.find("#") != string::npos) {
+    std::string result = "";
+    std::vector<std::string> lines = split(file, "\n");
+    for (std::string line : lines) {
+        if (line.find("#") != std::string::npos) {
             size_t comment = line.find("#");
-            if (containsEmbeddedString(line)) {
+            if (contains_embedded_string(line)) {
                 size_t start = line.find_first_of("\"");
                 size_t end = line.find_last_of("\"");
                 if (comment > start && comment < end) {
@@ -37,7 +36,7 @@ string removeComments(string file)
                     continue; //! currently cannot place comments after strings that contain '#'
                 }
             }
-            string temp = line.substr(0, comment);
+            std::string temp = line.substr(0, comment);
             result += temp + "\n";
         }
         else {
@@ -47,11 +46,11 @@ string removeComments(string file)
     return result;
 }
 
-string removeEmptyLines(string file)
+std::string remove_empty_lines(std::string file)
 {
-    vector<string> lines = split(file, "\n");
-    string result = "";
-    for (string line : lines) {
+    std::vector<std::string> lines = split(file, "\n");
+    std::string result = "";
+    for (std::string line : lines) {
         if (line.empty()) {
             continue;
         }
@@ -60,16 +59,16 @@ string removeEmptyLines(string file)
     return result;
 }
 
-bool identifyArithmeticExpression(string line)
+bool identify_arithmetic_expression(std::string line)
 {
-    boost::regex pat(R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)");
+    boost::regex pat(R"(\(?\-?\d+(.\d+)?([\+\-\*/]?\(?\d+(.\d+)?\)?)+)");
     return boost::regex_match(line, pat);
 }
 
-string extractVarName(string line)
+std::string extract_var_name(std::string line)
 {
-    vector<string> words = split(line, " ");
-    string name = "";
+    std::vector<std::string> words = split(line, " ");
+    std::string name = "";
     if (words.size() > 1) {
         if (words[1] != "mut") {
             name = words[1];
@@ -81,7 +80,7 @@ string extractVarName(string line)
     return name;
 }
 
-AnyType parseValIntoType(string val, string type)
+AnyType parse_val_into_type(std::string val, std::string type)
 {
     AnyType result;
     if (type == "int") {
@@ -91,17 +90,17 @@ AnyType parseValIntoType(string val, string type)
         result = std::stod(val);
     }
     else if (type == "char") {
-        result = val[1]; 
+        result = val[1];
     }
     else if (type == "bool") {
         result = (val == "true") ? true : false;
     }
     else if (type == "arithmetic") {
-        //todo: reduce arithmetic
-        result = val; //! temporary
+        double temp = reduce_arithmetic_expr(val);
+        result = temp; 
     }
     else if (type == "variable") {
-        //todo: lookup variables 
+        //todo: lookup variables
         result = val; //! temporary
     }
     else {
@@ -110,23 +109,23 @@ AnyType parseValIntoType(string val, string type)
     return result;
 }
 
-AnyType extractVarValue(string line)
+AnyType extract_var_value(std::string line)
 {
     size_t start = line.find("=");
-    if (start == string::npos) return "";
-    string resultStr = strip(line.substr(start+1));
-    string valType = inferType(resultStr);
-    AnyType result = parseValIntoType(resultStr, valType);
+    if (start == std::string::npos) return "";
+    std::string resultStr = strip(line.substr(start+1));
+    std::string valType = infer_type(resultStr);
+    AnyType result = parse_val_into_type(resultStr, valType);
     return result;
 }
 
-string inferType(string original)
+std::string infer_type(std::string original)
 {
     boost::regex doublePat("[0-9]*\\.[0-9]+");
     boost::regex intPat("[0-9]+");
     boost::regex boolPat("true|false");
     boost::regex strPat(R"(\".*\")");
-    string result;
+    std::string result;
     if (boost::regex_match(original, doublePat)) {
         result = "double";
     }
@@ -140,14 +139,13 @@ string inferType(string original)
         result = "char";
     }
     else if (boost::regex_match(original, strPat)) {
-        result = "str"; 
+        result = "str";
     }
     else {
-        original = removeInnerWhitespace(original);
-        if (identifyArithmeticExpression(original)) {
+        original = remove_inner_whitespace(original);
+        if (identify_arithmetic_expression(original)) {
             // just in case: R"(\(?\-?\d+(.\d+)?([\+\-\*/]\*?\(?\d+(.\d+)?\)?)+)"
             result = "arithmetic";
-            //todo: create reduceArithmeticExpression()
         }
         else {
             result = "variable";

@@ -11,13 +11,13 @@
 std::string lstrip(std::string original);
 std::string rstrip(std::string original);
 std::string strip(std::string original);
-std::string removeInnerWhitespace(std::string original);
-std::string readFile(std::string path);
+std::string remove_inner_whitespace(std::string original);
+std::string read_file(std::string path);
 std::vector<std::string> split(std::string text, std::string delim);
-bool containsEmbeddedString(std::string src);
+bool contains_embedded_string(std::string src);
 bool contains(std::string haystack, std::string needle);
 size_t count(std::string str, char c);
-std::string getVarType(AnyType var);
+std::string get_var_type(AnyType var);
 
 template<typename T>
 bool contains(std::vector<T> vec, T item)

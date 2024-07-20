@@ -3,22 +3,22 @@
 SymbolTable::SymbolTable(Variables vars) : m_vars(vars)
 {}
 
-Variables SymbolTable::getVars()
+Variables SymbolTable::get_vars()
 {
     return this->m_vars;
 }
 
-void SymbolTable::addVar(std::string name, AnyType value)
+void SymbolTable::add_var(std::string name, AnyType value)
 {
     this->m_vars.insert_or_assign(name, value);
 }
 
-void SymbolTable::displayVars()
+void SymbolTable::display_vars()
 {
     std::cout << "\nCurrent Variables:" << std::endl << std::endl;
     size_t i = this->m_vars.size();
     for (auto& var : this->m_vars) {
-        std::string varType = getVarType(var.second);
+        std::string varType = get_var_type(var.second);
         std::cout << "Name: " << var.first << std::endl;
         std::cout << "Value: " << var.second; 
         std::cout << "Type: " << varType << std::endl << std::endl;
