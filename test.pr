@@ -6,7 +6,7 @@ let var_b = 2.1
 let var_c = 'z'
 let var_d = "dee"
 if x > 10 {
-    let y = (5 + 3) ** 2 - 4 / 2
+    let y = (5 + 3) * 2 - 4 / 2
     puts "Here is y: ${y}" # and a bonus comment for fun
 }
 elif x == 10 {
