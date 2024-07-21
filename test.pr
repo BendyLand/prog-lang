@@ -1,4 +1,4 @@
-print "This is a test of Prog\n"
+print "This is a \"test\" of Prog\n"
 puts "this is another" 
 let x = 6/(3*2)-4+12 # here's a weird one 
 let var_a = 1

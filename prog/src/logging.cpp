@@ -1,4 +1,4 @@
-#include "logging.hpp" // "utils.hpp" -> "symbols.hpp" -> 
+#include "logging.hpp" // "utils.hpp" -> "symbols.hpp" ->
                        // iostream, unordered_map, variant; string, fstream, vector; <boost/regex.hpp>
 
 std::vector<std::string> extract_inner_str_variables(std::string text)
@@ -59,12 +59,8 @@ bool contains_multiple_args(std::string text)
 
 void execute_print(std::string text)
 {
-    //todo: handle escape chars
     bool has_escape_char = false;
     if (contains(text, "\\")) has_escape_char = true;
-    if (has_escape_char) {
-        std::cout << text << std::endl;
-    }
     if (contains_inner_variables(text)) {
         std::vector<std::string> vars = extract_inner_str_variables(text);
         vars = dedup(vars);
@@ -83,6 +79,9 @@ void execute_print(std::string text)
             else {
                 if (contains(argStr, "\"")) {
                     std::string text = extract_text_from_string(argStr);
+                    if (has_escape_char) {
+                        text = handle_escape_chars(text);
+                    }
                     std::cout << text;
                 }
                 else {
@@ -98,6 +97,9 @@ void execute_print(std::string text)
             else {
                 if (contains(argStr, "\"")) {
                     std::string text = extract_text_from_string(argStr);
+                    if (has_escape_char) {
+                        text = handle_escape_chars(text);
+                    }
                     std::cout << text << std::endl;
                 }
                 else {
@@ -108,13 +110,44 @@ void execute_print(std::string text)
     }
 }
 
+std::string handle_escape_chars(std::string text)
+{
+    std::string result;
+    std::vector<std::string> valid_escapes = {"\\r", "\\n", "\\t", "\\\\", "\\\""};
+    if (contains_any(text, valid_escapes)) {
+        while (contains_any(text, valid_escapes)) {
+            if (contains(text, "\\r")) {
+                size_t idx = text.find("\\r");
+                result = text.replace(idx, 2, "\r");
+            }
+            if (contains(text, "\\n")) {
+                size_t idx = text.find("\\n");
+                result = text.replace(idx, 2, "\n");
+            }
+            if (contains(text, "\\t")) {
+                size_t idx = text.find("\\t");
+                result = text.replace(idx, 2, "\t");
+            }
+            if (contains(text, "\\\\")) {
+                size_t idx = text.find("\\\\");
+                result = text.replace(idx, 2, "\\");
+            }
+            if (contains(text, "\\\"")) {
+                size_t idx = text.find("\\\"");
+                result = text.replace(idx, 2, "\"");
+            }
+        }
+    }
+    return result;
+}
+
 /*
 * Complications:
 * - Variables may be passed before they exist.
 *     - Panic.
 * - DQuotes may be unmatched.
 *     - Panic.
-* - Strings may contain escaped characters.
-*     - Handle per case.
-* - Escaped characters (currently) include: \", \r, \n, \t, \\.
+// - Strings may contain escaped characters.
+//     - Handle per case.
+// - Escaped characters (currently) include: \", \r, \n, \t, \\.
 */

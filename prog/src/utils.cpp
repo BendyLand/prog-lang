@@ -122,3 +122,13 @@ std::string get_var_type(AnyType var)
     }
     return result;
 }
+
+bool contains_any(std::string haystack, std::vector<std::string> needles)
+{
+    for (std::string needle : needles) {
+        if (haystack.find(needle) != std::string::npos) {
+            return true;
+        }
+    }
+    return false;
+}

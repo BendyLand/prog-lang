@@ -22,5 +22,6 @@ std::vector<std::string> extract_inner_str_variables(std::string text);
 bool contains_inner_variables(std::string text);
 void execute_print(std::string text);
 std::string extract_text_from_string(std::string original);
+std::string handle_escape_chars(std::string text);
 
 #endif
