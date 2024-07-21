@@ -1,5 +1,5 @@
 compiler = "g++ -std=c++20"
 path = ""
 files = ["main.cpp", "utils.cpp", "lexer.cpp", "logging.cpp", "symbols.cpp", "arithmetic.cpp"]
-extras = "-I /Users/benlandrette/ccode/third-party-libs/boost/1.85.0/include -o main"
+extras = "-I /Users/benlandrette/ccode/serious-projects/prog-lang/prog/src/include" # "-I /Users/benlandrette/ccode/third-party-libs/boost/1.85.0/include -o main"
 run = "./main"

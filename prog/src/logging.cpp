@@ -59,6 +59,12 @@ bool contains_multiple_args(std::string text)
 
 void execute_print(std::string text)
 {
+    //todo: handle escape chars
+    bool has_escape_char = false;
+    if (contains(text, "\\")) has_escape_char = true;
+    if (has_escape_char) {
+        std::cout << text << std::endl;
+    }
     if (contains_inner_variables(text)) {
         std::vector<std::string> vars = extract_inner_str_variables(text);
         vars = dedup(vars);
