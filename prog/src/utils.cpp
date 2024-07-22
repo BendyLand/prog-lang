@@ -132,3 +132,11 @@ bool contains_any(std::string haystack, std::vector<std::string> needles)
     }
     return false;
 }
+
+bool contains_key(std::unordered_map<std::string, AnyType> haystack, std::string needle)
+{
+    for (auto pair : haystack) {
+        if (pair.first == needle) return true;
+    }
+    return false;
+}

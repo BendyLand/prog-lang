@@ -13,8 +13,11 @@ class SymbolTable
 public:
     SymbolTable(Variables vars);
     Variables get_vars();
+    AnyType get_val(std::string name);
+    bool contains_all(std::vector<std::string> found_vars);
     void display_vars();
     void add_var(std::string name, AnyType value);
+    std::string any_to_string(AnyType val);
 
 private:
     Variables m_vars;
@@ -38,6 +41,27 @@ inline std::ostream& operator<<(std::ostream& os, const AnyType& any)
         os << (std::get<bool>(any) ? "true" : "false") << std::endl;
     }
     return os;
+}
+
+inline std::string any_to_string(AnyType val)
+{
+    std::string result;
+    if (std::holds_alternative<int>(val)) {
+        result = std::to_string(std::get<int>(val));
+    }
+    else if (std::holds_alternative<double>(val)) {
+        result = std::to_string(std::get<double>(val));
+    }
+    else if (std::holds_alternative<char>(val)) {
+        result = std::to_string(std::get<char>(val));
+    }
+    else if (std::holds_alternative<std::string>(val)) {
+        result = std::get<std::string>(val);
+    }
+    else if (std::holds_alternative<bool>(val)) {
+        result = std::to_string(std::get<bool>(val));
+    }
+    return result;
 }
 
 #endif

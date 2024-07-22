@@ -19,6 +19,7 @@ bool contains(std::string haystack, std::string needle);
 size_t count(std::string str, char c);
 std::string get_var_type(AnyType var);
 bool contains_any(std::string haystack, std::vector<std::string> needles);
+bool contains_key(std::unordered_map<std::string, AnyType> haystack, std::string needle);
 
 template<typename T>
 bool contains(std::vector<T> vec, T item)

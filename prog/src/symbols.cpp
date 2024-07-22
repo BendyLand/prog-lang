@@ -25,3 +25,19 @@ void SymbolTable::display_vars()
         i--;
     }
 }
+
+bool SymbolTable::contains_all(std::vector<std::string> found_vars)
+{
+    for (std::string var : found_vars) {
+        if (!contains_key(this->m_vars, var)) return false;
+    }
+    return true;
+}
+
+AnyType SymbolTable::get_val(std::string name)
+{
+    for (auto pair : this->m_vars) {
+        if (pair.first == name) return pair.second;
+    }
+    return "VAR_NOT_FOUND";
+}

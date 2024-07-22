@@ -1,6 +1,6 @@
+#include "arithmetic.hpp"
 #include "lexer.hpp" // "utils.hpp" -> iostream, string, fstream, vector; "symbols.hpp" -> unordered_map, variant; <boost/regex.hpp>
 #include "logging.hpp" // "utils.hpp", <boost/regex.hpp>
-#include "arithmetic.hpp"
 
 std::string prepare_file(std::string file)
 {
@@ -97,7 +97,7 @@ AnyType parse_val_into_type(std::string val, std::string type)
     }
     else if (type == "arithmetic") {
         double temp = reduce_arithmetic_expr(val);
-        result = temp; 
+        result = temp;
     }
     else if (type == "variable") {
         //todo: lookup variables

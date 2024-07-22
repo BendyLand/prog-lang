@@ -12,7 +12,7 @@ int main()
     std::vector<std::string> lines = split(file, "\n");
     for (std::string line : lines) {
         if (line.starts_with("print") || line.starts_with("puts")) {
-            execute_print(line);
+            execute_print(line, symbols);
         }
         else if (line.starts_with("let")) {
             std::string name = extract_var_name(line);
@@ -20,9 +20,10 @@ int main()
             symbols.add_var(name, value);
         }
         else {
-            // cout << "Line: " << line << endl;
+            std::cout << "This line hasn't been handled yet: " << line << std::endl;
         }
     }
+    std::cout << "\n\nDisplaying current variables:" << std::endl;
     symbols.display_vars();
     // sleep(10);
     return 0;

@@ -1,6 +1,6 @@
 #include "logging.hpp" // "utils.hpp" -> "symbols.hpp" ->
                        // iostream, unordered_map, variant; string, fstream, vector; <boost/regex.hpp>
-
+#include "symbols.hpp"
 std::vector<std::string> extract_inner_str_variables(std::string text)
 {
     std::vector<std::string> result;
@@ -10,7 +10,7 @@ std::vector<std::string> extract_inner_str_variables(std::string text)
         boost::sregex_iterator end;
         while (iter != end) {
             boost::smatch m = *iter;
-            for (size_t i = 0; i < m.size(); i++) {
+            for (size_t i = 0; i < m.size()/2; i++) {
                 std::string item = m[1].str();
                 if (contains(item, "${")) continue;
                 result.push_back(item);
@@ -57,17 +57,55 @@ bool contains_multiple_args(std::string text)
     return false;
 }
 
-void execute_print(std::string text)
+std::string insert_inner_variables(std::string original, std::vector<std::string> found_vars, SymbolTable vars)
 {
-    bool has_escape_char = false;
-    if (contains(text, "\\")) has_escape_char = true;
+    std::vector<std::string> var_values;
+    for (std::string name : found_vars) {
+        AnyType val = vars.get_val(name);
+        std::string val_str = any_to_string(val);
+        var_values.push_back(val_str);
+    }
+    size_t current = 0;
+    size_t x = 0;
+    while (original.find("${", current) != std::string::npos) {
+        size_t idx = original.find("${", current);
+        size_t len = original.find("}") - idx + 1;
+        original = original.replace(idx, len, var_values[x]);
+        current = idx+1;
+        x++;
+    }
+    return original;
+}
+
+void execute_print(std::string text, SymbolTable saved_vars)
+{
+    bool has_escape_char = contains(text, "\\");
     if (contains_inner_variables(text)) {
         std::vector<std::string> vars = extract_inner_str_variables(text);
-        vars = dedup(vars);
-        std::string line = remove_first_token(text);
-        std::cout << "log contains variable: " << line << std::endl;
-        for (std::string var : vars) {
-            std::cout << "\tVar: " << var << std::endl;
+        std::string line = extract_text_from_string(text);
+        if (!saved_vars.contains_all(vars)) {
+            std::cerr << "Attempt to print unknown variable." << std::endl;
+            exit(1);
+        }
+        line = insert_inner_variables(line, vars, saved_vars);
+        if (has_escape_char) {
+            line = handle_escape_chars(line);
+        }
+        if (text.starts_with("print")) {
+            if (contains_multiple_args(line)) {
+                std::cout << "print multiple args: " << line << std::endl;
+            }
+            else {
+                std::cout << line;
+            }
+        }
+        else {
+            if (contains_multiple_args(line)) {
+                std::cout << "puts multiple args: " << line << std::endl;
+            }
+            else {
+                std::cout << line << std::endl;
+            }
         }
     }
     else {
