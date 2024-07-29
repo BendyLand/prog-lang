@@ -15,6 +15,7 @@ public:
     Variables get_g_vars();
     void display_l_vars_list();
     void add_l_var(std::string name, AnyType val, std::string l_var_name);
+    void pop_l_vars(std::string vars);
     void new_l_vars(std::string name);
     std::optional<Variables> get_l_vars_list(std::string name);
     std::optional<AnyType> get_val(std::string name);

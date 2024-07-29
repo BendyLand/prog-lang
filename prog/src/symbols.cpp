@@ -79,3 +79,12 @@ void SymbolTable::new_l_vars(std::string name)
     std::unordered_map<std::string, AnyType> vars;
     this->m_l_vars.insert_or_assign(name, vars);
 }
+
+void SymbolTable::pop_l_vars(std::string vars)
+{
+    for (auto item : this->m_l_vars) {
+        if (item.first == vars) {
+            this->m_l_vars.erase(vars);
+        }
+    }
+}

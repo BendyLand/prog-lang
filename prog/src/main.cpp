@@ -21,6 +21,7 @@ int main()
         }
         else {
             std::cout << "This line hasn't been handled yet: " << line << std::endl;
+            //todo: this is where local var scopes will be initialized. 
         }
     }
     std::cout << "\n\nDisplaying current variables:" << std::endl;
