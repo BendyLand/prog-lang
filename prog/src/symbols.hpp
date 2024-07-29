@@ -12,15 +12,20 @@ class SymbolTable
 {
 public:
     SymbolTable(Variables vars);
-    Variables get_vars();
-    AnyType get_val(std::string name);
+    Variables get_g_vars();
+    void display_l_vars_list();
+    void add_l_var(std::string name, AnyType val, std::string l_var_name);
+    void new_l_vars(std::string name);
+    std::optional<Variables> get_l_vars_list(std::string name);
+    std::optional<AnyType> get_val(std::string name);
     bool contains_all(std::vector<std::string> found_vars);
     void display_vars();
     void add_var(std::string name, AnyType value);
-    std::string any_to_string(AnyType val);
+    inline std::string any_to_string(AnyType val);
 
 private:
-    Variables m_vars;
+    Variables m_g_vars;
+    std::unordered_map<std::string, Variables> m_l_vars;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const AnyType& any)

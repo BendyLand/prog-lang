@@ -6,8 +6,8 @@
 int main()
 {
     std::string file = read_file("../../test.pr");
-    Variables vars;
-    SymbolTable symbols(vars);
+    Variables global_vars;
+    SymbolTable symbols(global_vars);
     file = prepare_file(file);
     std::vector<std::string> lines = split(file, "\n");
     for (std::string line : lines) {

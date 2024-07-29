@@ -61,7 +61,14 @@ std::string insert_inner_variables(std::string original, std::vector<std::string
 {
     std::vector<std::string> var_values;
     for (std::string name : found_vars) {
-        AnyType val = vars.get_val(name);
+        std::optional<AnyType> val_ = vars.get_val(name);
+        AnyType val;
+        if (val_.has_value()) {
+            val = val_.value();
+        }
+        else {
+            exit(EXIT_FAILURE);
+        }
         std::string val_str = any_to_string(val);
         var_values.push_back(val_str);
     }
