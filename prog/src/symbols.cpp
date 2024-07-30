@@ -14,7 +14,7 @@ void SymbolTable::add_var(std::string name, AnyType value)
     this->m_g_vars.insert_or_assign(name, value);
 }
 
-void SymbolTable::display_vars()
+void SymbolTable::display_g_vars()
 {
     std::cout << "\nCurrent Variables:" << std::endl << std::endl;
     size_t i = this->m_g_vars.size();
@@ -45,6 +45,7 @@ std::optional<AnyType> SymbolTable::get_val(std::string name)
 
 void SymbolTable::display_l_vars_list()
 {
+    std::cout << "Displaying local variable tables:" << std::endl;
     for (auto list : this->m_l_vars) {
         std::cout << list.first << ":" << std::endl;
         for (auto item : list.second) {
@@ -86,4 +87,9 @@ void SymbolTable::pop_l_vars(std::string vars)
             this->m_l_vars.erase(vars);
         }
     }
+}
+
+void SymbolTable::cleanup_l_vars()
+{
+    this->m_l_vars.clear();
 }

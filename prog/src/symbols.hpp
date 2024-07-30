@@ -16,11 +16,12 @@ public:
     void display_l_vars_list();
     void add_l_var(std::string name, AnyType val, std::string l_var_name);
     void pop_l_vars(std::string vars);
+    void cleanup_l_vars();
     void new_l_vars(std::string name);
     std::optional<Variables> get_l_vars_list(std::string name);
     std::optional<AnyType> get_val(std::string name);
     bool contains_all(std::vector<std::string> found_vars);
-    void display_vars();
+    void display_g_vars();
     void add_var(std::string name, AnyType value);
     inline std::string any_to_string(AnyType val);
 
