@@ -1,6 +1,5 @@
-#include "utils.hpp" // "symbols.hpp" -> iostream, unordered_map, variant; string, fstream, vector
 #include <optional>
-//todo: Implement method to add a locally scoped Variables table
+#include "utils.hpp" // "symbols.hpp" -> iostream, unordered_map, variant; string, fstream, vector
 
 SymbolTable::SymbolTable(Variables vars) : m_g_vars(vars)
 {}
@@ -44,17 +43,17 @@ std::optional<AnyType> SymbolTable::get_val(std::string name)
     return std::nullopt;
 }
 
-void SymbolTable::display_l_vars_list() 
+void SymbolTable::display_l_vars_list()
 {
     for (auto list : this->m_l_vars) {
         std::cout << list.first << ":" << std::endl;
         for (auto item : list.second) {
-            std::cout << item.first << ": " << item.second; 
+            std::cout << item.first << ": " << item.second;
         }
     }
 }
 
-std::optional<Variables> SymbolTable::get_l_vars_list(std::string name) 
+std::optional<Variables> SymbolTable::get_l_vars_list(std::string name)
 {
     for (auto list : this->m_l_vars) {
         if (list.first == name) {

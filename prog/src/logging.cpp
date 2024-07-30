@@ -1,6 +1,7 @@
 #include "logging.hpp" // "utils.hpp" -> "symbols.hpp" ->
                        // iostream, unordered_map, variant; string, fstream, vector; <boost/regex.hpp>
 #include "symbols.hpp"
+
 std::vector<std::string> extract_inner_str_variables(std::string text)
 {
     std::vector<std::string> result;

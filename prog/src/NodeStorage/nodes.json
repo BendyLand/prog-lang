@@ -1,0 +1,4 @@
+{
+	"current": "instantiate local vars for each line that should have one",
+	"note.current": "will need destructor"
+}

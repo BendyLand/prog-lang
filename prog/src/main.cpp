@@ -20,8 +20,21 @@ int main()
             symbols.add_var(name, value);
         }
         else {
-            std::cout << "This line hasn't been handled yet: " << line << std::endl;
-            //todo: this is where local var scopes will be initialized. 
+            if (lstrip(line).starts_with("if")) {
+                std::cout << "Handle if statement: " << line << std::endl;
+            }
+            else if (line.find("elif") != std::string::npos) {
+                std::cout << "Handle elif: " << line << std::endl;
+            }
+            else if (line.find("else") != std::string::npos) {
+                std::cout << "Handle else: " << line << std::endl;
+            }
+            else if (lstrip(line).starts_with("for")) {
+                std::cout << "Handle loop: " << line << std::endl;
+            }
+            else {
+                std::cout << "Unknown line: " << line << std::endl;
+            }
         }
     }
     std::cout << "\n\nDisplaying current variables:" << std::endl;
