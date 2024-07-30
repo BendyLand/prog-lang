@@ -3,7 +3,7 @@
 #include "logging.hpp" // iostream, <boost/regex.hpp>
 #include "symbols.hpp" // iostream, variant, unordered_map
 
-void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols);
+void mainLoop(std::vector<std::string>&, SymbolTable&);
 
 int main()
 {
