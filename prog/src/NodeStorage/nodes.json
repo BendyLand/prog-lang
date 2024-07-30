@@ -1,4 +1,5 @@
 {
 	"current": "instantiate local vars for each line that should have one",
-	"note.current": "will need destructor"
+	"note.current": "will need destructor",
+	"thought": "update build script to be able to compile single files and re-link them to the final product"
 }
