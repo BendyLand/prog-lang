@@ -2,6 +2,7 @@
 #include "lexer.hpp" // "utils.hpp" -> iostream, fstream, string, vector
 #include "logging.hpp" // iostream, <boost/regex.hpp>
 #include "symbols.hpp" // iostream, variant, unordered_map
+#include "conditional.hpp"
 
 void mainLoop(std::vector<std::string>&, SymbolTable&);
 
@@ -31,6 +32,7 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
         if (line.starts_with("print") || line.starts_with("puts")) {
             //! strings with more than two vars interpolated are cut short.
             //todo: find valid place to rescope back to global.
+            //todo: handle conditional execution instead. If only one scope is chosen, rescope isn't necessary.
             execute_print(line, symbols);
         }
         else if (line.starts_with("let")) {
@@ -56,14 +58,16 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
         }
         else {
             if (lstrip(line).starts_with("if")) {
-                std::cout << "Handle if statement: " << line << std::endl;
+                std::string test = extract_conditional_expr(line);
+                std::cout << "If condition: " << test << std::endl;
                 symbols.new_l_vars("if_"+std::to_string(num_if_scopes));
                 scope_storage = last_local_scope;
                 last_local_scope = 'i';
                 num_if_scopes++;
             }
             else if (contains(line, "elif")) {
-                std::cout << "Handle elif: " << line << std::endl;
+                std::string test = extract_conditional_expr(line);
+                std::cout << "Elif condition: " << test << std::endl;
                 if (contains(line, "}")) num_if_scopes--;
                 symbols.new_l_vars("elif_"+std::to_string(num_elif_scopes));
                 scope_storage = last_local_scope;

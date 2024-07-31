@@ -33,9 +33,11 @@ bool SymbolTable::contains_all(std::vector<std::string> found_vars)
     bool local = false;
     for (std::string var : found_vars) {
         if (!contains_key(this->m_g_vars, var)) global = false;
-        for (auto tbl : this->m_l_vars) {
-            for (auto item : tbl.second) {
-                if (item.first == var) local = true;
+        if (!global) {
+            for (auto tbl : this->m_l_vars) {
+                for (auto item : tbl.second) {
+                    if (item.first == var) local = true;
+                }
             }
         }
     }
