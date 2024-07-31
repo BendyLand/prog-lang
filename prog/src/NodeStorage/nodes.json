@@ -1,5 +1,5 @@
 {
-	"current": "instantiate local vars for each line that should have one",
-	"note.current": "will need destructor",
-	"thought": "update build script to be able to compile single files and re-link them to the final product"
+	"note.current": "simplify down to a single possibility and extend that implication.",
+	"explanation.note": "e.g. loops can only be boolean, but the 'in' expressions could be handled specially.",
+	"current": "parse conditional and loop logic."
 }
