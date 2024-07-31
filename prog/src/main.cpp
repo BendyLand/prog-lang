@@ -13,6 +13,7 @@ int main()
     file = prepare_file(file);
     std::vector<std::string> lines = split(file, "\n");
     mainLoop(lines, symbols);
+    std::cout << "Here" << std::endl;
     // sleep(10);
     return 0;
 }
@@ -25,19 +26,39 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     int num_else_scopes = 0;
     int num_for_scopes = 0;
     char last_local_scope = 'g';
+    char scope_storage = last_local_scope;
     for (std::string line : lines) {
         if (line.starts_with("print") || line.starts_with("puts")) {
+            //! strings with more than two vars interpolated are cut short.
+            //todo: find valid place to rescope back to global.
             execute_print(line, symbols);
         }
         else if (line.starts_with("let")) {
             std::string name = extract_var_name(line);
             AnyType value = extract_var_value(line);
-            symbols.add_var(name, value);
+            switch (last_local_scope) {
+            case 'i':
+                symbols.add_l_var(name, value, "if_"+std::to_string(num_if_scopes-1));
+                break;
+            case 'l':
+                symbols.add_l_var(name, value, "elif_"+std::to_string(num_elif_scopes-1));
+                break;
+            case 's':
+                symbols.add_l_var(name, value, "else_"+std::to_string(num_else_scopes-1));
+                break;
+            case 'f':
+                symbols.add_l_var(name, value, "for_"+std::to_string(num_for_scopes-1));
+                break;
+            default:
+                symbols.add_var(name, value);
+                break;
+            }
         }
         else {
             if (lstrip(line).starts_with("if")) {
                 std::cout << "Handle if statement: " << line << std::endl;
                 symbols.new_l_vars("if_"+std::to_string(num_if_scopes));
+                scope_storage = last_local_scope;
                 last_local_scope = 'i';
                 num_if_scopes++;
             }
@@ -45,6 +66,7 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 std::cout << "Handle elif: " << line << std::endl;
                 if (contains(line, "}")) num_if_scopes--;
                 symbols.new_l_vars("elif_"+std::to_string(num_elif_scopes));
+                scope_storage = last_local_scope;
                 last_local_scope = 'l';
                 num_elif_scopes++;
             }
@@ -52,12 +74,14 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 std::cout << "Handle else: " << line << std::endl;
                 if (contains(line, "}")) num_elif_scopes--;
                 symbols.new_l_vars("else_"+std::to_string(num_else_scopes));
+                scope_storage = last_local_scope;
                 last_local_scope = 's';
                 num_else_scopes++;
             }
             else if (lstrip(line).starts_with("for")) {
                 std::cout << "Handle loop: " << line << std::endl;
                 symbols.new_l_vars("for_"+std::to_string(num_for_scopes));
+                scope_storage = last_local_scope;
                 last_local_scope = 'f';
                 num_for_scopes++;
             }
@@ -82,6 +106,7 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                         break;
                     }
                 }
+                last_local_scope = scope_storage;
             }
         }
     }

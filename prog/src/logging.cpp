@@ -92,6 +92,8 @@ void execute_print(std::string text, SymbolTable saved_vars)
         std::vector<std::string> vars = extract_inner_str_variables(text);
         std::string line = extract_text_from_string(text);
         if (!saved_vars.contains_all(vars)) {
+            //! strings with more than two vars interpolated are cut short.
+            //todo: find valid place to rescope back to global.
             std::cerr << "Attempt to print unknown variable." << std::endl;
             exit(1);
         }

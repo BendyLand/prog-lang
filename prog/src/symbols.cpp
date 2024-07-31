@@ -29,16 +29,28 @@ void SymbolTable::display_g_vars()
 
 bool SymbolTable::contains_all(std::vector<std::string> found_vars)
 {
+    bool global = true;
+    bool local = false;
     for (std::string var : found_vars) {
-        if (!contains_key(this->m_g_vars, var)) return false;
+        if (!contains_key(this->m_g_vars, var)) global = false;
+        for (auto tbl : this->m_l_vars) {
+            for (auto item : tbl.second) {
+                if (item.first == var) local = true;
+            }
+        }
     }
-    return true;
+    return (global || local);
 }
 
 std::optional<AnyType> SymbolTable::get_val(std::string name)
 {
     for (auto pair : this->m_g_vars) {
         if (pair.first == name) return pair.second;
+    }
+    for (auto pair : this->m_l_vars) {
+        for (auto tbl : pair.second) {
+            if (tbl.first == name) return tbl.second;
+        }
     }
     return std::nullopt;
 }
