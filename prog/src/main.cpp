@@ -14,7 +14,6 @@ int main()
     file = prepare_file(file);
     std::vector<std::string> lines = split(file, "\n");
     mainLoop(lines, symbols);
-    std::cout << "Here" << std::endl;
     // sleep(10);
     return 0;
 }
@@ -28,11 +27,21 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     int num_for_scopes = 0;
     char last_local_scope = 'g';
     char scope_storage = last_local_scope;
+    bool if_skip = false;
+    bool elif_skip = false;
+    bool else_skip = false;
+    std::string current_attempt = "";
     for (std::string line : lines) {
+        if (if_skip || elif_skip || else_skip) {
+            if (contains(line, "}") && strip(line).size() < 2) {
+                if (if_skip) if_skip = false;
+                else if (elif_skip) elif_skip = false;
+                else if (else_skip) else_skip = false;
+            }
+            continue;
+        }
         if (line.starts_with("print") || line.starts_with("puts")) {
             //! strings with more than two vars interpolated are cut short.
-            //todo: find valid place to rescope back to global.
-            //todo: handle conditional execution instead. If only one scope is chosen, rescope isn't necessary.
             execute_print(line, symbols);
         }
         else if (line.starts_with("let")) {
@@ -58,29 +67,56 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
         }
         else {
             if (lstrip(line).starts_with("if")) {
-                std::string test = extract_conditional_expr(line);
-                std::cout << "If condition: " << test << std::endl;
-                symbols.new_l_vars("if_"+std::to_string(num_if_scopes));
-                scope_storage = last_local_scope;
-                last_local_scope = 'i';
-                num_if_scopes++;
+                std::string expr = extract_conditional_expr(line);
+                bool condition_result = evaluate_conditional(expr, symbols);
+                if (condition_result) {
+                    symbols.new_l_vars("if_"+std::to_string(num_if_scopes));
+                    scope_storage = last_local_scope;
+                    last_local_scope = 'i';
+                    num_if_scopes++;
+                }
+                else {
+                    if_skip = true;
+                    current_attempt = "elif";
+                }
             }
             else if (contains(line, "elif")) {
-                std::string test = extract_conditional_expr(line);
-                std::cout << "Elif condition: " << test << std::endl;
-                if (contains(line, "}")) num_if_scopes--;
-                symbols.new_l_vars("elif_"+std::to_string(num_elif_scopes));
-                scope_storage = last_local_scope;
-                last_local_scope = 'l';
-                num_elif_scopes++;
+                if (current_attempt == "elif") {//! if_skip is set to 0 before we reach here.
+                    std::string expr = extract_conditional_expr(line);
+                    bool condition_result = evaluate_conditional(expr, symbols);
+                    if (condition_result) {
+                        if (contains(line, "}")) num_if_scopes--;
+                        symbols.new_l_vars("elif_"+std::to_string(num_elif_scopes));
+                        scope_storage = last_local_scope;
+                        last_local_scope = 'l';
+                        num_elif_scopes++;
+                        if_skip = false;
+                    }
+                    else {
+                        if_skip = false;
+                        elif_skip = true;
+                        else_skip = false;
+                        current_attempt = "else";
+                    }
+                }
+                else {
+                    elif_skip = true;
+                    else_skip = true;
+                }
             }
             else if (contains(line, "else")) {
-                std::cout << "Handle else: " << line << std::endl;
-                if (contains(line, "}")) num_elif_scopes--;
-                symbols.new_l_vars("else_"+std::to_string(num_else_scopes));
-                scope_storage = last_local_scope;
-                last_local_scope = 's';
-                num_else_scopes++;
+                if (current_attempt == "else") {
+                    if (contains(line, "}")) num_elif_scopes--;
+                    symbols.new_l_vars("else_"+std::to_string(num_else_scopes));
+                    scope_storage = last_local_scope;
+                    last_local_scope = 's';
+                    num_else_scopes++;
+                    if_skip = false;
+                    elif_skip = false;
+                }
+                else {
+                    else_skip = true;
+                }
             }
             else if (lstrip(line).starts_with("for")) {
                 std::cout << "Handle loop: " << line << std::endl;

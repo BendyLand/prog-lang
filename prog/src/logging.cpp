@@ -68,7 +68,8 @@ std::string insert_inner_variables(std::string original, std::vector<std::string
             val = val_.value();
         }
         else {
-            exit(EXIT_FAILURE);
+            std::cout << "Unable to insert variable for: " << name << std::endl;
+            continue;
         }
         std::string val_str = any_to_string(val);
         var_values.push_back(val_str);
@@ -92,10 +93,8 @@ void execute_print(std::string text, SymbolTable saved_vars)
         std::vector<std::string> vars = extract_inner_str_variables(text);
         std::string line = extract_text_from_string(text);
         if (!saved_vars.contains_all(vars)) {
-            //! strings with more than two vars interpolated are cut short.
-            //todo: find valid place to rescope back to global.
             std::cerr << "Attempt to print unknown variable." << std::endl;
-            exit(1);
+            return;
         }
         line = insert_inner_variables(line, vars, saved_vars);
         if (has_escape_char) {
