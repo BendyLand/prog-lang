@@ -38,7 +38,6 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     for (std::string line : lines) {
         if (if_skip || elif_skip || else_skip) {
             if (contains(line, "}") && strip(line).size() < 2) {
-                //todo: place logic here to keep track of scope
                 if (if_skip) if_skip = false;
                 else if (elif_skip) elif_skip = false;
                 else if (else_skip) else_skip = false; 
@@ -48,9 +47,8 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
             continue;
         }
         if (line.starts_with("print") || line.starts_with("puts")) {
-            //! strings with more than two vars interpolated are cut short.
-            std::cout << "Here" << std::endl;
             execute_print(line, symbols);
+            //! Final variable is currently only tracked if nested conditionals evaluate to 'if' (elif and else lose track of it)
         }
         else if (line.starts_with("let")) {
             std::string name = extract_var_name(line);

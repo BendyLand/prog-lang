@@ -5,7 +5,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/prog/src/main",
-            "args": [],
+            "args": ["test2.pr"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
