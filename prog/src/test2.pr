@@ -1,0 +1,8 @@
+let a = 5
+let var_b = 10
+if a < var_b {
+    puts "x is less than y."
+}
+else {
+    puts "x is greater than or equal to y."
+}

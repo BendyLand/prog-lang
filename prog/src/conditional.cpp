@@ -1,6 +1,6 @@
+#include <boost/regex.hpp>
 #include "conditional.hpp"
 #include "exprtk.hpp"
-#include <boost/regex.hpp>
 
 std::string extract_conditional_expr(std::string line)
 {
@@ -51,12 +51,16 @@ bool evaluate_conditional(std::string expr, SymbolTable symbols)
         std::optional<AnyType> value = symbols.get_val(var);
         if (value.has_value()) {
             if (std::holds_alternative<double>(value.value())) {
-                double temp = std::get<double>(value.value());
+                AnyType anyTemp = value.value();
+                double temp = std::get<double>(anyTemp);
                 symbol_table.add_variable(var, temp);
             }
             else if (std::holds_alternative<int>(value.value())) {
-                double temp = static_cast<double>(std::get<int>(value.value()));
-                symbol_table.add_variable(var, temp);
+                //! when given two of the same type of variable, the second value will overwrite the first.
+                AnyType anyTemp = value.value();
+                int intTemp = std::get<int>(anyTemp);
+                double temp = static_cast<double>(intTemp);
+                symbol_table.add_constant(var, temp); //! changed to add_constant for now to fix.
             }
             else {
                 std::cout << "I'll handle these later." << std::endl;

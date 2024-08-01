@@ -6,9 +6,13 @@
 
 void mainLoop(std::vector<std::string>&, SymbolTable&);
 
-int main()
+int main(int argc, char** argv)
 {
-    std::string file = read_file("../../test.pr");
+    std::string path = "../../test.pr";
+    if (argc > 1) {
+        path = std::string(argv[1]);
+    }
+    std::string file = read_file(path);
     Variables global_vars;
     SymbolTable symbols(global_vars);
     file = prepare_file(file);
@@ -34,14 +38,18 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     for (std::string line : lines) {
         if (if_skip || elif_skip || else_skip) {
             if (contains(line, "}") && strip(line).size() < 2) {
+                //todo: place logic here to keep track of scope
                 if (if_skip) if_skip = false;
                 else if (elif_skip) elif_skip = false;
-                else if (else_skip) else_skip = false;
+                else if (else_skip) else_skip = false; 
+                scope_storage = last_local_scope;
+                last_local_scope = 'g';
             }
             continue;
         }
         if (line.starts_with("print") || line.starts_with("puts")) {
             //! strings with more than two vars interpolated are cut short.
+            std::cout << "Here" << std::endl;
             execute_print(line, symbols);
         }
         else if (line.starts_with("let")) {
@@ -81,7 +89,7 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 }
             }
             else if (contains(line, "elif")) {
-                if (current_attempt == "elif") {//! if_skip is set to 0 before we reach here.
+                if (current_attempt == "elif") {
                     std::string expr = extract_conditional_expr(line);
                     bool condition_result = evaluate_conditional(expr, symbols);
                     if (condition_result) {
@@ -150,4 +158,5 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
             }
         }
     }
+    symbols.display_g_vars();
 }
