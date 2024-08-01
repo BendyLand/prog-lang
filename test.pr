@@ -15,9 +15,10 @@ elif x == 10 {
 }
 else {
     # this is the middle part
+    let y = 25
     print "I'm in the other branch", "And I wanted to try out multiple args\n"
     print "This is a \"super\" difficult ${x} # (embedded hash) ${y} one ${x} and some more text\n"
-    if x < 5 {
+    if var_a < 5 {
         puts "x is less than five"
     } elif x > 5 {
         puts "x is more than five"
@@ -33,4 +34,4 @@ for i in 0..10
 puts "checking comment after string. It's okay to see this part" # it's bad if you see this part
 let testStr = "This is a test of saving a string to a variable"
 
-puts "This is x: ${x}. Here's the (y = ${y}) test string: ${testStr}"
+puts "This is x: ${x}. Here's the (var_a = ${var_a}) test string: ${testStr}"

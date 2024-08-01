@@ -1,6 +1,6 @@
 # *Prog* Language Development
 
-*This project is in its early stages of development and is non-functional as of 7/7/24. As it is fundamentally a learning project, it may be abandoned, renamed, absorbed into something bigger, or any number of other things at a moment's notice. I make no promises about the viability of this project as working software at any point in its lifetime.*
+*This project is in its fairly early stages of development and is non-functional as of 7/31/24. As it is fundamentally a learning project, I make no promises to the viability of this as working software at any point in its lifecycle.* 
 
 ## Background/Idea
 

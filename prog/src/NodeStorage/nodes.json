@@ -1,5 +1,4 @@
 {
-	"note.current": "simplify down to a single possibility and extend that implication.",
-	"explanation.note": "e.g. loops can only be boolean, but the 'in' expressions could be handled specially.",
-	"current": "parse conditional and loop logic."
+	"current": "The final variable isn't being found.",
+	"note": "Just got control flow working. Double check for accuracy."
 }
