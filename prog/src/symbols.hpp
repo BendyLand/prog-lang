@@ -2,6 +2,7 @@
 #define SYMBOLS_HPP
 
 #include <iostream>
+#include <optional>
 #include <unordered_map>
 #include <variant>
 

@@ -1,5 +1,4 @@
-#include "arithmetic.hpp"
-#include <iostream>
+#include "arithmetic.hpp" 
 
 double reduce_arithmetic_expr(std::string expr)
 {

@@ -1,8 +1,13 @@
 #include <unistd.h>
-#include "lexer.hpp" // "utils.hpp" -> iostream, fstream, string, vector
-#include "logging.hpp" // iostream, <boost/regex.hpp>
-#include "symbols.hpp" // iostream, variant, unordered_map
-#include "conditional.hpp"
+#include "lexer.hpp" 
+/* 
+"lexer.hpp" includes: 
+"logging.hpp"     -> "utils.hpp", <boost/regex.hpp>
+    "utils.hpp"   -> "symbols.hpp", iostream, string, fstream, vector
+    "symbols.hpp" -> iostream, unordered_map, variant
+"arithmetic.hpp"  -> "exprtk.hpp"
+"conditional.hpp" -> "utils.hpp", "exprtk.hpp", <boost/regex.hpp>
+*/
 
 void mainLoop(std::vector<std::string>&, SymbolTable&);
 

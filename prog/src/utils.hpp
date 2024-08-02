@@ -1,12 +1,10 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-#include <iostream>
-#include <string>
 #include <fstream>
+#include <string>
 #include <vector>
-#include <variant>
-#include "symbols.hpp" // iostream, unordered_map, variant
+#include "symbols.hpp"
 
 std::string lstrip(std::string original);
 std::string rstrip(std::string original);

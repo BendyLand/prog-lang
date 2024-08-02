@@ -1,8 +1,10 @@
 #pragma once
 
-#include <boost/regex.hpp>
-#include "utils.hpp" // iostream, string, fstream, vector
-#include "symbols.hpp" // iostream, unordered_map, variant
+#include "arithmetic.hpp" 
+#include "conditional.hpp"
+#include "logging.hpp" 
+#include "symbols.hpp" 
+#include "utils.hpp" 
 
 std::string prepare_file(std::string file);
 std::string normalize(std::string file);

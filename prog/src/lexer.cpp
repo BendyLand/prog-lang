@@ -1,6 +1,4 @@
-#include "arithmetic.hpp"
-#include "lexer.hpp" // "utils.hpp" -> iostream, string, fstream, vector; "symbols.hpp" -> unordered_map, variant; <boost/regex.hpp>
-#include "logging.hpp" // "utils.hpp", <boost/regex.hpp>
+#include "lexer.hpp" 
 
 std::string prepare_file(std::string file)
 {
