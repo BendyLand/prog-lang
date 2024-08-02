@@ -36,8 +36,10 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     bool else_skip = false;
     std::string current_attempt = "";
     for (std::string line : lines) {
+        //todo: create better way to detect the end of a scope.
+        //! when formatted like } else {, the elif branch will be run instead of else.
         if (if_skip || elif_skip || else_skip) {
-            if (contains(line, "}") && strip(line).size() < 2) {
+            if (contains(line, "}")) {
                 if (if_skip) if_skip = false;
                 else if (elif_skip) elif_skip = false;
                 else if (else_skip) else_skip = false; 
@@ -48,7 +50,6 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
         }
         if (line.starts_with("print") || line.starts_with("puts")) {
             execute_print(line, symbols);
-            //! Final variable is currently only tracked if nested conditionals evaluate to 'if' (elif and else lose track of it)
         }
         else if (line.starts_with("let")) {
             std::string name = extract_var_name(line);

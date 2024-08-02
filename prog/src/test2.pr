@@ -1,8 +1,10 @@
-let a = 5
-let var_b = 10
-if a < var_b {
+let x = 50
+let y = 10
+
+if x < y {
     puts "x is less than y."
-}
-else {
-    puts "x is greater than or equal to y."
+} elif x == y {
+    puts "x is equal to y."
+} else {
+    puts "x is greater than to y."
 }
