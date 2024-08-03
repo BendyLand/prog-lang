@@ -41,15 +41,18 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     bool else_skip = false;
     std::string current_attempt = "";
     for (std::string line : lines) {
-        //todo: create better way to detect the end of a scope.
-        //! when formatted like } else {, the elif branch will be run instead of else.
         if (if_skip || elif_skip || else_skip) {
             if (contains(line, "}")) {
+                if (contains(line, "elif")) goto Elif;
                 if (if_skip) if_skip = false;
                 else if (elif_skip) elif_skip = false;
                 else if (else_skip) else_skip = false; 
-                scope_storage = last_local_scope;
-                last_local_scope = 'g';
+                last_local_scope = scope_storage;
+                if (contains(line, "else")) {
+                    scope_storage = 'g';
+                    last_local_scope = 's';
+                    num_elif_scopes--;
+                }
             }
             continue;
         }
@@ -93,16 +96,18 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 }
             }
             else if (contains(line, "elif")) {
+                Elif:
                 if (current_attempt == "elif") {
                     std::string expr = extract_conditional_expr(line);
                     bool condition_result = evaluate_conditional(expr, symbols);
                     if (condition_result) {
-                        if (contains(line, "}")) num_if_scopes--;
+                        if (contains(line, "}") && num_if_scopes > 0) num_if_scopes--;
                         symbols.new_l_vars("elif_"+std::to_string(num_elif_scopes));
                         scope_storage = last_local_scope;
                         last_local_scope = 'l';
                         num_elif_scopes++;
                         if_skip = false;
+                        // can't make else_skip true here, otherwise will skip correct branch
                     }
                     else {
                         if_skip = false;
@@ -128,6 +133,10 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 }
                 else {
                     else_skip = true;
+                    if (current_attempt == "elif") {
+                        symbols.pop_l_vars("elif_"+std::to_string(num_elif_scopes));
+                        num_elif_scopes--;
+                    }
                 }
             }
             else if (lstrip(line).starts_with("for")) {
@@ -138,15 +147,12 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 num_for_scopes++;
             }
             else {
+                //todo: refactor this logic into the above cases and one smaller case here.
                 if (contains(line, "}")) {
                     switch (last_local_scope) {
                     case 'i':
                         symbols.pop_l_vars("if_"+std::to_string(num_if_scopes));
                         num_if_scopes--;
-                        break;
-                    case 'l':
-                        symbols.pop_l_vars("elif_"+std::to_string(num_elif_scopes));
-                        num_elif_scopes--;
                         break;
                     case 's':
                         symbols.pop_l_vars("else_"+std::to_string(num_else_scopes));
@@ -157,8 +163,9 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                         num_for_scopes--;
                         break;
                     }
+                    last_local_scope = scope_storage;
                 }
-                last_local_scope = scope_storage;
+                if (last_local_scope == scope_storage) last_local_scope = 'g';
             }
         }
     }

@@ -1,7 +1,7 @@
 print "This is a \"test\" of Prog\n"
 puts "this is another" 
 let x = 6/(3*2)-4+12 # here's a weird one 
-let var_a = 1
+let var_a = 6
 let var_b = 10
 let var_c = 'z'
 let var_d = "dee"
@@ -19,11 +19,11 @@ else {
     print "I'm in the other branch", "And I wanted to try out multiple args\n"
     print "This is a \"super\" difficult x: ${x} # (embedded hash) y: ${y} one x: ${x} and some more text\n"
     if var_a < 5 {
-        puts "x is less than five"
+        puts "var_a is less than five"
     } elif x > 5 {
         puts "x is more than five"
     } else {
-        puts "x is five"
+        puts "I'm in the nested else branch."
     }
 }
 for i in 0..10 
