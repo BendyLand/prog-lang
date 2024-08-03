@@ -78,7 +78,7 @@ std::string extract_var_name(std::string line)
     return name;
 }
 
-AnyType parse_val_into_type(std::string val, std::string type)
+AnyType parse_val_into_type(std::string val, std::string type, SymbolTable symbols)
 {
     AnyType result;
     if (type == "int") {
@@ -98,8 +98,13 @@ AnyType parse_val_into_type(std::string val, std::string type)
         result = temp;
     }
     else if (type == "variable") {
-        //todo: lookup variables
-        result = val; //! temporary
+        std::optional<AnyType> temp = symbols.get_val(val);
+        if (temp.has_value()) {
+            result = temp.value();
+        }
+        else {
+            result = "";
+        }
     }
     else {
         result = val.substr(1, val.size()-2);
@@ -107,13 +112,13 @@ AnyType parse_val_into_type(std::string val, std::string type)
     return result;
 }
 
-AnyType extract_var_value(std::string line)
+AnyType extract_var_value(std::string line, SymbolTable symbols)
 {
     size_t start = line.find("=");
     if (start == std::string::npos) return "";
     std::string resultStr = strip(line.substr(start+1));
     std::string valType = infer_type(resultStr);
-    AnyType result = parse_val_into_type(resultStr, valType);
+    AnyType result = parse_val_into_type(resultStr, valType, symbols);
     return result;
 }
 

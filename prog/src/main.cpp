@@ -41,6 +41,9 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
     bool else_skip = false;
     std::string current_attempt = "";
     for (std::string line : lines) {
+        //todo: multiple elif branches are not handled properly. 
+        //todo: conditional evaluation is not accurate when comparing two arithmetic results. 
+        //todo: when performing arithmetic on a variable, must insert var value into expression before evaluating. 
         if (if_skip || elif_skip || else_skip) {
             if (contains(line, "}")) {
                 if (contains(line, "elif")) goto Elif;
@@ -61,7 +64,7 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
         }
         else if (line.starts_with("let")) {
             std::string name = extract_var_name(line);
-            AnyType value = extract_var_value(line);
+            AnyType value = extract_var_value(line, symbols);
             switch (last_local_scope) {
             case 'i':
                 symbols.add_l_var(name, value, "if_"+std::to_string(num_if_scopes-1));
@@ -147,7 +150,6 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
                 num_for_scopes++;
             }
             else {
-                //todo: refactor this logic into the above cases and one smaller case here.
                 if (contains(line, "}")) {
                     switch (last_local_scope) {
                     case 'i':
