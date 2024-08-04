@@ -165,10 +165,26 @@ void strArrDisplay(stringArray* arr)
     }
 }
 
-bool strContains(string* str, const char c)
+bool strContainsChar(string* haystack, char needle)
 {
-    for (size_t i = 0; i < str->length; i++) {
-        if (str->data[i] == c) return true;
+    for (size_t i = 0; i < haystack->length; i++) {
+        if (haystack->data[i] == needle) return true;
+    }
+    return false;
+}
+
+bool strContainsStr(string* haystack, char* needle)
+{
+    size_t len = strlen(needle);
+    for (size_t i = 0; i < haystack->length; i++) {
+        size_t j = 0; 
+        if (haystack->data[i] == needle[0]) {
+            while (haystack->data[i+j] == needle[j]) {
+                j++;
+                if (i + j == haystack->length) break;
+            }
+            if (j == len) return true;
+        }
     }
     return false;
 }

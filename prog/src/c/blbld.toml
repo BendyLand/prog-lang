@@ -1,6 +1,6 @@
 compiler = "gcc"
 std = ""
 path = ""
-files = ["main.c", "utils.c", "str.c", "lexer.c"]
+files = ["main.c", "utils.c", "str.c", "lexer.c", "token.c"]
 include = ""
 final = "main"

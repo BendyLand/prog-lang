@@ -104,3 +104,19 @@ string* substr(string* original, size_t start, size_t end);
  * @param arr The string array to display.
  */
 void strArrDisplay(stringArray* arr);
+
+/** 
+ * Checks the provided string for the presence of a certain character.
+ * @param haystack The string to search within. 
+ * @param needle The character to look for.
+ * @returns true if the char was found, false if not.
+ */ 
+bool strContainsChar(string* haystack, char needle);
+
+/** 
+ * Checks the provided string for the presence of a given substring.
+ * @param haystack The string to search within. 
+ * @param needle The substring to look for.
+ * @returns true if the substring was found, false if not.
+ */
+bool strContainsStr(string* haystack, char* needle);

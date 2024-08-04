@@ -1,0 +1,98 @@
+# A much longer example file for testing Prog
+
+print "Welcome to the extended test of Prog\n"
+
+# Variable declarations
+let alpha = 42
+let beta = -3
+let gamma = alpha + beta * (2 + 5) / 3
+let delta = "String interpolation test with gamma: ${gamma}\n"
+
+# Conditional logic with multiple branches
+if alpha > gamma {
+    print "Alpha is greater than Gamma\n"
+    let difference = alpha - gamma
+    print "Difference between alpha and gamma is: ${difference}\n"
+    if difference < 0 {
+        puts "The difference is negative"
+    } else {
+        puts "The difference is positive"
+    }
+} elif beta < gamma {
+    print "Beta is less than Gamma\n"
+    let product = beta * gamma
+    print "Product of beta and gamma: ${product}\n"
+    if product % 2 == 0 {
+        puts "The product is even"
+    } else {
+        puts "The product is odd"
+    }
+} else {
+    print "Neither condition was true.\n"
+    print "This is where we handle the 'else' branch\n"
+    let sum = alpha + beta + gamma
+    print "The sum of alpha, beta, and gamma is: ${sum}\n"
+    if sum > 50 {
+        puts "Sum is greater than 50"
+    } else {
+        puts "Sum is 50 or less"
+    }
+}
+
+# Loops and more complex expressions
+for i in 0..15 {
+    print "Iteration: ${i}\n"
+    if i % 2 == 0 
+    {
+        puts "${i} is even"
+    } 
+    else 
+    {
+        puts "${i} is odd"
+    }
+
+    let innerLoopVar = i * 2
+    for j in 0..5 
+    {
+        print "  Inner loop j=${j}, i*2=${innerLoopVar}\n"
+        let nestedVal = j + i * 3 - 7
+        print "  Nested calculation: ${nestedVal}\n"
+    }
+}
+
+# String manipulation
+let string1 = "First part of the string"
+let string2 = " and second part"
+let fullString = string1 + string2
+print "Full string: ${fullString}\n"
+
+# Handling arrays and loops
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+for num in numbers {
+    if num % 3 == 0 {
+        puts "${num} is divisible by 3"
+    } else {
+        puts "${num} is not divisible by 3"
+    }
+}
+
+# More complex function usage
+let result = funcCall(3, 4)
+print "Result of funcCall: ${result}\n"
+
+# Deeper nested conditionals
+if alpha > 0 {
+    print "Alpha is positive\n"
+    if beta < 0 {
+        print "Beta is negative\n"
+        if gamma > 0 {
+            print "Gamma is positive\n"
+        } 
+        else {
+            print "Gamma is not positive\n"
+        }
+    }
+}
+
+# A final print statement
+puts "End of the extended Prog test. Your parser should handle all cases above without issues!"
