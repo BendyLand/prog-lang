@@ -44,6 +44,8 @@ void mainLoop(std::vector<std::string>& lines, SymbolTable& symbols)
         //todo: multiple elif branches are not handled properly. 
         //todo: conditional evaluation is not accurate when comparing two arithmetic results. 
         //todo: when performing arithmetic on a variable, must insert var value into expression before evaluating. 
+        //? restructure loop to identify blocks with current_attempt and add operations to a master list, 
+            //? then execute?
         if (if_skip || elif_skip || else_skip) {
             if (contains(line, "}")) {
                 if (contains(line, "elif")) goto Elif;
