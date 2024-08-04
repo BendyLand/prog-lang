@@ -17,5 +17,13 @@ typedef enum
     NA
 } Token;
 
+typedef struct
+{
+	Token token;
+	string* line;
+} TokenLine;
+
 Token parseLineToToken(string* line);
 string* tokenToStr(Token token);
+TokenLine* saveTokenLine(Token token, string* line);
+void tokenLineFree(TokenLine* line);

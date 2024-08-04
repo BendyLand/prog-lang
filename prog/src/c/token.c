@@ -75,3 +75,23 @@ string* tokenToStr(Token token)
     }
     return result;
 }
+
+TokenLine* saveTokenLine(Token token, string* line)
+{
+	TokenLine* result = (TokenLine*)malloc(sizeof(TokenLine));
+	result->token = token;
+	string* temp = strCopy(line);
+	result->line = temp;
+	return result;
+}
+
+void tokenLineFree(TokenLine* line)
+{
+	if (line) {
+		if (line->line) {
+			strFree(line->line);
+		}
+		free(line);
+	}
+}
+

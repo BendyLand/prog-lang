@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include "lexer.h"
-#include "utils.h"
 #include "token.h"
+#include "utils.h"
 
 int main(int argc, char** argv)
 {
@@ -16,11 +16,12 @@ int main(int argc, char** argv)
     string* preppedFile = prepareFile(&lines);
     string* tempStr;
     for (size_t i = 0; i < lines->length; i++) {
-        printf("Line: %s\n", lines->entries[i]->data);
         Token temp = parseLineToToken(lines->entries[i]);
-        tempStr = tokenToStr(temp);
-        printf("Token: %s\n", tempStr->data);
-        strFree(tempStr);
+        TokenLine* tokenLine = saveTokenLine(temp, lines->entries[i]);
+        string* tokenStr = tokenToStr(temp);
+        printf("token: %s, line: %s\n", tokenStr->data, tokenLine->line->data);
+        strFree(tokenStr);
+        tokenLineFree(tokenLine);
     }
     strFree(file);
     strFree(preppedFile);
