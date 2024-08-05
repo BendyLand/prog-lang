@@ -159,7 +159,12 @@ void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines)
                 strClear(tokenLines[i]->line);
             }
         }
-        printf("Token: %s, Line: %s\n", temp->data, tokenLines[i]->line->data);
+        if (tokenLines[i]->line->length > 0) {
+            printf("%s : %s\n", temp->data, tokenLines[i]->line->data);
+        }
+        else {
+            printf("%s\n", temp->data);
+        }
         strFree(temp);
         tokenLineFree(tokenLines[i]);
     }
