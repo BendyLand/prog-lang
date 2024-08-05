@@ -120,7 +120,7 @@ string* extractCondition(TokenLine* tokLine)
             start += 5;
         }
         int end = indexOf(tokLine->line, '{');
-        if (end == -1) end = (int)tokLine->line->length;
+        if (end == -1) end = (int)tokLine->line->length+1;
         result = substr(tokLine->line, start, end);
     }
     else {
@@ -128,4 +128,39 @@ string* extractCondition(TokenLine* tokLine)
     }
     lstrip(result);
     return result;
+}
+
+string* removeFirstToken(TokenLine* tokLine)
+{
+    string* result;
+    int start = indexOf(tokLine->line, ' ');
+    int end = (int)tokLine->line->length+1;
+    result = substr(tokLine->line, start, end);
+    lstrip(result);
+    return result;
+}
+
+void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines)
+{
+    for (size_t i = 0; i < (*lines)->length; i++) {
+        string* temp = tokenToStr(tokenLines[i]->token);
+        if (tokenLines[i]->token == IF || tokenLines[i]->token == ELIF || tokenLines[i]->token == FOR) {
+            string* condition = extractCondition(tokenLines[i]);
+            strFree(tokenLines[i]->line);
+            tokenLines[i]->line = condition;
+        }
+        else {
+            if (tokenLines[i]->token != ELSE) {
+                string* temp = removeFirstToken(tokenLines[i]);
+                strFree(tokenLines[i]->line);
+                tokenLines[i]->line = temp;
+            }
+            else {
+                strClear(tokenLines[i]->line);
+            }
+        }
+        printf("Token: %s, Line: %s\n", temp->data, tokenLines[i]->line->data);
+        strFree(temp);
+        tokenLineFree(tokenLines[i]);
+    }
 }

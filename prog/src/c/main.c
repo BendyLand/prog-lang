@@ -14,28 +14,18 @@ int main(int argc, char** argv)
     }
     stringArray* lines = strArr(file, "\n");
     string* preppedFile = prepareFile(&lines);
-    //? To store the initially parsed lines
+    // To store the initially parsed lines
     TokenLine* tokenLines[lines->length];
     for (size_t i = 0; i < lines->length; i++) {
         Token temp = parseLineToToken(lines->entries[i]);
         TokenLine* tokenLine = saveTokenLine(temp, lines->entries[i]);
-        //? For conditional branches that start with }
+        // For conditional branches that start with }
         validateTokenLine(&tokenLine); 
         string* tokenStr = tokenToStr(tokenLine->token);
         tokenLines[i] = tokenLine;
         strFree(tokenStr);
     }
-    for (size_t i = 0; i < lines->length; i++) {
-        string* temp = tokenToStr(tokenLines[i]->token);
-        printf("Token: %s, Line: %s\n", temp->data, tokenLines[i]->line->data);
-        if (tokenLines[i]->token == IF || tokenLines[i]->token == ELIF) {
-            string* condition = extractCondition(tokenLines[i]);
-            printf("Condition: %s\n", condition->data);
-            strFree(condition);
-        }
-        strFree(temp);
-        tokenLineFree(tokenLines[i]);
-    }
+    processTokensFirstPass(&lines, &tokenLines);
     strFree(file);
     strFree(preppedFile);
     strArrFree(lines);
