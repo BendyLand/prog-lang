@@ -78,20 +78,54 @@ string* tokenToStr(Token token)
 
 TokenLine* saveTokenLine(Token token, string* line)
 {
-	TokenLine* result = (TokenLine*)malloc(sizeof(TokenLine));
-	result->token = token;
-	string* temp = strCopy(line);
-	result->line = temp;
-	return result;
+    TokenLine* result = (TokenLine*)malloc(sizeof(TokenLine));
+    result->token = token;
+    string* temp = strCopy(line);
+    result->line = temp;
+    return result;
 }
 
 void tokenLineFree(TokenLine* line)
 {
-	if (line) {
-		if (line->line) {
-			strFree(line->line);
-		}
-		free(line);
-	}
+    if (line) {
+        if (line->line) {
+            strFree(line->line);
+        }
+        free(line);
+    }
 }
 
+void validateTokenLine(TokenLine** tokLine)
+{
+    if ((*tokLine)->token == C_BRACE) {
+        if (strContainsStr((*tokLine)->line, "elif")) {
+            (*tokLine)->token = ELIF;
+        }
+        else if (strContainsStr((*tokLine)->line, "else")) {
+            (*tokLine)->token = ELSE;
+        }
+    }
+}
+
+string* extractCondition(TokenLine* tokLine)
+{
+    string* result;
+    if (tokLine->line->length > 1) {
+        int start;
+        if (tokLine->line->data[0] != '}') {
+            start = indexOf(tokLine->line, ' ');
+        }
+        else {
+            start = indexOfStr(tokLine->line, "elif");
+            start += 5;
+        }
+        int end = indexOf(tokLine->line, '{');
+        if (end == -1) end = (int)tokLine->line->length;
+        result = substr(tokLine->line, start, end);
+    }
+    else {
+        result = strCopy(tokLine->line);
+    }
+    lstrip(result);
+    return result;
+}

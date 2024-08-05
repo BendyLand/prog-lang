@@ -45,3 +45,26 @@ void lstrip(string* original)
     strAppend(original, temp);
     free(temp);
 }
+
+int indexOf(string* str, char c)
+{
+    for (int i = 0; i < str->length; i++) {
+        if (str->data[i] == c) return i;
+    }
+    return -1;
+}
+
+int indexOfStr(string* str, char* s)
+{
+    int len = (int)strlen(s);
+    for (int i = 0; i < str->length; i++) {
+        if (str->data[i] == s[0]) {
+            for (int j = 0; j < len; j++) {
+                if (str->data[i+j] != s[j]) goto Next;
+            }
+            return i;
+        }
+        Next:
+    }
+    return -1;
+}

@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "str.h"
+#include "utils.h"
 
 typedef enum 
 {
@@ -27,3 +28,5 @@ Token parseLineToToken(string* line);
 string* tokenToStr(Token token);
 TokenLine* saveTokenLine(Token token, string* line);
 void tokenLineFree(TokenLine* line);
+void validateTokenLine(TokenLine** tokLine);
+string* extractCondition(TokenLine* tokLine);
