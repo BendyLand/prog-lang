@@ -26,10 +26,10 @@ Token parseLineToToken(string* line)
         result = FOR;
     }
     else if (strContainsStr(words->entries[0], "{")) {
-        result = O_BRACE;
+        result = START_BLOCK;
     }
     else if (strContainsStr(words->entries[0], "}")) {
-        result = C_BRACE;
+        result = END_BLOCK;
     }
     else {
         result = NA;
@@ -63,11 +63,11 @@ string* tokenToStr(Token token)
     case FOR:
         result = str("FOR");
         break;
-    case C_BRACE:
-        result = str("C_BRACE");
+    case END_BLOCK:
+        result = str("END_BLOCK");
         break;
-    case O_BRACE:
-        result = str("O_BRACE");
+    case START_BLOCK:
+        result = str("START_BLOCK");
         break;
     default:
         result = str("NA");
@@ -97,7 +97,7 @@ void tokenLineFree(TokenLine* line)
 
 void validateTokenLine(TokenLine** tokLine)
 {
-    if ((*tokLine)->token == C_BRACE) {
+    if ((*tokLine)->token == END_BLOCK) {
         if (strContainsStr((*tokLine)->line, "elif")) {
             (*tokLine)->token = ELIF;
         }
@@ -143,7 +143,7 @@ string* removeFirstToken(TokenLine* tokLine)
 void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines)
 {
     for (size_t i = 0; i < (*lines)->length; i++) {
-        string* temp = tokenToStr(tokenLines[i]->token);
+        string* token = tokenToStr(tokenLines[i]->token);
         if (tokenLines[i]->token == IF || tokenLines[i]->token == ELIF || tokenLines[i]->token == FOR) {
             string* condition = extractCondition(tokenLines[i]);
             strFree(tokenLines[i]->line);
@@ -160,12 +160,12 @@ void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines)
             }
         }
         if (tokenLines[i]->line->length > 0) {
-            printf("%s : %s\n", temp->data, tokenLines[i]->line->data);
+            printf("%s : %s\n", token->data, tokenLines[i]->line->data);
         }
         else {
-            printf("%s\n", temp->data);
+            printf("%s\n", token->data);
         }
-        strFree(temp);
+        strFree(token);
         tokenLineFree(tokenLines[i]);
     }
 }

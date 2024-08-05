@@ -15,7 +15,8 @@ int main(int argc, char** argv)
     stringArray* lines = strArr(file, "\n");
     string* preppedFile = prepareFile(&lines);
     // To store the initially parsed lines
-    TokenLine* tokenLines[lines->length];
+    size_t len = lines->length;
+    TokenLine* tokenLines[len];
     for (size_t i = 0; i < lines->length; i++) {
         Token temp = parseLineToToken(lines->entries[i]);
         TokenLine* tokenLine = saveTokenLine(temp, lines->entries[i]);

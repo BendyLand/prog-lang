@@ -13,8 +13,8 @@ typedef enum
     ELIF,
     ELSE,
     FOR,
-    C_BRACE,
-    O_BRACE,
+    END_BLOCK,
+    START_BLOCK,
     NA
 } Token;
 
