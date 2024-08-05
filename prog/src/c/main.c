@@ -26,9 +26,7 @@ int main(int argc, char** argv)
         tokenLines[i] = tokenLine;
         strFree(tokenStr);
     }
-    processTokensFirstPass(&lines, &tokenLines);
-    processTokensSecondPass(&tokenLines, len);
-    processTokensThirdPass(&tokenLines, &len);
+    processTokensInitial(&lines, &tokenLines, &len);
     for (size_t i = 0; i < len; i++) {
         string* token = tokenToStr(tokenLines[i]->token);
         if (tokenLines[i]->line->length > 0) {

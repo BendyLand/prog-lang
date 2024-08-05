@@ -204,3 +204,10 @@ void processTokensThirdPass(TokenLine** tokenLines, size_t* len)
         }
     }
 }
+
+void processTokensInitial(stringArray** lines, TokenLine** tokenLines, size_t* len)
+{
+    processTokensFirstPass(lines, tokenLines);
+    processTokensSecondPass(tokenLines, *len);
+    processTokensThirdPass(tokenLines, len);
+}
