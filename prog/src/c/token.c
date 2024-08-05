@@ -159,13 +159,48 @@ void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines)
                 strClear(tokenLines[i]->line);
             }
         }
-        if (tokenLines[i]->line->length > 0) {
-            printf("%s : %s\n", token->data, tokenLines[i]->line->data);
+        strFree(token);
+    }
+}
+
+void processTokensSecondPass(TokenLine** tokenLines, size_t len)
+{
+    for (size_t i = 0; i < len; i++) {
+        if (tokenLines[i]->token == START_BLOCK) {
+            tokenLines[i]->token = NA;
+            continue;
+        }
+        if (i < len-1) {
+            if (tokenLines[i]->token == END_BLOCK) {
+                if (tokenLines[i+1]->token == ELIF || tokenLines[i+1]->token == ELSE) {
+                    tokenLines[i]->token = NA;
+                }
+            }
+        }
+    }
+}
+
+void shiftTokenLines(TokenLine** tokenLines, size_t idx, size_t len)
+{
+    if (idx >= len) return;
+    tokenLineFree(tokenLines[idx]);
+    for (size_t i = idx; i < len-1; i++) {
+        tokenLines[i] = tokenLines[i+1];
+    }
+    tokenLines[len-1] = NULL;
+}
+
+void processTokensThirdPass(TokenLine** tokenLines, size_t* len)
+{
+    size_t count = 0;
+    size_t i = 0;
+    while (i < (*len)-1) {
+        if (tokenLines[i]->token == NA) {
+            shiftTokenLines(tokenLines, i, (*len));
+            (*len)--;
         }
         else {
-            printf("%s\n", token->data);
+            i++;
         }
-        strFree(token);
-        tokenLineFree(tokenLines[i]);
     }
 }

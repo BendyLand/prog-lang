@@ -1,5 +1,6 @@
 #include "utils.h"
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
+#include "token.h"
 
 string* readFile(char* path)
 {
@@ -68,3 +69,4 @@ int indexOfStr(string* str, char* s)
     }
     return -1;
 }
+

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "str.h"
+#include "token.h"
 
 string* readFile(char* path);
 void lstrip(string* original);

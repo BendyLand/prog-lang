@@ -32,3 +32,6 @@ void validateTokenLine(TokenLine** tokLine);
 string* extractCondition(TokenLine* tokLine);
 string* removeFirstToken(TokenLine* tokLine);
 void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines);
+void processTokensSecondPass(TokenLine** tokenLines, size_t len);
+void processTokensThirdPass(TokenLine** tokenLines, size_t* len);
+void shiftTokenLines(TokenLine** tokenLines, size_t idx, size_t len);

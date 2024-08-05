@@ -21,12 +21,25 @@ int main(int argc, char** argv)
         Token temp = parseLineToToken(lines->entries[i]);
         TokenLine* tokenLine = saveTokenLine(temp, lines->entries[i]);
         // For conditional branches that start with }
-        validateTokenLine(&tokenLine); 
+        validateTokenLine(&tokenLine);
         string* tokenStr = tokenToStr(tokenLine->token);
         tokenLines[i] = tokenLine;
         strFree(tokenStr);
     }
     processTokensFirstPass(&lines, &tokenLines);
+    processTokensSecondPass(&tokenLines, len);
+    processTokensThirdPass(&tokenLines, &len);
+    for (size_t i = 0; i < len; i++) {
+        string* token = tokenToStr(tokenLines[i]->token);
+        if (tokenLines[i]->line->length > 0) {
+            printf("%s : %s\n", token->data, tokenLines[i]->line->data);
+        }
+        else {
+            printf("%s\n", token->data);
+        }
+        tokenLineFree(tokenLines[i]);
+        strFree(token);
+    }
     strFree(file);
     strFree(preppedFile);
     strArrFree(lines);
