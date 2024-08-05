@@ -140,9 +140,9 @@ string* removeFirstToken(TokenLine* tokLine)
     return result;
 }
 
-void processTokensFirstPass(stringArray** lines, TokenLine** tokenLines)
+void processTokensFirstPass(TokenLine** tokenLines, size_t len)
 {
-    for (size_t i = 0; i < (*lines)->length; i++) {
+    for (size_t i = 0; i < len; i++) {
         string* token = tokenToStr(tokenLines[i]->token);
         if (tokenLines[i]->token == IF || tokenLines[i]->token == ELIF || tokenLines[i]->token == FOR) {
             string* condition = extractCondition(tokenLines[i]);
@@ -205,9 +205,9 @@ void processTokensThirdPass(TokenLine** tokenLines, size_t* len)
     }
 }
 
-void processTokensInitial(stringArray** lines, TokenLine** tokenLines, size_t* len)
+void processTokensInitial(TokenLine** tokenLines, size_t* len)
 {
-    processTokensFirstPass(lines, tokenLines);
+    processTokensFirstPass(tokenLines, *len);
     processTokensSecondPass(tokenLines, *len);
     processTokensThirdPass(tokenLines, len);
 }

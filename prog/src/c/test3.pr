@@ -76,10 +76,6 @@ for num in numbers {
     }
 }
 
-# More complex function usage
-let result = funcCall(3, 4)
-print "Result of funcCall: ${result}\n"
-
 # Deeper nested conditionals
 if alpha > 0 {
     print "Alpha is positive\n"

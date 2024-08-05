@@ -26,11 +26,11 @@ int main(int argc, char** argv)
         tokenLines[i] = tokenLine;
         strFree(tokenStr);
     }
-    processTokensInitial(&lines, &tokenLines, &len);
+    processTokensInitial(&tokenLines, &len);
     for (size_t i = 0; i < len; i++) {
         string* token = tokenToStr(tokenLines[i]->token);
         if (tokenLines[i]->line->length > 0) {
-            printf("%s : %s\n", token->data, tokenLines[i]->line->data);
+            printf("%s %s\n", token->data, tokenLines[i]->line->data);
         }
         else {
             printf("%s\n", token->data);
