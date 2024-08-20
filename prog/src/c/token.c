@@ -140,6 +140,7 @@ string* removeFirstToken(TokenLine* tokLine)
     return result;
 }
 
+// Formats the text associated with each token line.
 void processTokensFirstPass(TokenLine** tokenLines, size_t len)
 {
     for (size_t i = 0; i < len; i++) {
@@ -163,6 +164,7 @@ void processTokensFirstPass(TokenLine** tokenLines, size_t len)
     }
 }
 
+// Assigns NA to unnecessary token lines.
 void processTokensSecondPass(TokenLine** tokenLines, size_t len)
 {
     for (size_t i = 0; i < len; i++) {
@@ -190,6 +192,8 @@ void shiftTokenLines(TokenLine** tokenLines, size_t idx, size_t len)
     tokenLines[len-1] = NULL;
 }
 
+// Removes NA token lines from the array and adds a NULL element to the end. 
+// `len` is decremented to keep track of the current element.
 void processTokensThirdPass(TokenLine** tokenLines, size_t* len)
 {
     size_t count = 0;

@@ -48,7 +48,7 @@ void processTokensFirstPass(TokenLine** tokenLines, size_t len);
 void processTokensSecondPass(TokenLine** tokenLines, size_t len);
 
 /**
- * Removes NA token lines from the array and adds a NULL element. `len` is decremented to keep track of the current element.
+ * Removes NA token lines from the array and adds a NULL element to the end. `len` is decremented to keep track of the current element.
  * @param tokenLines The set of token lines to process.
  * @param len A *pointer* to the number of token lines.
  */
