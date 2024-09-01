@@ -1,0 +1,6 @@
+compiler = "gcc"
+std = ""
+path = ""
+files = ["main.c", "utils.c", "str.c", "lexer.c", "token.c", "symbols.c", "scope.c", "types.c"]
+include = "/opt/homebrew/opt/glib/include/glib-2.0"
+final = "main"
