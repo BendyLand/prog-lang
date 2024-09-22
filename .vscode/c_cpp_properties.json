@@ -4,7 +4,12 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/Users/benlandrette/ccode/third-party-libs/boost/1.85.0/include/**"
+                "/Users/benlandrette/ccode/third-party-libs/boost/1.85.0/include/**",
+                "/opt/homebrew/include",
+                "/opt/homebrew/include/glib-2.0",
+                "/opt/homebrew/lib/glib-2.0/include",
+                "/opt/homebrew/opt/glib/include/glib-2.0",
+                "/opt/homebrew/opt/glib/lib/glib-2.0/include"
             ],
             "defines": [],
             "macFrameworkPath": [

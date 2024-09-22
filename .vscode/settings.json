@@ -95,5 +95,6 @@
         "typeindex": "cpp",
         "unordered_set": "cpp",
         "valarray": "cpp"
-    }
+    },
+    "C_Cpp.intelliSenseEngineFallback": "disabled"
 }
